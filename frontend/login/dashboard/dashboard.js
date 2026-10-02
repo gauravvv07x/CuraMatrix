@@ -2,30 +2,49 @@
    CURAMATRIX
    DASHBOARD JAVASCRIPT
    ========================================================= */
-
+const MEDICINE_API = "https://curamatrix-backend.onrender.com/api/medicines";
+const BILL_API = "https://curamatrix-backend.onrender.com/api/bills";
 
 /* =========================================================
    GET DATA FROM LOCAL STORAGE
    ========================================================= */
+let medicinesData = [];
+let billsData = [];
 
-function getMedicines() {
-    return JSON.parse(
-        localStorage.getItem("curaMatrixMedicines")
-    ) || [];
+async function loadDashboardData() {
+    try {
+        const medicineResponse = await fetch(MEDICINE_API);
+        const medicineResult = await medicineResponse.json();
+
+        if (medicineResult.success) {
+            medicinesData = medicineResult.medicines || medicineResult.data || [];
+        } else {
+            medicinesData = [];
+        }
+
+        const billResponse = await fetch(BILL_API);
+        const billResult = await billResponse.json();
+
+        if (billResult.success) {
+            billsData = billResult.bills || billResult.data || [];
+        } else {
+            billsData = [];
+        }
+
+        initializeDashboard();
+
+    } catch (error) {
+        console.error("Dashboard data loading error:", error);
+        alert("Unable to load dashboard data from database.");
+    }
 }
-
 
 function getSales() {
-    return JSON.parse(
-        localStorage.getItem("curaMatrixSales")
-    ) || [];
+    return billsData;
 }
 
-
 function getBills() {
-    return JSON.parse(
-        localStorage.getItem("curaMatrixBills")
-    ) || [];
+    return billsData;
 }
 
 
@@ -73,7 +92,9 @@ function isExpired(dateString) {
 
 function updateSummary() {
 
-    const medicines = getMedicines();
+    const medicines = function getMedicines() {
+    return medicinesData;
+}
 
     const sales = getSales();
 
@@ -237,8 +258,9 @@ function updateLowStockList() {
 
 
     const medicines =
-        getMedicines();
-
+function getMedicines() {
+    return medicinesData;
+}
 
     const lowStockMedicines =
         medicines.filter(
@@ -331,7 +353,9 @@ function updateExpiryList() {
 
 
     const medicines =
-        getMedicines();
+       function getMedicines() {
+    return medicinesData;
+}
 
 
     const today =
@@ -843,21 +867,19 @@ function setupLogout() {
 /* =========================================================
    INITIALIZE DASHBOARD
    ========================================================= */
-
 function initializeDashboard() {
-
     updateSummary();
-
     updateLowStockList();
-
     updateExpiryList();
-
     updateRecentSales();
-
     setupDarkMode();
-
     setupLogout();
 }
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadDashboardData
+);
 
 
 /* =========================================================

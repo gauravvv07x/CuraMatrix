@@ -2,8 +2,7 @@
 // CURAMATRIX - SALES MODULE
 // MongoDB Connected
 // ==========================================
-
-const BILL_API = "http://localhost:5000/api/bills";
+const API_URL = "https://curamatrix-backend.onrender.com/api/bills";
 
 let bills = [];
 

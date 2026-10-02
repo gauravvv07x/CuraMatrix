@@ -1,9 +1,10 @@
 // =====================================================
 // CURAMATRIX LOGIN
 // =====================================================
-
-const API_URL = "https://curamatrix-backend.onrender.com/api/auth/login";
-
+const API_URL =
+    window.location.protocol === "file:"
+        ? "http://localhost:5000/api/auth/login"
+        : "https://curamatrix-backend.onrender.com/api/auth/login";
 
 // =====================================================
 // GET ELEMENTS

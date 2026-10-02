@@ -2,8 +2,8 @@
 // CURAMATRIX - ADD MEDICINE
 // =====================================================
 
-const API_URL = "http://localhost:5000/api/medicines";
 
+const API_URL = "https://curamatrix-backend.onrender.com/api/medicines";
 const medicineForm =
     document.getElementById("medicineForm");
 

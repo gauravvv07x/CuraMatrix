@@ -2,8 +2,7 @@
 // CURAMATRIX USER MANAGEMENT
 // MONGODB CONNECTED
 // =====================================
-
-const API_URL = "http://localhost:5000/api/users";
+const API_URL = "https://curamatrix-backend.onrender.com/api/users";
 
 let users = [];
 

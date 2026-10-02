@@ -2,9 +2,9 @@
 // CURAMATRIX - BILLING JAVASCRIPT
 // SAVE BILL + SEPARATE PRINT BILL
 // ==========================================
-
-const MEDICINE_API = "http://localhost:5000/api/medicines";
-const BILL_API = "http://localhost:5000/api/bills";
+const API_URL = "https://curamatrix-backend.onrender.com/api/medicines";
+const MEDICINE_API = "https://curamatrix-backend.onrender.com/api/medicines";
+const BILL_API = "https://curamatrix-backend.onrender.com/api/bills";
 
 const SHOP_SETTINGS_KEY = "curaMatrixShopSettings";
 
