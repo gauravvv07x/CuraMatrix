@@ -1,109 +1,60 @@
-// ==========================================
-// CURAMATRIX - EXPIRY ALERT MODULE
-// MongoDB Connected
-// ==========================================
-
 const MEDICINE_API =
-    "http://localhost:5000/api/medicines";
+    "https://curamatrix-backend.onrender.com/api/medicines";
 
-const EXPIRY_WARNING_DAYS = 30;
+const WARNING_DAYS = 30;
 
 let medicines = [];
 
-
-// ==========================================
-// HTML ELEMENTS
-// ==========================================
-
-const expiredCount =
-    document.getElementById("expiredCount");
-
-const expiringSoonCount =
-    document.getElementById("expiringSoonCount");
-
-const safeCount =
-    document.getElementById("safeCount");
-
-const totalCount =
-    document.getElementById("totalCount");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const statusFilter =
-    document.getElementById("statusFilter");
-
-const refreshBtn =
-    document.getElementById("refreshBtn");
-
-const resultCount =
-    document.getElementById("resultCount");
-
-const expiryTableBody =
-    document.getElementById("expiryTableBody");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
+const $ = (id) => document.getElementById(id);
 
 
-// ==========================================
-// GET TODAY
-// ==========================================
+function startOfToday() {
 
-function getToday() {
+    const date = new Date();
 
-    const today = new Date();
+    date.setHours(0, 0, 0, 0);
 
-    today.setHours(0, 0, 0, 0);
-
-    return today;
-
+    return date;
 }
 
 
-// ==========================================
-// GET EXPIRY STATUS
-// ==========================================
+function statusOf(expiryDate) {
 
-function getExpiryStatus(expiryDate) {
+    const date = new Date(expiryDate);
 
-    const today = getToday();
+    if (isNaN(date)) {
 
-    const expiry = new Date(expiryDate);
+        return {
+            status: "safe",
+            days: 0
+        };
 
-    expiry.setHours(0, 0, 0, 0);
+    }
 
+    date.setHours(0, 0, 0, 0);
 
-    const difference =
-        expiry.getTime() -
-        today.getTime();
+    const today = startOfToday();
 
-
-    const daysRemaining =
-        Math.ceil(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
+    const days = Math.ceil(
+        (date - today) / 86400000
+    );
 
 
-    if (daysRemaining < 0) {
+    if (days < 0) {
 
         return {
             status: "expired",
-            days: daysRemaining
+            days: days
         };
 
     }
 
 
-    if (
-        daysRemaining <=
-        EXPIRY_WARNING_DAYS
-    ) {
+    if (days <= WARNING_DAYS) {
 
         return {
             status: "soon",
-            days: daysRemaining
+            days: days
         };
 
     }
@@ -111,31 +62,31 @@ function getExpiryStatus(expiryDate) {
 
     return {
         status: "safe",
-        days: daysRemaining
+        days: days
     };
 
 }
 
 
-// ==========================================
-// FORMAT DATE
-// ==========================================
+function escapeHTML(value) {
 
-function formatDate(dateString) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
-    if (!dateString) {
+}
+
+
+function formatDate(value) {
+
+    const date = new Date(value);
+
+    if (isNaN(date)) {
         return "-";
     }
-
-
-    const date =
-        new Date(dateString);
-
-
-    if (isNaN(date.getTime())) {
-        return "-";
-    }
-
 
     return date.toLocaleDateString(
         "en-IN",
@@ -149,96 +100,82 @@ function formatDate(dateString) {
 }
 
 
-// ==========================================
-// LOAD MEDICINES FROM MONGODB
-// ==========================================
-
 async function loadMedicines() {
 
     try {
 
-        refreshBtn.disabled = true;
+        $("refreshBtn").disabled = true;
 
-        refreshBtn.textContent =
-            "⏳ Loading...";
-
-
-        const response =
-            await fetch(MEDICINE_API);
+        $("refreshBtn").textContent = "⏳ Loading...";
 
 
-        const data =
-            await response.json();
+        const response = await fetch(
+            MEDICINE_API + "?t=" + Date.now(),
+            {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
 
 
-        if (
-            !response.ok ||
-            !data.success
-        ) {
+        const data = await response.json();
+
+
+        if (!response.ok || data.success !== true) {
 
             throw new Error(
                 data.message ||
-                "Unable to load medicines."
+                "Unable to load medicines"
             );
 
         }
 
 
-        medicines =
-            data.medicines || [];
+        medicines = Array.isArray(data.medicines)
+            ? data.medicines
+            : [];
 
 
         updateSummary();
 
-        renderExpiryTable();
+        render();
 
 
     } catch (error) {
 
         console.error(
-            "Expiry alert error:",
+            "Expiry Alert Error:",
             error
         );
 
 
-        expiredCount.textContent = "0";
+        medicines = [];
 
-        expiringSoonCount.textContent = "0";
+        updateSummary();
 
-        safeCount.textContent = "0";
 
-        totalCount.textContent = "0";
-
-        resultCount.textContent =
+        $("resultCount").textContent =
             "0 medicines";
 
 
-        expiryTableBody.innerHTML = `
-
+        $("expiryTableBody").innerHTML = `
             <tr>
-
-                <td
-                    colspan="8"
-                    class="empty"
-                >
-
-                    Unable to load medicines from MongoDB.
-
-                    <br>
-
-                    Make sure backend server is running.
-
+                <td colspan="8" class="empty">
+                    Unable to load medicines.<br>
+                    ${escapeHTML(error.message)}
                 </td>
-
             </tr>
-
         `;
+
 
     } finally {
 
-        refreshBtn.disabled = false;
+        $("refreshBtn").disabled = false;
 
-        refreshBtn.textContent =
+        $("refreshBtn").textContent =
             "🔄 Refresh";
 
     }
@@ -246,421 +183,289 @@ async function loadMedicines() {
 }
 
 
-// ==========================================
-// UPDATE SUMMARY CARDS
-// ==========================================
-
 function updateSummary() {
 
     let expired = 0;
-
     let expiringSoon = 0;
-
     let safe = 0;
 
 
-    medicines.forEach(
-        medicine => {
+    medicines.forEach((medicine) => {
 
-            const result =
-                getExpiryStatus(
-                    medicine.expiryDate
-                );
+        const result =
+            statusOf(medicine.expiryDate);
 
 
-            if (
-                result.status ===
-                "expired"
-            ) {
+        if (result.status === "expired") {
 
-                expired++;
+            expired++;
 
-            } else if (
-                result.status ===
-                "soon"
-            ) {
+        } else if (result.status === "soon") {
 
-                expiringSoon++;
+            expiringSoon++;
 
-            } else {
+        } else {
 
-                safe++;
-
-            }
+            safe++;
 
         }
-    );
+
+    });
 
 
-    expiredCount.textContent =
+    $("expiredCount").textContent =
         expired;
 
-
-    expiringSoonCount.textContent =
+    $("expiringSoonCount").textContent =
         expiringSoon;
 
-
-    safeCount.textContent =
+    $("safeCount").textContent =
         safe;
 
-
-    totalCount.textContent =
+    $("totalCount").textContent =
         medicines.length;
 
 }
 
 
-// ==========================================
-// RENDER EXPIRY TABLE
-// ==========================================
+function render() {
 
-function renderExpiryTable() {
-
-    const searchText =
-        searchInput.value
+    const search =
+        $("searchInput")
+            .value
             .toLowerCase()
             .trim();
 
 
-    const selectedStatus =
-        statusFilter.value;
+    const filter =
+        $("statusFilter").value;
 
 
-    const filteredMedicines =
-        medicines.filter(
-            medicine => {
+    const filtered =
+        medicines.filter((medicine) => {
 
-                const medicineName =
-                    String(
-                        medicine.medicineName || ""
-                    ).toLowerCase();
-
-
-                const category =
-                    String(
-                        medicine.category || ""
-                    ).toLowerCase();
-
-
-                // Search
-                const matchesSearch =
-                    medicineName.includes(
-                        searchText
-                    ) ||
-                    category.includes(
-                        searchText
-                    );
-
-
-                // Status
-                const expiry =
-                    getExpiryStatus(
-                        medicine.expiryDate
-                    );
-
-
-                const matchesStatus =
-                    selectedStatus === "all" ||
-                    expiry.status ===
-                    selectedStatus;
-
-
-                return (
-                    matchesSearch &&
-                    matchesStatus
+            const result =
+                statusOf(
+                    medicine.expiryDate
                 );
 
-            }
-        );
+
+            const searchableText = `
+
+                ${medicine.medicineName || ""}
+
+                ${medicine.category || ""}
+
+                ${medicine.batchNumber || ""}
+
+            `.toLowerCase();
 
 
-    expiryTableBody.innerHTML = "";
+            const matchesSearch =
+                searchableText.includes(search);
 
 
-    if (
-        filteredMedicines.length === 0
-    ) {
+            const matchesFilter =
+                filter === "all" ||
+                filter === result.status;
 
-        expiryTableBody.innerHTML = `
 
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
+
+        });
+
+
+    if (filtered.length === 0) {
+
+        $("expiryTableBody").innerHTML = `
             <tr>
-
-                <td
-                    colspan="8"
-                    class="empty"
-                >
-
+                <td colspan="8" class="empty">
                     No medicines found
-
                 </td>
-
             </tr>
-
         `;
 
-
-        resultCount.textContent =
+        $("resultCount").textContent =
             "0 medicines";
-
 
         return;
 
     }
 
 
-    // Create table rows
-    filteredMedicines.forEach(
-        (medicine, index) => {
+    $("expiryTableBody").innerHTML =
+        filtered.map(
+            (medicine, index) => {
 
-            const expiry =
-                getExpiryStatus(
-                    medicine.expiryDate
-                );
-
-
-            let statusText = "";
-
-            let daysText = "";
-
-
-            if (
-                expiry.status ===
-                "expired"
-            ) {
-
-                statusText =
-                    "Expired";
-
-
-                daysText =
-                    `${Math.abs(
-                        expiry.days
-                    )} days ago`;
-
-            } else if (
-                expiry.status ===
-                "soon"
-            ) {
-
-                statusText =
-                    "Expiring Soon";
-
-
-                daysText =
-                    `${expiry.days} days`;
-
-            } else {
-
-                statusText =
-                    "Safe";
-
-
-                daysText =
-                    `${expiry.days} days`;
-
-            }
-
-
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${index + 1}
-                </td>
-
-
-                <td>
-                    <strong>
-                        ${escapeHTML(
-                            medicine.medicineName
-                        )}
-                    </strong>
-                </td>
-
-
-                <td>
-                    ${escapeHTML(
-                        medicine.category
-                    )}
-                </td>
-
-
-                <td>
-                    ${escapeHTML(
-                        medicine.batchNumber
-                    )}
-                </td>
-
-
-                <td>
-                    ${Number(
-                        medicine.stock || 0
-                    )}
-                </td>
-
-
-                <td>
-                    ${formatDate(
+                const result =
+                    statusOf(
                         medicine.expiryDate
-                    )}
-                </td>
+                    );
 
 
-                <td>
-                    ${daysText}
-                </td>
+                let daysText;
 
 
-                <td>
-                    <span class="expiry-status">
-                        ${statusText}
-                    </span>
-                </td>
+                if (
+                    result.status === "expired"
+                ) {
 
-            `;
+                    daysText =
+                        `${Math.abs(result.days)} days ago`;
 
+                } else if (
+                    result.days === 0
+                ) {
 
-            expiryTableBody.appendChild(
-                row
-            );
+                    daysText =
+                        "Today";
 
-        }
-    );
+                } else {
 
+                    daysText =
+                        `${result.days} days`;
 
-    resultCount.textContent =
-        `${filteredMedicines.length} medicine${
-            filteredMedicines.length !== 1
-                ? "s"
-                : ""
-        }`;
-
-}
+                }
 
 
-// ==========================================
-// SEARCH
-// ==========================================
-
-if (searchInput) {
-
-    searchInput.addEventListener(
-        "input",
-        renderExpiryTable
-    );
-
-}
+                let statusText;
 
 
-// ==========================================
-// STATUS FILTER
-// ==========================================
+                if (
+                    result.status === "expired"
+                ) {
 
-if (statusFilter) {
+                    statusText = "Expired";
 
-    statusFilter.addEventListener(
-        "change",
-        renderExpiryTable
-    );
+                } else if (
+                    result.status === "soon"
+                ) {
 
-}
+                    statusText =
+                        result.days === 0
+                            ? "Expires Today"
+                            : "Expiring Soon";
 
+                } else {
 
-// ==========================================
-// REFRESH
-// ==========================================
+                    statusText = "Safe";
 
-if (refreshBtn) {
-
-    refreshBtn.addEventListener(
-        "click",
-        loadMedicines
-    );
-
-}
+                }
 
 
-// ==========================================
-// LOGOUT
-// ==========================================
+                return `
+                    <tr>
 
-if (logoutBtn) {
+                        <td>
+                            ${index + 1}
+                        </td>
 
-    logoutBtn.addEventListener(
-        "click",
-        function () {
+                        <td>
+                            <strong>
+                                ${escapeHTML(
+                                    medicine.medicineName
+                                )}
+                            </strong>
+                        </td>
 
-            const confirmLogout =
-                confirm(
-                    "Are you sure you want to logout?"
-                );
+                        <td>
+                            ${escapeHTML(
+                                medicine.category
+                            )}
+                        </td>
 
+                        <td>
+                            ${escapeHTML(
+                                medicine.batchNumber
+                            )}
+                        </td>
 
-            if (!confirmLogout) {
-                return;
+                        <td>
+                            ${Number(
+                                medicine.stock || 0
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatDate(
+                                medicine.expiryDate
+                            )}
+                        </td>
+
+                        <td>
+                            ${daysText}
+                        </td>
+
+                        <td>
+                            <span class="status ${result.status}">
+                                ${statusText}
+                            </span>
+                        </td>
+
+                    </tr>
+                `;
+
             }
+        ).join("");
 
+
+    $("resultCount").textContent =
+        `${filtered.length} medicine${filtered.length === 1 ? "" : "s"}`;
+
+}
+
+
+$("searchInput").addEventListener(
+    "input",
+    render
+);
+
+
+$("statusFilter").addEventListener(
+    "change",
+    render
+);
+
+
+$("refreshBtn").addEventListener(
+    "click",
+    loadMedicines
+);
+
+
+$("logoutBtn").addEventListener(
+    "click",
+    () => {
+
+        if (
+            confirm(
+                "Are you sure you want to logout?"
+            )
+        ) {
 
             localStorage.removeItem(
                 "curaMatrixLoggedIn"
             );
 
-
             localStorage.removeItem(
                 "curaMatrixToken"
             );
-
 
             localStorage.removeItem(
                 "curaMatrixUser"
             );
 
 
-            window.location.href =
+            location.href =
                 "../../login.html";
 
         }
-    );
 
-}
+    }
+);
 
-
-// ==========================================
-// SECURITY
-// ==========================================
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// ==========================================
-// INITIAL LOAD
-// ==========================================
 
 loadMedicines();

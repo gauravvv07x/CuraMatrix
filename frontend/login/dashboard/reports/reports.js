@@ -1,698 +1,481 @@
-// ==========================================
-// CURAMATRIX - REPORTS MODULE
-// MongoDB Connected
-// ==========================================
+const MEDICINE_API =
+    "https://curamatrix-backend.onrender.com/api/medicines";
 
-const MEDICINE_API = "http://localhost:5000/api/medicines";
-const BILL_API = "http://localhost:5000/api/bills";
+const BILL_API =
+    "https://curamatrix-backend.onrender.com/api/bills";
+
 
 let medicines = [];
 let bills = [];
 
 
-// ==========================================
-// HTML ELEMENTS
-// ==========================================
-
-const totalSales =
-    document.getElementById("totalSales");
-
-const totalBills =
-    document.getElementById("totalBills");
-
-const itemsSold =
-    document.getElementById("itemsSold");
-
-const totalGST =
-    document.getElementById("totalGST");
-
-const medicineCount =
-    document.getElementById("medicineCount");
-
-const stockUnits =
-    document.getElementById("stockUnits");
-
-const lowStockCount =
-    document.getElementById("lowStockCount");
-
-const expiredCount =
-    document.getElementById("expiredCount");
-
-const stockValue =
-    document.getElementById("stockValue");
-
-const recentSalesBody =
-    document.getElementById("recentSalesBody");
-
-const topMedicinesBody =
-    document.getElementById("topMedicinesBody");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
+const $ = (id) =>
+    document.getElementById(id);
 
 
-// ==========================================
-// FORMAT CURRENCY
-// ==========================================
+function escapeHTML(value) {
 
-function formatCurrency(value) {
-
-    return "₹" +
-        Number(value || 0).toLocaleString(
-            "en-IN",
-            {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }
-        );
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
-// ==========================================
-// FORMAT DATE
-// ==========================================
+function money(value) {
 
-function formatDate(dateString) {
+    return `₹${Number(value || 0).toFixed(2)}`;
 
-    const date =
-        new Date(dateString);
+}
 
-    if (isNaN(date.getTime())) {
-        return "-";
-    }
 
-    return date.toLocaleDateString(
-        "en-IN",
+function getDate(value) {
+
+    const date = new Date(value);
+
+    return isNaN(date)
+        ? null
+        : date;
+
+}
+
+
+async function getData(url) {
+
+    const response = await fetch(
+        url + "?t=" + Date.now(),
         {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
         }
     );
 
-}
+
+    const data =
+        await response.json();
 
 
-// ==========================================
-// GET EXPIRY STATUS
-// ==========================================
+    if (
+        !response.ok ||
+        data.success !== true
+    ) {
 
-function getExpiryStatus(expiryDate) {
+        throw new Error(
+            data.message ||
+            `Request failed: ${response.status}`
+        );
 
-    const today = new Date();
-
-    today.setHours(0, 0, 0, 0);
-
-
-    const expiry =
-        new Date(expiryDate);
-
-    expiry.setHours(0, 0, 0, 0);
+    }
 
 
-    return expiry < today;
+    return data;
 
 }
 
 
-// ==========================================
-// LOAD MEDICINES
-// ==========================================
-
-async function loadMedicines() {
+async function loadReports() {
 
     try {
 
-        const response =
-            await fetch(MEDICINE_API);
+        $("refreshBtn").disabled = true;
+
+        $("refreshBtn").textContent =
+            "⏳ Loading...";
 
 
-        const data =
-            await response.json();
+        const [
+            medicineData,
+            billData
+        ] = await Promise.all([
 
+            getData(MEDICINE_API),
 
-        if (
-            !response.ok ||
-            !data.success
-        ) {
+            getData(BILL_API)
 
-            throw new Error(
-                data.message ||
-                "Unable to load medicines."
-            );
-
-        }
+        ]);
 
 
         medicines =
-            data.medicines || [];
-
-
-        updateStockReport();
-
-
-    } catch (error) {
-
-        console.error(
-            "Medicine report error:",
-            error
-        );
-
-    }
-
-}
-
-
-// ==========================================
-// UPDATE STOCK REPORT
-// ==========================================
-
-function updateStockReport() {
-
-    const totalMedicines =
-        medicines.length;
-
-
-    let totalStockUnits = 0;
-
-    let lowStock = 0;
-
-    let expired = 0;
-
-    let purchaseValue = 0;
-
-
-    medicines.forEach(
-        medicine => {
-
-            const stock =
-                Number(
-                    medicine.stock || 0
-                );
-
-
-            const minimumStock =
-                Number(
-                    medicine.minimumStock || 0
-                );
-
-
-            const purchasePrice =
-                Number(
-                    medicine.purchasePrice || 0
-                );
-
-
-            totalStockUnits += stock;
-
-
-            if (
-                stock <= minimumStock
-            ) {
-
-                lowStock++;
-
-            }
-
-
-            if (
-                getExpiryStatus(
-                    medicine.expiryDate
-                )
-            ) {
-
-                expired++;
-
-            }
-
-
-            purchaseValue +=
-                stock * purchasePrice;
-
-        }
-    );
-
-
-    medicineCount.textContent =
-        totalMedicines;
-
-
-    stockUnits.textContent =
-        totalStockUnits;
-
-
-    lowStockCount.textContent =
-        lowStock;
-
-
-    expiredCount.textContent =
-        expired;
-
-
-    stockValue.textContent =
-        formatCurrency(
-            purchaseValue
-        );
-
-}
-
-
-// ==========================================
-// LOAD BILLS
-// ==========================================
-
-async function loadBills() {
-
-    try {
-
-        const response =
-            await fetch(BILL_API);
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Unable to load bills."
-            );
-
-        }
+            Array.isArray(
+                medicineData.medicines
+            )
+                ? medicineData.medicines
+                : [];
 
 
         bills =
-            data.bills || [];
+            Array.isArray(
+                billData.bills
+            )
+                ? billData.bills
+                : [];
 
 
-        updateSalesSummary();
-
-        renderRecentSales();
-
-        renderTopMedicines();
+        renderReports();
 
 
     } catch (error) {
 
         console.error(
-            "Sales report error:",
+            "Reports Error:",
             error
         );
 
 
-        totalSales.textContent =
-            "₹0.00";
-
-        totalBills.textContent =
-            "0";
-
-        itemsSold.textContent =
-            "0";
-
-        totalGST.textContent =
-            "₹0.00";
+        $("reportMessage").textContent =
+            "Unable to load reports: " +
+            error.message;
 
 
-        recentSalesBody.innerHTML = `
-
+        $("recentSalesBody").innerHTML = `
             <tr>
-
                 <td
                     colspan="4"
-                    style="text-align:center;"
+                    class="empty"
                 >
-
-                    Unable to load sales data.
-
+                    Unable to load sales data
                 </td>
-
             </tr>
-
         `;
 
 
-        topMedicinesBody.innerHTML = `
-
+        $("topMedicinesBody").innerHTML = `
             <tr>
-
                 <td
-                    colspan="4"
-                    style="text-align:center;"
+                    colspan="3"
+                    class="empty"
                 >
-
-                    Unable to load sales data.
-
+                    Unable to load medicine data
                 </td>
-
             </tr>
-
         `;
+
+
+    } finally {
+
+        $("refreshBtn").disabled = false;
+
+        $("refreshBtn").textContent =
+            "🔄 Refresh";
 
     }
 
 }
 
 
-// ==========================================
-// UPDATE SALES SUMMARY
-// ==========================================
-
-function updateSalesSummary() {
-
-    let sales = 0;
-
-    let gst = 0;
-
-    let soldItems = 0;
+function renderReports() {
 
 
-    bills.forEach(
-        bill => {
-
-            sales +=
+    const totalSales =
+        bills.reduce(
+            (sum, bill) =>
+                sum +
                 Number(
                     bill.grandTotal || 0
-                );
-
-
-            gst +=
-                Number(
-                    bill.totalGST || 0
-                );
-
-
-            if (
-                Array.isArray(
-                    bill.items
-                )
-            ) {
-
-                bill.items.forEach(
-                    item => {
-
-                        soldItems +=
-                            Number(
-                                item.quantity || 0
-                            );
-
-                    }
-                );
-
-            }
-
-        }
-    );
-
-
-    totalSales.textContent =
-        formatCurrency(sales);
-
-
-    totalBills.textContent =
-        bills.length;
-
-
-    itemsSold.textContent =
-        soldItems;
-
-
-    totalGST.textContent =
-        formatCurrency(gst);
-
-}
-
-
-// ==========================================
-// RECENT SALES - LAST 7 DAYS
-// ==========================================
-
-function renderRecentSales() {
-
-    recentSalesBody.innerHTML = "";
-
-
-    const today =
-        new Date();
-
-    today.setHours(
-        23,
-        59,
-        59,
-        999
-    );
-
-
-    const sevenDaysAgo =
-        new Date();
-
-    sevenDaysAgo.setDate(
-        today.getDate() - 6
-    );
-
-    sevenDaysAgo.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
-
-    const dailyData = {};
-
-
-    bills.forEach(
-        bill => {
-
-            const billDate =
-                new Date(
-                    bill.createdAt
-                );
-
-
-            if (
-                billDate < sevenDaysAgo ||
-                billDate > today
-            ) {
-
-                return;
-
-            }
-
-
-            const dateKey =
-                billDate
-                    .toISOString()
-                    .split("T")[0];
-
-
-            if (
-                !dailyData[dateKey]
-            ) {
-
-                dailyData[dateKey] = {
-
-                    bills: 0,
-
-                    items: 0,
-
-                    sales: 0
-
-                };
-
-            }
-
-
-            dailyData[dateKey].bills++;
-
-
-            dailyData[dateKey].sales +=
-                Number(
-                    bill.grandTotal || 0
-                );
-
-
-            if (
-                Array.isArray(
-                    bill.items
-                )
-            ) {
-
-                bill.items.forEach(
-                    item => {
-
-                        dailyData[dateKey].items +=
-                            Number(
-                                item.quantity || 0
-                            );
-
-                    }
-                );
-
-            }
-
-        }
-    );
-
-
-    const dates = [];
-
-
-    for (
-        let i = 0;
-        i < 7;
-        i++
-    ) {
-
-        const date =
-            new Date(
-                sevenDaysAgo
-            );
-
-
-        date.setDate(
-            sevenDaysAgo.getDate() + i
+                ),
+            0
         );
 
 
-        const key =
-            date
-                .toISOString()
-                .split("T")[0];
+    const totalGST =
+        bills.reduce(
+            (sum, bill) =>
+                sum +
+                Number(
+                    bill.totalGST || 0
+                ),
+            0
+        );
 
 
-        dates.push(key);
+    const totalItems =
+        bills.reduce(
+            (sum, bill) => {
 
-    }
-
-
-    dates.reverse();
-
-
-    dates.forEach(
-        dateKey => {
-
-            const data =
-                dailyData[dateKey] ||
-                {
-                    bills: 0,
-                    items: 0,
-                    sales: 0
-                };
+                const items =
+                    Array.isArray(
+                        bill.items
+                    )
+                        ? bill.items
+                        : [];
 
 
-            const row =
-                document.createElement("tr");
+                return sum +
+                    items.reduce(
+                        (
+                            itemSum,
+                            item
+                        ) =>
+                            itemSum +
+                            Number(
+                                item.quantity || 0
+                            ),
+                        0
+                    );
+
+            },
+            0
+        );
 
 
-            row.innerHTML = `
-
-                <td>
-                    ${formatDate(dateKey)}
-                </td>
-
-                <td>
-                    ${data.bills}
-                </td>
-
-                <td>
-                    ${data.items}
-                </td>
-
-                <td>
-                    ${formatCurrency(
-                        data.sales
-                    )}
-                </td>
-
-            `;
+    const stockUnits =
+        medicines.reduce(
+            (sum, medicine) =>
+                sum +
+                Number(
+                    medicine.stock || 0
+                ),
+            0
+        );
 
 
-            recentSalesBody.appendChild(
-                row
-            );
+    const lowStock =
+        medicines.filter(
+            (medicine) =>
+                Number(
+                    medicine.stock || 0
+                ) <=
+                Number(
+                    medicine.minimumStock || 0
+                )
+        ).length;
 
-        }
-    );
+
+    const expired =
+        medicines.filter(
+            (medicine) => {
+
+                const expiry =
+                    getDate(
+                        medicine.expiryDate
+                    );
+
+
+                if (!expiry) {
+                    return false;
+                }
+
+
+                const today =
+                    new Date();
+
+                today.setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                );
+
+
+                expiry.setHours(
+                    0,
+                    0,
+                    0,
+                    0
+                );
+
+
+                return expiry < today;
+
+            }
+        ).length;
+
+
+    const purchaseValue =
+        medicines.reduce(
+            (sum, medicine) =>
+                sum +
+                (
+                    Number(
+                        medicine.stock || 0
+                    ) *
+                    Number(
+                        medicine.purchasePrice || 0
+                    )
+                ),
+            0
+        );
+
+
+    $("totalSales").textContent =
+        money(totalSales);
+
+
+    $("totalBills").textContent =
+        bills.length;
+
+
+    $("totalItems").textContent =
+        totalItems;
+
+
+    $("totalGST").textContent =
+        money(totalGST);
+
+
+    $("medicineCount").textContent =
+        medicines.length;
+
+
+    $("stockUnits").textContent =
+        stockUnits;
+
+
+    $("lowStock").textContent =
+        lowStock;
+
+
+    $("expired").textContent =
+        expired;
+
+
+    $("purchaseValue").textContent =
+        money(purchaseValue);
+
+
+    renderRecentSales();
+
+    renderTopMedicines();
+
+
+    $("reportMessage").textContent =
+        `Loaded ${medicines.length} medicines and ${bills.length} bills from database.`;
 
 }
 
 
-// ==========================================
-// TOP SELLING MEDICINES
-// ==========================================
+function renderRecentSales() {
+
+
+    const recentSales =
+        [...bills]
+            .sort(
+                (a, b) =>
+                    new Date(
+                        b.createdAt || 0
+                    ) -
+                    new Date(
+                        a.createdAt || 0
+                    )
+            )
+            .slice(0, 10);
+
+
+    if (recentSales.length === 0) {
+
+        $("recentSalesBody").innerHTML = `
+            <tr>
+                <td
+                    colspan="4"
+                    class="empty"
+                >
+                    No sales found
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    $("recentSalesBody").innerHTML =
+        recentSales.map(
+            (bill) => {
+
+                const date =
+                    getDate(
+                        bill.createdAt
+                    );
+
+
+                const formattedDate =
+                    date
+                        ? date.toLocaleDateString(
+                            "en-IN"
+                        )
+                        : "-";
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${escapeHTML(
+                                bill.billId
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                bill.customerName
+                            )}
+                        </td>
+
+                        <td>
+                            ${formattedDate}
+                        </td>
+
+                        <td>
+                            ${money(
+                                bill.grandTotal
+                            )}
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join("");
+
+}
+
 
 function renderTopMedicines() {
 
-    topMedicinesBody.innerHTML = "";
 
-
-    const medicineSales = {};
+    const quantityMap = {};
 
 
     bills.forEach(
-        bill => {
+        (bill) => {
 
-            if (
-                !Array.isArray(
+            const items =
+                Array.isArray(
                     bill.items
                 )
-            ) {
-
-                return;
-
-            }
+                    ? bill.items
+                    : [];
 
 
-            bill.items.forEach(
-                item => {
+            items.forEach(
+                (item) => {
 
-                    const id =
-                        item.medicineId ||
-                        item.medicineName;
+                    const name =
+                        item.medicineName ||
+                        "Unknown";
 
 
                     if (
-                        !medicineSales[id]
+                        !quantityMap[name]
                     ) {
 
-                        medicineSales[id] = {
-
-                            name:
-                                item.medicineName,
-
-                            quantity: 0,
-
-                            amount: 0
-
-                        };
+                        quantityMap[name] =
+                            0;
 
                     }
 
 
-                    const quantity =
+                    quantityMap[name] +=
                         Number(
                             item.quantity || 0
                         );
-
-
-                    const price =
-                        Number(
-                            item.price || 0
-                        );
-
-
-                    medicineSales[id].quantity +=
-                        quantity;
-
-
-                    medicineSales[id].amount +=
-                        quantity * price;
 
                 }
             );
@@ -702,36 +485,27 @@ function renderTopMedicines() {
 
 
     const topMedicines =
-        Object.values(
-            medicineSales
+        Object.entries(
+            quantityMap
         )
-        .sort(
-            (a, b) =>
-                b.quantity -
-                a.quantity
-        )
-        .slice(0, 10);
+            .sort(
+                (a, b) =>
+                    b[1] - a[1]
+            )
+            .slice(0, 10);
 
 
-    if (
-        topMedicines.length === 0
-    ) {
+    if (topMedicines.length === 0) {
 
-        topMedicinesBody.innerHTML = `
-
+        $("topMedicinesBody").innerHTML = `
             <tr>
-
                 <td
-                    colspan="4"
-                    style="text-align:center;"
+                    colspan="3"
+                    class="empty"
                 >
-
-                    No sales data available.
-
+                    No sales data found
                 </td>
-
             </tr>
-
         `;
 
         return;
@@ -739,99 +513,51 @@ function renderTopMedicines() {
     }
 
 
-    topMedicines.forEach(
-        (medicine, index) => {
+    $("topMedicinesBody").innerHTML =
+        topMedicines.map(
+            (item, index) => {
 
-            const row =
-                document.createElement("tr");
+                return `
+                    <tr>
 
+                        <td>
+                            ${index + 1}
+                        </td>
 
-            row.innerHTML = `
+                        <td>
+                            ${escapeHTML(
+                                item[0]
+                            )}
+                        </td>
 
-                <td>
-                    ${index + 1}
-                </td>
+                        <td>
+                            ${item[1]}
+                        </td>
 
-                <td>
-                    ${escapeHTML(
-                        medicine.name
-                    )}
-                </td>
+                    </tr>
+                `;
 
-                <td>
-                    ${medicine.quantity}
-                </td>
-
-                <td>
-                    ${formatCurrency(
-                        medicine.amount
-                    )}
-                </td>
-
-            `;
-
-
-            topMedicinesBody.appendChild(
-                row
-            );
-
-        }
-    );
-
-}
-
-
-// ==========================================
-// SECURITY
-// ==========================================
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// ==========================================
-// LOGOUT
-// ==========================================
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener(
-        "click",
-        function () {
-
-            const confirmLogout =
-                confirm(
-                    "Are you sure you want to logout?"
-                );
-
-
-            if (!confirmLogout) {
-                return;
             }
+        ).join("");
 
+}
+
+
+$("refreshBtn").addEventListener(
+    "click",
+    loadReports
+);
+
+
+$("logoutBtn").addEventListener(
+    "click",
+    () => {
+
+        if (
+            confirm(
+                "Are you sure you want to logout?"
+            )
+        ) {
 
             localStorage.removeItem(
                 "curaMatrixLoggedIn"
@@ -846,27 +572,13 @@ if (logoutBtn) {
             );
 
 
-            window.location.href =
+            location.href =
                 "../../login.html";
 
         }
-    );
 
-}
-
-
-// ==========================================
-// INITIAL LOAD
-// ==========================================
-
-async function loadReports() {
-
-    await Promise.all([
-        loadMedicines(),
-        loadBills()
-    ]);
-
-}
+    }
+);
 
 
 loadReports();
