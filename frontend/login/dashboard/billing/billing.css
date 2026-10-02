@@ -1,0 +1,822 @@
+/* =========================================================
+   CURAMATRIX - BILLING PAGE
+   PAGE-SPECIFIC CSS ONLY
+   Sidebar styling is in ../sidebar.css
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #102b4e;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    background: #f4f7fb;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+.top-header {
+    min-height: 125px;
+    padding: 28px 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #f4f7fb;
+    border-bottom: 1px solid #e1e8f0;
+}
+
+.header-left h1 {
+    margin: 0;
+    color: #0b3159;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.header-left p {
+    margin: 8px 0 0;
+    color: #6b82a0;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   BILLING CONTENT
+   ========================================================= */
+
+.billing-content {
+    width: 100%;
+    padding: 28px 32px 45px;
+}
+
+
+/* =========================================================
+   BILLING CARD
+   ========================================================= */
+
+.billing-card {
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    background: white;
+
+    border: 1px solid #e0e8f1;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 14px rgba(30, 65, 100, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.card-header {
+    padding: 25px 28px;
+
+    border-bottom: 1px solid #e5ebf2;
+}
+
+.card-header h2 {
+    margin: 0;
+
+    color: #0c315b;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.form-group label {
+    color: #163b63;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1px solid #cfdce9;
+    border-radius: 9px;
+
+    background: white;
+    color: #173a61;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #8da0b8;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #19abc6;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 171, 198, 0.12);
+}
+
+
+/* =========================================================
+   CUSTOMER INFORMATION
+   ========================================================= */
+
+.customer-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+
+    padding: 26px 28px 30px;
+}
+
+
+/* =========================================================
+   ADD MEDICINE ROW
+   ========================================================= */
+
+.medicine-input-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(250px, 2fr)
+        minmax(120px, 0.8fr)
+        minmax(120px, 0.8fr)
+        auto;
+
+    gap: 18px;
+
+    align-items: end;
+
+    padding: 26px 28px 30px;
+}
+
+
+/* =========================================================
+   ADD TO BILL BUTTON
+   ========================================================= */
+
+.primary-btn {
+    height: 52px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #19abc6;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.primary-btn:hover {
+    background: #119bb5;
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f3f7fb;
+}
+
+th {
+    padding: 16px 18px;
+
+    text-align: left;
+
+    color: #47627f;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border-bottom: 1px solid #dfe7ef;
+
+    white-space: nowrap;
+}
+
+td {
+    padding: 17px 18px;
+
+    color: #233f60;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #e7edf3;
+}
+
+tbody tr:hover {
+    background: #f8fbfd;
+}
+
+
+/* =========================================================
+   REMOVE ITEM BUTTON
+   ========================================================= */
+
+.remove-item-btn {
+    padding: 7px 12px;
+
+    border: 1px solid #e3b8b8;
+    border-radius: 7px;
+
+    background: #fff5f5;
+    color: #c62828;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.remove-item-btn:hover {
+    background: #ffe8e8;
+}
+
+
+/* =========================================================
+   BILL SUMMARY
+   ========================================================= */
+
+.billing-summary {
+    width: 100%;
+    max-width: 450px;
+
+    margin: 0 0 24px auto;
+
+    padding: 22px 25px;
+
+    background: white;
+
+    border: 1px solid #e0e8f1;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 14px rgba(30, 65, 100, 0.05);
+}
+
+.summary-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    color: #5d7591;
+
+    font-size: 15px;
+}
+
+.summary-row strong {
+    color: #173a61;
+
+    font-size: 16px;
+}
+
+.grand-total {
+    margin-top: 10px;
+
+    padding-top: 17px;
+
+    border-top: 1px solid #dfe7ef;
+}
+
+.grand-total span {
+    color: #0b3159;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.grand-total strong {
+    color: #0b8fa8;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   BILLING ACTIONS
+   ========================================================= */
+
+.billing-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 14px;
+}
+
+.secondary-btn,
+.save-btn {
+    height: 48px;
+
+    padding: 0 24px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.secondary-btn {
+    border: 1px solid #ccd9e6;
+
+    background: white;
+    color: #365572;
+}
+
+.secondary-btn:hover {
+    background: #f2f6fa;
+}
+
+.save-btn {
+    border: none;
+
+    background: #19abc6;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #119bb5;
+}
+
+.save-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   EMPTY TABLE MESSAGE
+   ========================================================= */
+
+#billItemsBody:empty::after {
+    content: "No medicines added to bill yet.";
+
+    display: table-cell;
+
+    height: 100px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    color: #8a9bb0;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+body.dark-mode {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+body.dark-mode .main-content,
+body.dark-mode .top-header {
+    background: #0f172a;
+}
+
+body.dark-mode .top-header {
+    border-bottom-color: #26364b;
+}
+
+body.dark-mode .header-left h1 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .header-left p {
+    color: #94a3b8;
+}
+
+body.dark-mode .billing-card,
+body.dark-mode .billing-summary {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .card-header {
+    border-bottom-color: #334155;
+}
+
+body.dark-mode .card-header h2 {
+    color: #f1f5f9;
+}
+
+body.dark-mode .form-group label {
+    color: #dbeafe;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #0f172a;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+
+body.dark-mode .form-group input::placeholder {
+    color: #718096;
+}
+
+body.dark-mode thead {
+    background: #0f172a;
+}
+
+body.dark-mode th {
+    color: #cbd5e1;
+    border-bottom-color: #334155;
+}
+
+body.dark-mode td {
+    color: #dbeafe;
+    border-bottom-color: #334155;
+}
+
+body.dark-mode tbody tr:hover {
+    background: #172033;
+}
+
+body.dark-mode .summary-row {
+    color: #94a3b8;
+}
+
+body.dark-mode .summary-row strong,
+body.dark-mode .grand-total span {
+    color: #f1f5f9;
+}
+
+body.dark-mode .grand-total {
+    border-top-color: #334155;
+}
+
+body.dark-mode .secondary-btn {
+    background: #1e293b;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+
+body.dark-mode .remove-item-btn {
+    background: #2a1b1b;
+    border-color: #5b3030;
+    color: #ffb4b4;
+}
+
+
+/* =========================================================
+   PDF BILL PREVIEW
+   ========================================================= */
+
+.pdf-bill {
+    width: 80mm;
+    padding: 5mm;
+
+    background: white;
+    color: #000;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pdf-shop-name {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.pdf-shop-info {
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.pdf-divider {
+    border-top: 1px dashed #000;
+    margin: 8px 0;
+}
+
+.pdf-bill-title {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 5px 0;
+}
+
+.pdf-customer {
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9px;
+}
+
+.pdf-table th,
+.pdf-table td {
+    padding: 3px 1px;
+    border-bottom: 1px dashed #aaa;
+    color: #000;
+}
+
+.pdf-table th {
+    font-weight: 700;
+    text-align: left;
+}
+
+.pdf-right {
+    text-align: right;
+}
+
+.pdf-summary {
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.pdf-grand-total {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.pdf-footer {
+    text-align: center;
+    font-size: 9px;
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .medicine-input-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .medicine-select-group {
+        grid-column: span 2;
+    }
+
+    .primary-btn {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .top-header {
+        padding: 22px;
+    }
+
+    .billing-content {
+        padding: 22px;
+    }
+
+    .customer-grid {
+        grid-template-columns: 1fr;
+
+        padding: 22px;
+    }
+
+    .medicine-input-row {
+        grid-template-columns: 1fr;
+
+        padding: 22px;
+    }
+
+    .medicine-select-group {
+        grid-column: auto;
+    }
+
+    .billing-summary {
+        max-width: 100%;
+    }
+
+    .billing-actions {
+        justify-content: stretch;
+    }
+
+    .secondary-btn,
+    .save-btn {
+        flex: 1;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .header-left h1 {
+        font-size: 26px;
+    }
+
+    .header-left p {
+        font-size: 14px;
+    }
+
+    .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .billing-actions {
+        flex-direction: column;
+    }
+
+    .secondary-btn,
+    .save-btn {
+        width: 100%;
+    }
+
+}
+
+
+
+/* ==========================================
+   BILLING ACTION BUTTONS
+   ========================================== */
+
+.billing-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+
+/* Clear Bill */
+
+.clear-btn {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #e74c3c;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.clear-btn:hover {
+    background: #c0392b;
+}
+
+
+/* Save Bill */
+
+.save-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #19abc6;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #1495ad;
+}
+
+.save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Print Bill */
+
+.print-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #2c3e50;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.print-btn:hover {
+    background: #1f2d3a;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .billing-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .clear-btn,
+    .save-btn,
+    .print-btn {
+        width: 100%;
+    }
+}

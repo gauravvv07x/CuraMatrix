@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shop Settings - CuraMatrix</title>
+
+    <!-- COMMON SIDEBAR -->
+    <link rel="stylesheet" href="../sidebar.css">
+
+    <!-- PAGE CSS -->
+    <link rel="stylesheet" href="shop-settings.css">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">✚</div>
+
+        <div class="brand-text">
+            <h2>CuraMatrix</h2>
+            <span>Medical Store</span>
+        </div>
+    </div>
+
+
+    <nav class="navigation">
+
+        <a href="../dashboard.html" class="nav-link">
+            <span class="nav-icon">▣</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="../add-medicine/add-medicine.html" class="nav-link">
+            <span class="nav-icon">＋</span>
+            <span>Add Medicine</span>
+        </a>
+
+        <a href="../medicines/medicines.html" class="nav-link">
+            <span class="nav-icon">💊</span>
+            <span>Medicines</span>
+        </a>
+
+        <a href="../billing/billing.html" class="nav-link">
+            <span class="nav-icon">🧾</span>
+            <span>Billing</span>
+        </a>
+
+        <a href="../sales/sales.html" class="nav-link">
+            <span class="nav-icon">▤</span>
+            <span>Sales</span>
+        </a>
+
+        <a href="../low-stock/low-stock.html" class="nav-link">
+            <span class="nav-icon">⚠</span>
+            <span>Low Stock</span>
+        </a>
+
+        <a href="../expiry-alert/expiry-alert.html" class="nav-link">
+            <span class="nav-icon">⏰</span>
+            <span>Expiry Alert</span>
+        </a>
+
+        <a href="../reports/reports.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span>Reports</span>
+        </a>
+
+        <a href="shop-settings.html" class="nav-link active">
+            <span class="nav-icon">⚙</span>
+            <span>Shop Settings</span>
+        </a>
+
+        <a href="../users/users.html" class="nav-link">
+            <span class="nav-icon">👤</span>
+            <span>Users</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+        <button type="button" id="logoutBtn" class="logout-btn">
+            ⇥ Logout
+        </button>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="main-content">
+
+    <!-- HEADER -->
+    <header class="top-header">
+
+        <div>
+            <h1>Shop Settings</h1>
+            <p>Manage your medical store information</p>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                id="darkModeBtn"
+                class="icon-btn"
+            >
+                🌙
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= SHOP INFORMATION ================= -->
+    <section class="settings-card">
+
+        <div class="section-title">
+            <h2>Shop Information</h2>
+            <p>Enter your medical store details</p>
+        </div>
+
+
+        <form id="shopSettingsForm">
+
+            <div class="form-grid">
+
+                <!-- SHOP NAME -->
+                <div class="form-group full-width">
+
+                    <label for="shopName">
+                        Shop Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="shopName"
+                        placeholder="Enter shop name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- OWNER -->
+                <div class="form-group">
+
+                    <label for="ownerName">
+                        Owner Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ownerName"
+                        placeholder="Enter owner name"
+                    >
+
+                </div>
+
+
+                <!-- MOBILE -->
+                <div class="form-group">
+
+                    <label for="shopMobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="shopMobile"
+                        placeholder="Enter mobile number"
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="shopEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="shopEmail"
+                        placeholder="Enter email address"
+                    >
+
+                </div>
+
+
+                <!-- GST -->
+                <div class="form-group">
+
+                    <label for="gstNumber">
+                        GST Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="gstNumber"
+                        placeholder="Enter GST number"
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+                <div class="form-group full-width">
+
+                    <label for="shopAddress">
+                        Shop Address
+                    </label>
+
+                    <textarea
+                        id="shopAddress"
+                        rows="4"
+                        placeholder="Enter complete shop address"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="resetBtn"
+                    class="reset-btn"
+                >
+                    Reset
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Settings
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= INVOICE SETTINGS ================= -->
+    <section class="settings-card">
+
+        <div class="section-title">
+
+            <h2>Invoice Settings</h2>
+
+            <p>
+                Configure basic invoice information
+            </p>
+
+        </div>
+
+
+        <div class="invoice-options">
+
+            <!-- GST -->
+            <div class="option-row">
+
+                <div>
+                    <strong>Show GST on Invoice</strong>
+
+                    <p>
+                        Display GST details on customer bills
+                    </p>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="showGST"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+            <div class="option-row">
+
+                <div>
+                    <strong>Show Shop Address</strong>
+
+                    <p>
+                        Display shop address on invoice
+                    </p>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="showAddress"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="saveInvoiceBtn"
+            class="save-btn invoice-save"
+        >
+            Save Invoice Settings
+        </button>
+
+    </section>
+
+
+    <!-- ================= SUCCESS MESSAGE ================= -->
+    <div
+        id="successMessage"
+        class="success-message"
+    >
+        ✓ Settings saved successfully
+    </div>
+
+</main>
+
+
+<script src="shop-settings.js"></script>
+
+</body>
+</html>

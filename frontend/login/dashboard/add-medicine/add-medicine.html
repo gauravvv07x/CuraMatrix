@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Medicine - CuraMatrix</title>
+
+    
+<link rel="stylesheet" href="../sidebar.css">
+<link rel="stylesheet" href="add-medicine.css">
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+        <div class="brand">
+
+            <div class="brand-icon">✚</div>
+
+            <div class="brand-text">
+                <h2>CuraMatrix</h2>
+                <span>Medical Store</span>
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <nav class="navigation">
+
+            <a href="../dashboard.html" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="add-medicine.html" class="nav-link active">
+                <span class="nav-icon">＋</span>
+                <span>Add Medicine</span>
+            </a>
+
+            <a href="../medicines/medicines.html" class="nav-link">
+                <span class="nav-icon">💊</span>
+                <span>Medicines</span>
+            </a>
+
+            <a href="../billing/billing.html" class="nav-link">
+                <span class="nav-icon">🧾</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="../sales/sales.html" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="../low-stock/low-stock.html" class="nav-link">
+                <span class="nav-icon">⚠</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="../expiry-alert/expiry-alert.html" class="nav-link">
+                <span class="nav-icon">⏰</span>
+                <span>Expiry Alert</span>
+            </a>
+
+            <a href="../reports/reports.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="../shop-settings/shop-settings.html" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Shop Settings</span>
+            </a>
+
+            <a href="../users/users.html" class="nav-link">
+                <span class="nav-icon">👤</span>
+                <span>Users</span>
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+        <div class="sidebar-footer">
+
+            <button
+                type="button"
+                id="logoutBtn"
+                class="logout-btn">
+                ⇥ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+
+        
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <section class="page-content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Add New Medicine</h1>
+
+                    <p>
+                        Add medicine details to your inventory
+                    </p>
+                </div>
+
+
+                <a
+                    href="../medicines/medicines.html"
+                    class="view-medicines-btn">
+                    ▣ View Medicines
+                </a>
+
+            </div>
+
+
+            <!-- ================= FORM CARD ================= -->
+
+            <div class="form-card">
+
+
+                <!-- CARD HEADER -->
+
+                <div class="form-card-header">
+
+                    <div class="medicine-icon">
+                        💊
+                    </div>
+
+                    <div>
+                        <h2>Medicine Information</h2>
+
+                        <p>
+                            Enter the medicine details below
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- ================= FORM ================= -->
+
+                <form id="medicineForm">
+
+
+                    <!-- BASIC INFORMATION -->
+
+                    <div class="section-title">
+
+                        <div class="section-number">
+                            1
+                        </div>
+
+                        <h3>Basic Information</h3>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- MEDICINE NAME -->
+
+                        <div class="form-group">
+
+                            <label for="medicineName">
+                                Medicine Name <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="medicineName"
+                                placeholder="e.g. Paracetamol 500mg"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category <span>*</span>
+                            </label>
+
+                            <select id="category" required>
+
+                                <option value="">
+                                    Select Category
+                                </option>
+
+                                <option value="Tablet">
+                                    Tablet
+                                </option>
+
+                                <option value="Capsule">
+                                    Capsule
+                                </option>
+
+                                <option value="Syrup">
+                                    Syrup
+                                </option>
+
+                                <option value="Injection">
+                                    Injection
+                                </option>
+
+                                <option value="Cream">
+                                    Cream
+                                </option>
+
+                                <option value="Drops">
+                                    Drops
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- MANUFACTURER -->
+
+                        <div class="form-group">
+
+                            <label for="manufacturer">
+                                Manufacturer
+                            </label>
+
+                            <input
+                                type="text"
+                                id="manufacturer"
+                                placeholder="e.g. Cipla"
+                            >
+
+                        </div>
+
+
+                        <!-- BATCH NUMBER -->
+
+                        <div class="form-group">
+
+                            <label for="batchNumber">
+                                Batch Number <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="batchNumber"
+                                placeholder="e.g. PCT2301"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- INVENTORY DETAILS -->
+
+                    <div class="section-title">
+
+                        <div class="section-number">
+                            2
+                        </div>
+
+                        <h3>Inventory Details</h3>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- CURRENT STOCK -->
+
+                        <div class="form-group">
+
+                            <label for="stock">
+                                Current Stock <span>*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="stock"
+                                min="0"
+                                placeholder="e.g. 100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- MINIMUM STOCK -->
+
+                        <div class="form-group">
+
+                            <label for="minimumStock">
+                                Minimum Stock Level <span>*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="minimumStock"
+                                min="0"
+                                placeholder="e.g. 10"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- EXPIRY -->
+
+                        <div class="form-group">
+
+                            <label for="expiryDate">
+                                Expiry Date <span>*</span>
+                            </label>
+
+                            <input
+                                type="date"
+                                id="expiryDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- UNIT -->
+
+                        <div class="form-group">
+
+                            <label for="unit">
+                                Unit
+                            </label>
+
+                            <select id="unit">
+
+                                <option value="Strip">
+                                    Strip
+                                </option>
+
+                                <option value="Box">
+                                    Box
+                                </option>
+
+                                <option value="Bottle">
+                                    Bottle
+                                </option>
+
+                                <option value="Piece">
+                                    Piece
+                                </option>
+
+                                <option value="Pack">
+                                    Pack
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE DETAILS -->
+
+                    <div class="section-title">
+
+                        <div class="section-number">
+                            3
+                        </div>
+
+                        <h3>Price Details</h3>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- MRP -->
+
+                        <div class="form-group">
+
+                            <label for="mrp">
+                                MRP <span>*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="mrp"
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 50"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- SELLING PRICE -->
+
+                        <div class="form-group">
+
+                            <label for="sellingPrice">
+                                Selling Price <span>*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="sellingPrice"
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 45"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PURCHASE PRICE -->
+
+                        <div class="form-group">
+
+                            <label for="purchasePrice">
+                                Purchase Price
+                            </label>
+
+                            <input
+                                type="number"
+                                id="purchasePrice"
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 35"
+                            >
+
+                        </div>
+
+
+                        <!-- GST -->
+
+                        <div class="form-group">
+
+                            <label for="gst">
+                                GST (%)
+                            </label>
+
+                            <select id="gst">
+
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
+                                <option value="18">18%</option>
+                                <option value="28">28%</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDITIONAL INFORMATION -->
+
+                    <div class="section-title">
+
+                        <div class="section-number">
+                            4
+                        </div>
+
+                        <h3>Additional Information</h3>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="4"
+                            placeholder="Enter additional medicine information..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="form-actions">
+
+                        <button
+                            type="button"
+                            class="cancel-btn"
+                            onclick="goToMedicines()">
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="save-btn">
+                            💾 Save Medicine
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="add-medicine.js"></script>
+
+</body>
+
+</html>

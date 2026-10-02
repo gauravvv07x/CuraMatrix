@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraMatrix - Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo-area">
+            <div class="logo-icon">✚</div>
+
+            <div>
+                <h2>Cura<span>Matrix</span></h2>
+                <p>Medical Store Management</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-item active">
+                <span class="menu-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="add-medicine.html" class="menu-item">
+                <span class="menu-icon">💊</span>
+                <span>Add Medicine</span>
+            </a>
+
+            <a href="medicines.html" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Medicines</span>
+            </a>
+
+            <a href="billing.html" class="menu-item">
+                <span class="menu-icon">🛒</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="sales.html" class="menu-item">
+                <span class="menu-icon">▥</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="low-stock.html" class="menu-item">
+                <span class="menu-icon">⚠</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="expiry-alert.html" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Expiry Alert</span>
+            </a>
+
+            <a href="reports.html" class="menu-item">
+                <span class="menu-icon">▥</span>
+                <span>Reports</span>
+            </a>
+
+            <div class="menu-divider"></div>
+
+            <a href="shop-settings.html" class="menu-item">
+                <span class="menu-icon">⚙</span>
+                <span>Shop Settings</span>
+            </a>
+
+            <a href="users.html" class="menu-item">
+                <span class="menu-icon">♙</span>
+                <span>Users</span>
+            </a>
+
+            <button class="menu-item logout-btn" id="logoutBtn">
+                <span class="menu-icon">⇥</span>
+                <span>Logout</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="capsule-decoration">
+                💊
+            </div>
+
+            <p>Better Inventory</p>
+            <p>Healthier Tomorrow</p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+
+            <div class="search-box">
+                <span>⌕</span>
+                <input
+                    type="text"
+                    placeholder="Search medicine, customer, bill number..."
+                >
+            </div>
+
+            <div class="header-right">
+
+                <button class="dark-mode-btn" id="darkModeBtn">
+                    ☼
+                    <span>Dark Mode</span>
+                    ◐
+                </button>
+
+                <button class="notification-btn">
+                    ♧
+                    <span class="notification-count">3</span>
+                </button>
+
+                <div class="profile">
+                    <div class="profile-circle">A</div>
+
+                    <div class="profile-info">
+                        <strong>Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                    <span class="profile-arrow">⌄</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD AREA -->
+        <section class="dashboard">
+
+            <!-- WELCOME -->
+            <div class="welcome-row">
+
+                <div>
+                    <h1>Welcome back, Admin 👋</h1>
+                    <p>Here's an overview of your medical store</p>
+                </div>
+
+                <div class="date-box">
+                    <span class="calendar-icon">▣</span>
+
+                    <div>
+                        <strong id="currentDate">Mon, 15 Sep 2026</strong>
+                        <br>
+                        <span id="currentTime">08:51 AM</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+            <div class="stats-grid">
+
+                <div class="stat-card blue">
+                    <div class="stat-icon">💊</div>
+
+                    <div>
+                        <p>Total Medicines</p>
+                        <h2 id="totalMedicines">156</h2>
+                        <span>In Inventory</span>
+                    </div>
+                </div>
+
+
+                <div class="stat-card green">
+                    <div class="stat-icon">🛒</div>
+
+                    <div>
+                        <p>Today's Sales</p>
+                        <h2>₹ 0</h2>
+                        <span>0 Bills</span>
+                    </div>
+                </div>
+
+
+                <div class="stat-card orange">
+                    <div class="stat-icon">▣</div>
+
+                    <div>
+                        <p>Month Sales</p>
+                        <h2>₹ 0</h2>
+                        <span>0 Bills</span>
+                    </div>
+                </div>
+
+
+                <div class="stat-card purple">
+                    <div class="stat-icon">₹</div>
+
+                    <div>
+                        <p>Total Sales</p>
+                        <h2>₹ 0</h2>
+                        <span>All Time</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+            <section class="section-card">
+
+                <div class="section-title">
+                    <span class="title-icon">ϟ</span>
+                    <h2>Quick Actions</h2>
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <a href="add-medicine.html" class="quick-card blue-card">
+                        <div class="quick-icon">💊</div>
+                        <strong>Add Medicine</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="medicines.html" class="quick-card green-card">
+                        <div class="quick-icon">▣</div>
+                        <strong>View Medicines</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="billing.html" class="quick-card yellow-card">
+                        <div class="quick-icon">▤</div>
+                        <strong>Create Bill</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="sales.html" class="quick-card purple-card">
+                        <div class="quick-icon">🛒</div>
+                        <strong>View Sales</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="low-stock.html" class="quick-card red-card">
+                        <div class="quick-icon">⚠</div>
+                        <strong>Low Stock</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="expiry-alert.html" class="quick-card violet-card">
+                        <div class="quick-icon">▣</div>
+                        <strong>Expiry Alert</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="reports.html" class="quick-card sky-card">
+                        <div class="quick-icon">▤</div>
+                        <strong>View Reports</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+
+                    <a href="shop-settings.html" class="quick-card dark-card">
+                        <div class="quick-icon">⚙</div>
+                        <strong>Shop Settings</strong>
+                        <span class="arrow">→</span>
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTTOM TABLES -->
+            <div class="bottom-grid">
+
+                <!-- RECENT SALES -->
+                <section class="table-card">
+
+                    <div class="table-header">
+                        <div>
+                            <span class="small-icon">▤</span>
+                            <h2>Recent Sales</h2>
+                        </div>
+
+                        <a href="sales.html">View All →</a>
+                    </div>
+
+
+                    <div class="table">
+
+                        <div class="table-row table-heading">
+                            <span>#</span>
+                            <span>Bill No.</span>
+                            <span>Items</span>
+                            <span>Total Amount (₹)</span>
+                            <span>Date & Time</span>
+                            <span>Action</span>
+                        </div>
+
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">▤</div>
+
+                            <h3>No sales yet</h3>
+
+                            <p>
+                                All your recent sales will appear here.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- LOW STOCK -->
+                <section class="table-card">
+
+                    <div class="table-header">
+
+                        <div>
+                            <span class="small-icon warning">⚠</span>
+                            <h2>Low Stock Medicines</h2>
+                        </div>
+
+                        <a href="low-stock.html">View All →</a>
+
+                    </div>
+
+
+                    <div class="table">
+
+                        <div class="table-row table-heading">
+                            <span>#</span>
+                            <span>Medicine Name</span>
+                            <span>Current Stock</span>
+                            <span>Min. Stock</span>
+                            <span>Status</span>
+                            <span>Action</span>
+                        </div>
+
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">▱</div>
+
+                            <h3>No low stock items</h3>
+
+                            <p>
+                                Medicines with low stock will appear here.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="dashboard.js"></script>
+
+</body>
+</html>

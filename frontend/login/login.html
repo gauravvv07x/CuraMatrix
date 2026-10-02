@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CuraMatrix - Login</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         MAIN LOGIN PAGE
+    ====================================================== -->
+
+    <div class="login-page">
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================== -->
+
+        <section class="left-section">
+
+            <div class="left-overlay"></div>
+
+            <div class="left-content">
+
+                <!-- BRAND -->
+                <div class="brand-section">
+
+    <img
+        src="assets/logo3.png"
+        alt="CuraMatrix Logo"
+        class="brand-logo"
+    >
+
+    <div class="brand-name">
+
+        <h1>
+            Cura<span>Matrix</span>
+        </h1>
+
+        <p>
+            Smart Medicine Inventory &amp;<br>
+            Record Management System
+        </p>
+
+    </div>
+
+</div>
+
+
+                <!-- FEATURES -->
+                <div class="features">
+
+                    <!-- FEATURE 1 -->
+                    <div class="feature">
+
+                        <div class="feature-icon blue">
+                            💊
+                        </div>
+
+                        <div class="feature-title">
+                            Manage<br>
+                            Stock
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 2 -->
+                    <div class="feature">
+
+                        <div class="feature-icon green">
+                            ▣
+                        </div>
+
+                        <div class="feature-title">
+                            Generate<br>
+                            Bills
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 3 -->
+                    <div class="feature">
+
+                        <div class="feature-icon pink">
+                            🔔
+                        </div>
+
+                        <div class="feature-title">
+                            Expiry<br>
+                            Alerts
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 4 -->
+                    <div class="feature">
+
+                        <div class="feature-icon purple">
+                            ▥
+                        </div>
+
+                        <div class="feature-title">
+                            Track<br>
+                            Reports
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TAGLINE -->
+                <div class="tagline">
+
+                    <span class="tagline-line"></span>
+
+                    <p>
+                        Simpler Inventory. Safer Healthcare.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <section class="right-section">
+
+            <div class="login-card">
+
+                <!-- LOGIN HEADER -->
+
+                <div class="login-header">
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+                    <p>
+                        Login to your CuraMatrix account
+                    </p>
+
+                </div>
+
+
+                <!-- LOGIN FORM -->
+
+                <form id="loginForm">
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <div class="input-icon">
+                            ✉
+                        </div>
+
+                        <input
+                         type="text"
+                         id="username"
+                         name="username"
+                         placeholder="Username"
+                         autocomplete="username"
+                          >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="input-group">
+
+                        <div class="input-icon">
+                            🔒
+                        </div>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="login-options">
+
+                        <label class="remember-me">
+
+    <input
+        type="checkbox"
+        id="rememberMe"
+        name="rememberMe"
+    >
+
+    <span>Remember me</span>
+
+</label>
+
+
+                        <a
+                            href="#"
+                            id="forgotPassword"
+                            class="forgot-password"
+                        >
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+
+                        <span class="login-button-icon">
+                            ⇥
+                        </span>
+
+                        <span>
+                            Login
+                        </span>
+
+                    </button>
+
+
+                    <!-- ERROR MESSAGE -->
+
+                    <div
+                        id="loginMessage"
+                        class="login-message"
+                    ></div>
+
+                </form>
+
+
+                <!-- OR DIVIDER -->
+
+                <div class="divider">
+
+                    <span></span>
+
+                    <p>OR</p>
+
+                    <span></span>
+
+                </div>
+
+
+                <!-- AUTHORIZED PERSONNEL -->
+
+                <div class="authorized-box">
+
+                    <div class="authorized-icon">
+                        ♢
+                    </div>
+
+                    <div class="authorized-content">
+
+                        <h3>
+                            Authorized Personnel Only
+                        </h3>
+
+                        <p>
+                            Access is restricted to admin and staff members.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="login-footer">
+
+                    © 2026 CuraMatrix. All rights reserved.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

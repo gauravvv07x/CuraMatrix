@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CuraMatrix - Dashboard</title>
+
+    <!-- COMMON SIDEBAR -->
+    <link rel="stylesheet" href="sidebar.css">
+
+    <!-- DASHBOARD ONLY -->
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ✚
+            </div>
+
+            <div class="brand-text">
+
+                <h2>
+                    CuraMatrix
+                </h2>
+
+                <span>
+                    Medical Store
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="dashboard.html"
+                class="nav-link active"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- ADD MEDICINE -->
+
+            <a
+                href="add-medicine/add-medicine.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Medicine
+                </span>
+
+            </a>
+
+
+            <!-- MEDICINES -->
+
+            <a
+                href="medicines/medicines.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    💊
+                </span>
+
+                <span>
+                    Medicines
+                </span>
+
+            </a>
+
+
+            <!-- BILLING -->
+
+            <a
+                href="billing/billing.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    🧾
+                </span>
+
+                <span>
+                    Billing
+                </span>
+
+            </a>
+
+
+            <!-- SALES -->
+
+            <a
+                href="sales/sales.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Sales
+                </span>
+
+            </a>
+
+
+            <!-- LOW STOCK -->
+
+            <a
+                href="low-stock/low-stock.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⚠
+                </span>
+
+                <span>
+                    Low Stock
+                </span>
+
+            </a>
+
+
+            <!-- EXPIRY ALERT -->
+
+            <a
+                href="expiry-alert/expiry-alert.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⏰
+                </span>
+
+                <span>
+                    Expiry Alert
+                </span>
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a
+                href="reports/reports.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <!-- SHOP SETTINGS -->
+
+            <a
+                href="shop-settings/shop-settings.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Shop Settings
+                </span>
+
+            </a>
+
+
+            <!-- USERS -->
+
+            <a
+                href="users/users.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    👤
+                </span>
+
+                <span>
+                    Users
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <button
+                type="button"
+                id="logoutBtn"
+                class="logout-btn"
+            >
+
+                ⇥ Logout
+
+            </button>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="top-header">
+
+
+            <div class="header-left">
+
+                <h1 id="welcomeTitle">
+                    Dashboard
+                </h1>
+
+                <p>
+                    Here's what's happening in your
+                    medical store today.
+                </p>
+
+            </div>
+        <div class="datetime-box">
+    <div class="current-time" id="currentTime">00:00:00</div>
+    <div class="current-date" id="currentDate">Day, 00 Month 0000</div>
+</div>
+
+         
+
+        </header>
+
+        
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+             ================================================= -->
+
+        <section class="quick-actions">
+
+
+            <!-- ADD MEDICINE -->
+
+            <a
+                href="add-medicine/add-medicine.html"
+                class="quick-btn"
+            >
+
+                <span>
+                    ＋
+                </span>
+
+                Add Medicine
+
+            </a>
+
+
+            <!-- NEW BILL -->
+
+            <a
+                href="billing/billing.html"
+                class="quick-btn"
+            >
+
+                <span>
+                    🧾
+                </span>
+
+                New Bill
+
+            </a>
+
+
+            <!-- VIEW MEDICINES -->
+
+            <a
+                href="medicines/medicines.html"
+                class="quick-btn"
+            >
+
+                <span>
+                    💊
+                </span>
+
+                View Medicines
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a
+                href="reports/reports.html"
+                class="quick-btn"
+            >
+
+                <span>
+                    📊
+                </span>
+
+                Reports
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+             ================================================= -->
+
+        <section class="summary-grid">
+
+
+            <!-- TOTAL MEDICINES -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon medicine-icon">
+                    💊
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Total Medicines
+                    </p>
+
+                    <h2 id="totalMedicines">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TOTAL STOCK -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon stock-icon">
+                    📦
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Total Stock
+                    </p>
+
+                    <h2 id="totalStock">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TOTAL SALES -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon sales-icon">
+                    ₹
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Total Sales
+                    </p>
+
+                    <h2 id="totalSales">
+                        ₹0.00
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TOTAL BILLS -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon bills-icon">
+                    🧾
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Total Bills
+                    </p>
+
+                    <h2 id="totalBills">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOW STOCK -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon warning-icon">
+                    ⚠
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Low Stock
+                    </p>
+
+                    <h2 id="lowStock">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPIRED -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon danger-icon">
+                    ⏰
+                </div>
+
+                <div class="summary-info">
+
+                    <p>
+                        Expired
+                    </p>
+
+                    <h2 id="expiredMedicines">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOW STOCK + EXPIRY
+             ================================================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- LOW STOCK -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Low Stock Medicines
+                        </h2>
+
+                        <p>
+                            Medicines that need restocking
+                        </p>
+
+                    </div>
+
+
+                    <a href="low-stock/low-stock.html">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div
+                    class="medicine-list"
+                    id="lowStockList"
+                >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPIRY -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Expiry Alerts
+                        </h2>
+
+                        <p>
+                            Medicines requiring attention
+                        </p>
+
+                    </div>
+
+
+                    <a href="expiry-alert/expiry-alert.html">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div
+                    class="medicine-list"
+                    id="expiryList"
+                >
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT SALES
+             ================================================= -->
+
+        <section class="dashboard-card recent-sales">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Recent Sales
+                    </h2>
+
+                    <p>
+                        Latest billing transactions
+                    </p>
+
+                </div>
+
+
+                <a href="sales/sales.html">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Bill ID
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="recentSalesBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="dashboard.js"></script>
+
+
+</body>
+
+</html>

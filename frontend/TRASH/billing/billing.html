@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraMatrix - Billing</title>
+    <link rel="stylesheet" href="billing.css">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">✚</div>
+        <div>
+            <h2>CuraMatrix</h2>
+            <span>Medical Store</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="add-medicine.html">➕ Add Medicine</a>
+        <a href="medicines.html">💊 Medicines</a>
+        <a href="billing.html" class="active">🧾 Billing</a>
+        <a href="sales.html">📊 Sales</a>
+        <a href="low-stock.html">⚠️ Low Stock</a>
+        <a href="expiry-alert.html">⏰ Expiry Alert</a>
+        <a href="reports.html">📈 Reports</a>
+        <a href="shop-settings.html">⚙️ Shop Settings</a>
+        <a href="users.html">👥 Users</a>
+    </nav>
+
+</aside>
+
+
+<!-- Main Content -->
+<main class="main-content">
+
+    <!-- Header -->
+    <header class="topbar">
+
+        <div>
+            <h1>Billing</h1>
+            <p>Create and manage customer bills</p>
+        </div>
+
+        <div class="top-actions">
+            <button id="darkModeBtn" class="icon-btn">🌙</button>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+
+    </header>
+
+
+    <!-- Billing Container -->
+    <section class="billing-container">
+
+        <!-- Customer Information -->
+        <div class="card">
+
+            <div class="card-title">
+                <h2>Customer Information</h2>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="customerName"
+                           placeholder="Enter customer name">
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="text" id="customerMobile"
+                           placeholder="Enter mobile number">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Add Medicine -->
+        <div class="card">
+
+            <div class="card-title">
+                <h2>Add Medicine to Bill</h2>
+            </div>
+
+            <div class="medicine-input-row">
+
+                <div class="form-group medicine-select">
+                    <label>Select Medicine</label>
+                    <select id="medicineSelect">
+                        <option value="">Select medicine</option>
+                    </select>
+                </div>
+
+                <div class="form-group quantity-box">
+                    <label>Quantity</label>
+                    <input type="number" id="quantity"
+                           min="1" value="1">
+                </div>
+
+                <button id="addMedicineBtn" class="add-btn">
+                    + Add
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bill Items -->
+        <div class="card">
+
+            <div class="card-title">
+                <h2>Bill Items</h2>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Medicine</th>
+                            <th>Batch No.</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>GST</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="billTableBody">
+
+                        <tr>
+                            <td colspan="8" class="empty">
+                                No medicines added to bill
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bill Summary -->
+        <div class="summary-card">
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="subtotal">₹0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Total GST</span>
+                <strong id="totalGST">₹0.00</strong>
+            </div>
+
+            <div class="summary-row grand-total">
+                <span>Grand Total</span>
+                <strong id="grandTotal">₹0.00</strong>
+            </div>
+
+            <button id="generateBillBtn" class="generate-btn">
+                🧾 Generate Bill
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="billing.js"></script>
+
+</body>
+</html>

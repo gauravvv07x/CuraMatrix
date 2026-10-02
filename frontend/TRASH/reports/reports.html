@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - CuraMatrix</title>
+
+    <link rel="stylesheet" href="reports.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">✚</div>
+        <div>
+            <h2>CuraMatrix</h2>
+            <span>Medical Store</span>
+        </div>
+    </div>
+
+    <nav>
+
+        <a href="dashboard.html">
+            <span>▣</span> Dashboard
+        </a>
+
+        <a href="add-medicine.html">
+            <span>＋</span> Add Medicine
+        </a>
+
+        <a href="medicines.html">
+            <span>💊</span> Medicines
+        </a>
+
+        <a href="billing.html">
+            <span>🧾</span> Billing
+        </a>
+
+        <a href="sales.html">
+            <span>▤</span> Sales
+        </a>
+
+        <a href="low-stock.html">
+            <span>⚠</span> Low Stock
+        </a>
+
+        <a href="expiry-alert.html">
+            <span>⏰</span> Expiry Alert
+        </a>
+
+        <a href="reports.html" class="active">
+            <span>📊</span> Reports
+        </a>
+
+        <a href="shop-settings.html">
+            <span>⚙</span> Shop Settings
+        </a>
+
+        <a href="users.html">
+            <span>👤</span> Users
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <p>© 2026 CuraMatrix</p>
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- HEADER -->
+    <header class="top-header">
+
+        <div>
+            <h1>Reports</h1>
+            <p>View sales, stock and medicine reports</p>
+        </div>
+
+        <div class="header-actions">
+
+            <button id="darkModeBtn" class="icon-btn">
+                🌙
+            </button>
+
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- SUMMARY CARDS -->
+    <section class="summary-grid">
+
+        <div class="summary-card">
+            <div class="card-icon sales-icon">₹</div>
+            <div>
+                <p>Total Sales</p>
+                <h2 id="totalSales">₹0.00</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="card-icon bill-icon">🧾</div>
+            <div>
+                <p>Total Bills</p>
+                <h2 id="totalBills">0</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="card-icon medicine-icon">💊</div>
+            <div>
+                <p>Items Sold</p>
+                <h2 id="itemsSold">0</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="card-icon gst-icon">%</div>
+            <div>
+                <p>GST Collected</p>
+                <h2 id="totalGST">₹0.00</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- STOCK REPORT -->
+    <section class="report-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Stock Report</h2>
+                <p>Current medicine inventory status</p>
+            </div>
+        </div>
+
+        <div class="stock-grid">
+
+            <div class="report-box">
+                <span>Total Medicines</span>
+                <strong id="medicineCount">0</strong>
+            </div>
+
+            <div class="report-box">
+                <span>Total Stock Units</span>
+                <strong id="stockUnits">0</strong>
+            </div>
+
+            <div class="report-box warning">
+                <span>Low Stock</span>
+                <strong id="lowStockCount">0</strong>
+            </div>
+
+            <div class="report-box danger">
+                <span>Expired</span>
+                <strong id="expiredCount">0</strong>
+            </div>
+
+            <div class="report-box value-box">
+                <span>Stock Purchase Value</span>
+                <strong id="stockValue">₹0.00</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SALES REPORT -->
+    <section class="report-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Recent Sales</h2>
+                <p>Sales summary for the last 7 days</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Bills</th>
+                        <th>Items Sold</th>
+                        <th>Total Sales</th>
+                    </tr>
+                </thead>
+
+                <tbody id="recentSalesBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOP MEDICINES -->
+    <section class="report-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Top Selling Medicines</h2>
+                <p>Medicines with the highest sales quantity</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Medicine</th>
+                        <th>Quantity Sold</th>
+                        <th>Sales Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody id="topMedicinesBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="reports.js"></script>
+
+</body>
+</html>

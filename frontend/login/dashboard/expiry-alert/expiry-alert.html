@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CuraMatrix - Expiry Alert</title>
+
+    <!-- Common Sidebar -->
+    <link rel="stylesheet" href="../sidebar.css">
+
+    <!-- Expiry Alert Page CSS -->
+    <link rel="stylesheet" href="expiry-alert.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         COMMON SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ✚
+            </div>
+
+            <div class="brand-text">
+                <h2>CuraMatrix</h2>
+                <span>Medical Store</span>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a href="../dashboard.html" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="../add-medicine/add-medicine.html" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Add Medicine</span>
+            </a>
+
+            <a href="../medicines/medicines.html" class="nav-link">
+                <span class="nav-icon">💊</span>
+                <span>Medicines</span>
+            </a>
+
+            <a href="../billing/billing.html" class="nav-link">
+                <span class="nav-icon">🧾</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="../sales/sales.html" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Sales</span>
+            </a>
+
+            <a href="../low-stock/low-stock.html" class="nav-link">
+                <span class="nav-icon">⚠</span>
+                <span>Low Stock</span>
+            </a>
+
+            <!-- ACTIVE -->
+            <a href="expiry-alert.html" class="nav-link active">
+                <span class="nav-icon">⏰</span>
+                <span>Expiry Alert</span>
+            </a>
+
+            <a href="../reports/reports.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="../shop-settings/shop-settings.html" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Shop Settings</span>
+            </a>
+
+            <a href="../users/users.html" class="nav-link">
+                <span class="nav-icon">👤</span>
+                <span>Users</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <button
+                type="button"
+                id="logoutBtn"
+                class="logout-btn">
+                ⇥ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Expiry Alert</h1>
+                <p>Monitor medicine expiry dates</p>
+            </div>
+
+
+        </header>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+             ================================================= -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card expired-card">
+
+                <div class="summary-icon">
+                    🔴
+                </div>
+
+                <div>
+                    <p>Expired</p>
+                    <h2 id="expiredCount">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card warning-card">
+
+                <div class="summary-icon">
+                    ⚠️
+                </div>
+
+                <div>
+                    <p>Expiring Soon</p>
+                    <h2 id="expiringSoonCount">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card safe-card">
+
+                <div class="summary-icon">
+                    ✅
+                </div>
+
+                <div>
+                    <p>Safe Medicines</p>
+                    <h2 id="safeCount">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    💊
+                </div>
+
+                <div>
+                    <p>Total Medicines</p>
+                    <h2 id="totalCount">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
+
+        <section class="card">
+
+            <div class="filter-row">
+
+                <div class="search-box">
+
+                    <label for="searchInput">
+                        Search Medicine
+                    </label>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search medicine or category..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="filter-box">
+
+                    <label for="statusFilter">
+                        Expiry Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All
+                        </option>
+
+                        <option value="expired">
+                            Expired
+                        </option>
+
+                        <option value="soon">
+                            Expiring Soon
+                        </option>
+
+                        <option value="safe">
+                            Safe
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="refreshBtn"
+                    class="refresh-btn"
+                    type="button">
+                    🔄 Refresh
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXPIRY TABLE
+             ================================================= -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>Expiry Details</h2>
+
+                <span id="resultCount">
+                    0 medicines
+                </span>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Medicine</th>
+                            <th>Category</th>
+                            <th>Batch No.</th>
+                            <th>Stock</th>
+                            <th>Expiry Date</th>
+                            <th>Days</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="expiryTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty">
+                                No medicines found
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="expiry-alert.js"></script>
+
+
+    
+
+</body>
+
+</html>

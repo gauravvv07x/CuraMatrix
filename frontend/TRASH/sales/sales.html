@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraMatrix - Sales</title>
+    <link rel="stylesheet" href="sales.css">
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">✚</div>
+        <div>
+            <h2>CuraMatrix</h2>
+            <span>Medical Store</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="add-medicine.html">➕ Add Medicine</a>
+        <a href="medicines.html">💊 Medicines</a>
+        <a href="billing.html">🧾 Billing</a>
+        <a href="sales.html" class="active">📊 Sales</a>
+        <a href="low-stock.html">⚠️ Low Stock</a>
+        <a href="expiry-alert.html">⏰ Expiry Alert</a>
+        <a href="reports.html">📈 Reports</a>
+        <a href="shop-settings.html">⚙️ Shop Settings</a>
+        <a href="users.html">👥 Users</a>
+    </nav>
+
+</aside>
+
+
+<main class="main-content">
+
+    <header class="topbar">
+
+        <div>
+            <h1>Sales</h1>
+            <p>View your medical store sales history</p>
+        </div>
+
+        <div class="top-actions">
+            <button id="darkModeBtn" class="icon-btn">🌙</button>
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- Summary Cards -->
+
+    <section class="summary-grid">
+
+        <div class="summary-card">
+            <div class="summary-icon">🧾</div>
+            <div>
+                <p>Total Bills</p>
+                <h2 id="totalBills">0</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon">💰</div>
+            <div>
+                <p>Total Sales</p>
+                <h2 id="totalSales">₹0.00</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon">📅</div>
+            <div>
+                <p>Today's Sales</p>
+                <h2 id="todaySales">₹0.00</h2>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon">🛒</div>
+            <div>
+                <p>Items Sold</p>
+                <h2 id="itemsSold">0</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Search -->
+
+    <section class="card">
+
+        <div class="filter-row">
+
+            <div class="search-box">
+                <label>Search Bills</label>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by bill ID or customer name..."
+                >
+            </div>
+
+            <div class="date-box">
+                <label>Filter by Date</label>
+                <input type="date" id="dateFilter">
+            </div>
+
+            <button id="clearFilterBtn" class="clear-btn">
+                Clear
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Sales Table -->
+
+    <section class="card">
+
+        <div class="card-header">
+            <h2>Sales History</h2>
+            <span id="resultCount">0 bills</span>
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Bill ID</th>
+                        <th>Customer</th>
+                        <th>Mobile</th>
+                        <th>Items</th>
+                        <th>GST</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="salesTableBody">
+
+                    <tr>
+                        <td colspan="9" class="empty">
+                            No sales found
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Bill Details Modal -->
+
+<div id="billModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Bill Details</h2>
+            <button id="closeModalBtn">×</button>
+        </div>
+
+        <div id="billDetails"></div>
+
+    </div>
+
+</div>
+
+
+<script src="sales.js"></script>
+
+</body>
+</html>

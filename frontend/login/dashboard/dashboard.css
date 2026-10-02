@@ -1,0 +1,687 @@
+/* =========================================================
+   CURAMATRIX - DASHBOARD CSS
+   PAGE CONTENT ONLY
+   SIDEBAR IS CONTROLLED BY sidebar.css
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #102a43;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    min-height: 100vh;
+    background: #f4f7fb;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+.top-header {
+    width: 100%;
+    min-height: 96px;
+
+    padding: 24px 30px 16px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    background: #f4f7fb;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.header-left h1 {
+    margin: 0;
+
+    color: #102a43;
+
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.header-left p {
+    margin: 0;
+
+    color: #71859b;
+
+    font-size: 13px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* =========================================================
+   DARK MODE BUTTON
+   ========================================================= */
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dfe7ef;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #173b5e;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #eef8fb;
+    border-color: #19abc6;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 30px 20px;
+
+    flex-wrap: wrap;
+}
+
+.quick-btn {
+    min-height: 38px;
+
+    padding: 0 17px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e8ef;
+    border-radius: 8px;
+
+    color: #163a5f;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow: 0 2px 8px rgba(16, 42, 67, 0.05);
+
+    transition: 0.2s ease;
+}
+
+.quick-btn:hover {
+    background: #f8fcfd;
+    border-color: #19abc6;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SUMMARY GRID
+   ========================================================= */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+
+    padding: 0 30px 20px;
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+.summary-card {
+    min-height: 78px;
+
+    padding: 16px 18px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5ebf1;
+    border-radius: 11px;
+
+    box-shadow: 0 3px 12px rgba(16, 42, 67, 0.05);
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 20px;
+}
+
+
+/* Individual icon backgrounds */
+
+.summary-icon.medicine-icon {
+    background: #dff8fb;
+}
+
+.summary-icon.stock-icon {
+    background: #e4efff;
+}
+
+.summary-icon.sales-icon {
+    background: #ddf8e7;
+}
+
+.summary-icon.bill-icon {
+    background: #eee7ff;
+}
+
+.summary-icon.warning-icon {
+    background: #fff1c9;
+}
+
+.summary-icon.expiry-icon {
+    background: #ffe1e1;
+}
+
+
+/* Fallback if your HTML uses only summary-icon */
+
+.summary-card:nth-child(1) .summary-icon {
+    background: #dff8fb;
+}
+
+.summary-card:nth-child(2) .summary-icon {
+    background: #e4efff;
+}
+
+.summary-card:nth-child(3) .summary-icon {
+    background: #ddf8e7;
+}
+
+.summary-card:nth-child(4) .summary-icon {
+    background: #eee7ff;
+}
+
+.summary-card:nth-child(5) .summary-icon {
+    background: #fff1c9;
+}
+
+.summary-card:nth-child(6) .summary-icon {
+    background: #ffe1e1;
+}
+
+
+/* =========================================================
+   SUMMARY TEXT
+   ========================================================= */
+
+.summary-card > div:last-child {
+    min-width: 0;
+}
+
+.summary-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #617891;
+
+    font-size: 12px;
+}
+
+.summary-value {
+    display: block;
+
+    color: #102a43;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+   ========================================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+
+    padding: 0 30px 20px;
+}
+
+
+/* =========================================================
+   DASHBOARD CARD
+   ========================================================= */
+
+.dashboard-card {
+    min-height: 150px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5ebf1;
+    border-radius: 11px;
+
+    box-shadow: 0 3px 12px rgba(16, 42, 67, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding: 18px 18px 10px;
+}
+
+.card-header h3 {
+    margin: 0;
+
+    color: #102a43;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.card-header p {
+    margin: 4px 0 0;
+
+    color: #71859b;
+
+    font-size: 11px;
+}
+
+.card-header a {
+    color: #008db0;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-header a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   MEDICINE LIST
+   ========================================================= */
+
+.medicine-list {
+    padding: 0 18px 15px;
+}
+
+.medicine-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.medicine-item:last-child {
+    border-bottom: none;
+}
+
+.medicine-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.medicine-info strong {
+    color: #173b5e;
+
+    font-size: 13px;
+}
+
+.medicine-info span {
+    color: #7b8fa4;
+
+    font-size: 11px;
+}
+
+.stock-status {
+    color: #173b5e;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EMPTY MESSAGE
+   ========================================================= */
+
+.empty-message {
+    padding: 28px 10px;
+
+    text-align: center;
+
+    color: #8193a5;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   EXPIRY
+   ========================================================= */
+
+.expiry-item .stock-status {
+    color: #d58a00;
+}
+
+
+/* =========================================================
+   RECENT SALES
+   ========================================================= */
+
+.recent-sales {
+    margin: 0 30px 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5ebf1;
+    border-radius: 11px;
+
+    box-shadow: 0 3px 12px rgba(16, 42, 67, 0.05);
+
+    overflow: hidden;
+}
+
+.recent-sales .card-header {
+    padding: 18px 18px 12px;
+}
+
+.recent-sales table {
+    width: calc(100% - 36px);
+
+    margin: 0 18px 18px;
+
+    border-collapse: collapse;
+}
+
+.recent-sales th {
+    padding: 10px;
+
+    background: #f6f9fc;
+
+    color: #294c6c;
+
+    text-align: left;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.recent-sales td {
+    padding: 11px 10px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    color: #516b83;
+
+    font-size: 11px;
+}
+
+.recent-sales tr:last-child td {
+    border-bottom: none;
+}
+
+.bill-id {
+    color: #008db0 !important;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+body.dark,
+body.dark .main-content {
+    background: #101923;
+}
+
+body.dark .top-header {
+    background: #101923;
+}
+
+body.dark .header-left h1 {
+    color: #f2f7fb;
+}
+
+body.dark .header-left p {
+    color: #9cafc0;
+}
+
+body.dark .icon-btn {
+    background: #182532;
+    border-color: #2a3a49;
+    color: #e7eef5;
+}
+
+body.dark .quick-btn {
+    background: #182532;
+    border-color: #2a3a49;
+    color: #e7eef5;
+}
+
+body.dark .summary-card,
+body.dark .dashboard-card,
+body.dark .recent-sales {
+    background: #182532;
+    border-color: #2a3a49;
+}
+
+body.dark .summary-label {
+    color: #9cafc0;
+}
+
+body.dark .summary-value {
+    color: #f2f7fb;
+}
+
+body.dark .card-header h3 {
+    color: #f2f7fb;
+}
+
+body.dark .card-header p {
+    color: #9cafc0;
+}
+
+body.dark .medicine-info strong {
+    color: #e7eef5;
+}
+
+body.dark .medicine-info span {
+    color: #9cafc0;
+}
+
+body.dark .stock-status {
+    color: #dce7ef;
+}
+
+body.dark .medicine-item {
+    border-color: #2a3a49;
+}
+
+body.dark .recent-sales th {
+    background: #202f3d;
+    color: #dce7ef;
+}
+
+body.dark .recent-sales td {
+    border-color: #2a3a49;
+    color: #b8c7d4;
+}
+
+
+/* ================= DATE & TIME ================= */
+
+.datetime-box {
+    min-width: 190px;
+    text-align: right;
+    margin-right: 22px;
+}
+
+.current-time {
+    font-size: 19px;
+    font-weight: 700;
+    color: #123b6d;
+    line-height: 1.2;
+}
+
+.current-date {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #7185a0;
+    line-height: 1.2;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .top-header {
+        padding: 22px 18px 15px;
+    }
+
+    .quick-actions {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .dashboard-grid {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .recent-sales {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .header-actions {
+        gap: 5px;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quick-btn {
+        width: 100%;
+    }
+
+    .recent-sales {
+        overflow-x: auto;
+    }
+
+    .recent-sales table {
+        min-width: 600px;
+    }
+}

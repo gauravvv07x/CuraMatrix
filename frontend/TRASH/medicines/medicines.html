@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuraMatrix - Medicines</title>
+    <link rel="stylesheet" href="medicines.css">
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo-area">
+        <div class="logo-icon">✚</div>
+        <div>
+            <h2>Cura<span>Matrix</span></h2>
+            <p>Medical Store Management</p>
+        </div>
+    </div>
+
+    <nav class="sidebar-menu">
+
+        <a href="dashboard.html" class="menu-item">
+            <span class="menu-icon">⌂</span>
+            Dashboard
+        </a>
+
+        <a href="add-medicine.html" class="menu-item">
+            <span class="menu-icon">💊</span>
+            Add Medicine
+        </a>
+
+        <a href="medicines.html" class="menu-item active">
+            <span class="menu-icon">▣</span>
+            Medicines
+        </a>
+
+        <a href="billing.html" class="menu-item">
+            <span class="menu-icon">🛒</span>
+            Billing
+        </a>
+
+        <a href="sales.html" class="menu-item">
+            <span class="menu-icon">▥</span>
+            Sales
+        </a>
+
+        <a href="low-stock.html" class="menu-item">
+            <span class="menu-icon">⚠</span>
+            Low Stock
+        </a>
+
+        <a href="expiry-alert.html" class="menu-item">
+            <span class="menu-icon">▣</span>
+            Expiry Alert
+        </a>
+
+        <a href="reports.html" class="menu-item">
+            <span class="menu-icon">▥</span>
+            Reports
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <a href="shop-settings.html" class="menu-item">
+            <span class="menu-icon">⚙</span>
+            Shop Settings
+        </a>
+
+        <a href="users.html" class="menu-item">
+            <span class="menu-icon">♙</span>
+            Users
+        </a>
+
+        <button id="logoutBtn" class="menu-item logout-btn">
+            <span class="menu-icon">⇥</span>
+            Logout
+        </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="capsule">💊</div>
+        <p>Better Inventory</p>
+        <p>Healthier Tomorrow</p>
+    </div>
+
+</aside>
+
+
+<main class="main-content">
+
+    <header class="top-header">
+
+        <div class="search-box">
+            <span>⌕</span>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search medicine..."
+            >
+        </div>
+
+        <div class="header-right">
+
+            <button class="dark-mode-btn" id="darkModeBtn">
+                ☼ <span>Dark Mode</span> ◐
+            </button>
+
+            <button class="notification-btn">
+                ♧
+                <span>3</span>
+            </button>
+
+            <div class="profile">
+                <div class="profile-circle">A</div>
+
+                <div class="profile-info">
+                    <strong>Admin</strong>
+                    <small>Administrator</small>
+                </div>
+
+                <span>⌄</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="page-content">
+
+        <div class="page-title">
+
+            <div>
+                <h1>Medicines</h1>
+                <p>Manage your medicine inventory</p>
+            </div>
+
+            <a href="add-medicine.html" class="add-btn">
+                + Add Medicine
+            </a>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary-grid">
+
+            <div class="summary-card blue">
+                <div class="summary-icon">💊</div>
+                <div>
+                    <p>Total Medicines</p>
+                    <h2 id="totalMedicines">0</h2>
+                </div>
+            </div>
+
+            <div class="summary-card green">
+                <div class="summary-icon">✓</div>
+                <div>
+                    <p>In Stock</p>
+                    <h2 id="inStock">0</h2>
+                </div>
+            </div>
+
+            <div class="summary-card orange">
+                <div class="summary-icon">⚠</div>
+                <div>
+                    <p>Low Stock</p>
+                    <h2 id="lowStock">0</h2>
+                </div>
+            </div>
+
+            <div class="summary-card red">
+                <div class="summary-icon">!</div>
+                <div>
+                    <p>Expired</p>
+                    <h2 id="expired">0</h2>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- MEDICINES TABLE -->
+
+        <div class="table-card">
+
+            <div class="table-top">
+
+                <div>
+                    <h2>Medicine Inventory</h2>
+                    <p>All medicines currently added to the system</p>
+                </div>
+
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Capsule">Capsule</option>
+                    <option value="Syrup">Syrup</option>
+                    <option value="Injection">Injection</option>
+                    <option value="Cream">Cream</option>
+                    <option value="Ointment">Ointment</option>
+                    <option value="Inhaler">Inhaler</option>
+                    <option value="Drops">Drops</option>
+                    <option value="Other">Other</option>
+                </select>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Medicine</th>
+                            <th>Category</th>
+                            <th>Batch No.</th>
+                            <th>Stock</th>
+                            <th>MRP</th>
+                            <th>Expiry</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="medicineTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="medicines.js"></script>
+
+</body>
+</html>

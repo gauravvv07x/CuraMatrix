@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CuraMatrix - Low Stock</title>
+
+    <!-- Common Sidebar -->
+    <link rel="stylesheet" href="../sidebar.css">
+
+    <!-- Low Stock Page CSS -->
+    <link rel="stylesheet" href="low-stock.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         COMMON SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">✚</div>
+
+            <div class="brand-text">
+                <h2>CuraMatrix</h2>
+                <span>Medical Store</span>
+            </div>
+        </div>
+
+
+        <nav class="navigation">
+
+            <a href="../dashboard.html" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="../add-medicine/add-medicine.html" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Add Medicine</span>
+            </a>
+
+            <a href="../medicines/medicines.html" class="nav-link">
+                <span class="nav-icon">💊</span>
+                <span>Medicines</span>
+            </a>
+
+            <a href="../billing/billing.html" class="nav-link">
+                <span class="nav-icon">🧾</span>
+                <span>Billing</span>
+            </a>
+
+            <a href="../sales/sales.html" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Sales</span>
+            </a>
+
+            <!-- ACTIVE PAGE -->
+            <a href="low-stock.html" class="nav-link active">
+                <span class="nav-icon">⚠</span>
+                <span>Low Stock</span>
+            </a>
+
+            <a href="../expiry-alert/expiry-alert.html" class="nav-link">
+                <span class="nav-icon">⏰</span>
+                <span>Expiry Alert</span>
+            </a>
+
+            <a href="../reports/reports.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="../shop-settings/shop-settings.html" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Shop Settings</span>
+            </a>
+
+            <a href="../users/users.html" class="nav-link">
+                <span class="nav-icon">👤</span>
+                <span>Users</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <button
+                type="button"
+                id="logoutBtn"
+                class="logout-btn">
+                ⇥ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <header class="page-header">
+
+            <div>
+                <h1>Low Stock</h1>
+
+                <p>
+                    Monitor medicines that need restocking
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             LOW STOCK SUMMARY CARD
+             ================================================= -->
+
+        <section class="low-stock-summary">
+
+            <div class="summary-icon">
+                ⚠
+            </div>
+
+            <div class="summary-info">
+
+                <p>Low Stock Medicines</p>
+
+                <h2 id="lowStockCount">
+                    0
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SEARCH SECTION
+             ================================================= -->
+
+        <section class="content-card search-card">
+
+            <h2>
+                Search Medicine
+            </h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search medicine or category..."
+                autocomplete="off"
+            >
+
+        </section>
+
+
+        <!-- =================================================
+             LOW STOCK MEDICINES TABLE
+             ================================================= -->
+
+        <section class="content-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>
+                        Low Stock Medicines
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Medicine</th>
+
+                            <th>Category</th>
+
+                            <th>Batch No.</th>
+
+                            <th>Current Stock</th>
+
+                            <th>Minimum Stock</th>
+
+                            <th>Unit</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="lowStockTableBody">
+
+                        <tr>
+
+                            <td colspan="8" class="empty-message">
+                                No low stock medicines.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="low-stock.js"></script>
+
+</body>
+
+</html>
