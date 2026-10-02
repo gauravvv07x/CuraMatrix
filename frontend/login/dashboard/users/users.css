@@ -23,23 +23,39 @@ body {
     padding: 30px;
     min-height: 100vh;
 }
+/* =====================================================
+   PAGE HEADER CARD
+===================================================== */
 
 .top-header {
-    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    width: 100%;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+
+    background: #ffffff;
+    border: 1px solid #e1e7ee;
+    border-radius: 11px;
+    box-shadow: 0 2px 8px rgba(20, 45, 75, 0.04);
 }
 
 .top-header h1 {
-    margin: 0 0 6px;
+    margin: 0 0 5px;
     font-size: 30px;
-    color: #24344d;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #122c4b;
 }
 
 .top-header p {
     margin: 0;
-    color: #718096;
+    color: #738197;
     font-size: 15px;
 }
-
 
 /* =====================================================
    SUMMARY

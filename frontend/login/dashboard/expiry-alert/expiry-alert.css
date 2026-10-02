@@ -14,21 +14,47 @@ body {
     padding: 30px;
     min-height: 100vh;
 }
+/* =====================================================
+   TOP HEADER - HORIZONTAL CARD
+===================================================== */
 
 .topbar {
-    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 24px;
+
+    margin-bottom: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e7ee;
+    border-radius: 11px;
+
+    box-shadow: 0 2px 8px rgba(20, 45, 75, 0.04);
 }
 
 .topbar h1 {
-    margin: 0 0 6px;
+    margin: 0 0 5px;
+
+    color: #122c4b;
+
     font-size: 30px;
+    line-height: 1.2;
+
+    font-weight: 700;
 }
 
 .topbar p {
     margin: 0;
-    color: #718096;
-}
 
+    color: #738197;
+
+    font-size: 15px;
+}
 .summary-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -95,16 +121,30 @@ select {
     border-radius: 8px;
     font-size: 14px;
 }
-
 .refresh-btn {
-    height: 44px;
-    padding: 0 18px;
-    border: 0;
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
     border-radius: 8px;
-    background: #19abc6;
+
+    background: #0878f9;
     color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
     font-weight: 600;
+
     cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: background 0.2s ease;
+}
+
+.refresh-btn:hover {
+    background: #066de0;
 }
 
 .refresh-btn:disabled {

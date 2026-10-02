@@ -9,37 +9,112 @@ body {
     color: #17324d;
 }
 
+/* =========================
+   MAIN CONTENT
+========================= */
+
 .main-content {
     margin-left: 286px;
     padding: 30px;
     min-height: 100vh;
 }
+/* =========================
+   REPORT HEADER CARD
+========================= */
 
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe8f1;
+    border-radius: 11px;
+
+    padding: 20px 24px;
+
+    margin-bottom: 14px;
+
+    box-shadow: 0 2px 8px rgba(20, 50, 80, 0.04);
 }
 
 .topbar h1 {
-    margin: 0 0 6px;
+    margin: 0 0 5px;
+
+    color: #123b63;
+
     font-size: 30px;
+    font-weight: 700;
 }
 
 .topbar p {
     margin: 0;
-    color: #718096;
+
+    color: #5f7894;
+
+    font-size: 16px;
 }
 
+/* =========================
+   REFRESH BUTTON
+========================= */
+
 .refresh-btn {
-    padding: 11px 18px;
-    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 130px;
+
+    padding: 12px 20px;
+
+    border: none;
     border-radius: 8px;
-    background: #19abc6;
+
+    background: #0878f9;
     color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
     font-weight: 600;
+
     cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.refresh-btn:hover {
+    background: #066de0;
+}
+
+.refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+/* =========================
+   REFRESH BUTTON
+========================= */
+
+.refresh-btn {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #0878f9;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.refresh-btn:hover {
+    background: #066de0;
 }
 
 .refresh-btn:disabled {
@@ -47,93 +122,253 @@ body {
     cursor: not-allowed;
 }
 
+/* =========================
+   DATABASE MESSAGE
+========================= */
+
 .message {
-    color: #52677b;
     margin: 0 0 20px;
+
+    color: #526d89;
+
+    font-size: 16px;
 }
+
+/* =========================
+   STATISTICS
+========================= */
 
 .stats-grid {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 22px;
+
+    gap: 16px;
+
+    margin-bottom: 20px;
 }
 
-.stat-card,
-.card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 16px rgba(20, 50, 80, 0.07);
+.stat-card {
+    min-height: 116px;
+
+    padding: 22px;
+
+    border-radius: 11px;
+
+    border: 1px solid transparent;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    box-shadow: none;
+}
+
+/* Individual card colors */
+
+.stat-card:nth-child(1) {
+    background: #e5f2ff;
+    border-color: #d7eaff;
+}
+
+.stat-card:nth-child(2) {
+    background: #e4fff2;
+    border-color: #d5f8e8;
+}
+
+.stat-card:nth-child(3) {
+    background: #fff3dc;
+    border-color: #ffebc8;
+}
+
+.stat-card:nth-child(4) {
+    background: #ffe7ec;
+    border-color: #ffd9e1;
+}
+
+.stat-card:nth-child(5) {
+    background: #e8f3ff;
+    border-color: #d9eaff;
+}
+
+.stat-card:nth-child(6) {
+    background: #e5fff2;
+    border-color: #d5f8e8;
+}
+
+.stat-card:nth-child(7) {
+    background: #fff3dc;
+    border-color: #ffebc8;
+}
+
+.stat-card:nth-child(8) {
+    background: #ffe7ec;
+    border-color: #ffd9e1;
 }
 
 .stat-card p {
     margin: 0 0 8px;
-    color: #718096;
+
+    color: #5f7894;
+
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .stat-card h2 {
     margin: 0;
-    font-size: 27px;
+
+    color: #123b63;
+
+    font-size: 28px;
+    font-weight: 700;
 }
+
+/* =========================
+   PURCHASE VALUE CARD
+========================= */
 
 .card {
-    margin-bottom: 22px;
-}
+    background: #ffffff;
 
-.card h2 {
-    margin: 0 0 16px;
+    border: 1px solid #dfe8f1;
+
+    border-radius: 11px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 2px 8px rgba(20, 50, 80, 0.04);
 }
 
 .small-title {
     margin: 0;
-    color: #718096;
+
+    color: #5f7894;
+
+    font-size: 16px;
+    font-weight: 500;
 }
 
 #purchaseValue {
     margin: 7px 0 0;
+
+    color: #123b63;
+
+    font-size: 29px;
+    font-weight: 700;
 }
+
+/* =========================
+   TWO REPORT PANELS
+========================= */
 
 .grid-two {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
-    gap: 22px;
+
+    gap: 20px;
 }
 
+.grid-two .card {
+    margin-bottom: 0;
+}
+
+/* =========================
+   CARD HEADINGS
+========================= */
+
+.card h2 {
+    margin: 0 0 18px;
+
+    color: #123b63;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* =========================
+   TABLE
+========================= */
+
 .table-container {
+    width: 100%;
     overflow-x: auto;
 }
 
 table {
     width: 100%;
+
     border-collapse: collapse;
+
+    table-layout: auto;
 }
 
 th,
 td {
-    padding: 13px 10px;
+    padding: 13px 12px;
+
     text-align: left;
-    border-bottom: 1px solid #edf1f5;
+
+    border-bottom: 1px solid #e8eef4;
+
+    font-size: 14px;
 }
 
 th {
-    background: #f7fafc;
+    background: #f5f8fc;
+
+    color: #315575;
+
+    font-size: 13px;
+    font-weight: 600;
 }
 
+td {
+    color: #526d89;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover td {
+    background: #fafcff;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
 .empty {
+    padding: 32px 20px;
+
     text-align: center;
-    color: #718096;
-    padding: 30px;
+
+    color: #71869c;
+
+    font-size: 15px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 @media (max-width: 1000px) {
 
     .main-content {
         margin-left: 0;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        padding: 25px;
     }
 
     .grid-two {
@@ -142,11 +377,7 @@ th {
 
 }
 
-@media (max-width: 600px) {
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 650px) {
 
     .main-content {
         padding: 18px;
@@ -154,8 +385,48 @@ th {
 
     .topbar {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        gap: 15px;
+    }
+
+    .refresh-btn {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .stat-card {
+        min-height: 105px;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .topbar h1 {
+        font-size: 28px;
+    }
+
+    .topbar p {
+        font-size: 15px;
+    }
+
+    .stat-card h2 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card h2 {
+        font-size: 20px;
     }
 
 }

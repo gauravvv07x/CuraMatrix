@@ -24,26 +24,36 @@ body {
     background: #f4f7fb;
     padding: 0;
 }
-
 /* ---------- PAGE HEADER ---------- */
 
 .page-header {
-    padding: 36px 32px 24px;
+    margin: 24px 32px 20px;
+    padding: 20px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: #ffffff;
+    border: 1px solid #e1e7ee;
+    border-radius: 11px;
+    box-shadow: 0 2px 8px rgba(20, 45, 75, 0.04);
 }
 
 .page-header h1 {
-    margin: 0 0 8px;
-    font-size: 34px;
+    margin: 0 0 5px;
+    font-size: 30px;
+    line-height: 1.2;
     font-weight: 700;
-    color: #0b3159;
+    color: #122c4b;
 }
 
 .page-header p {
     margin: 0;
-    font-size: 18px;
-    color: #6d83a0;
+    font-size: 15px;
+    color: #738197;
 }
-
 /* ---------- PAGE CONTENT ---------- */
 
 .page-content {
