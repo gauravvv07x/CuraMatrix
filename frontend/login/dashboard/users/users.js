@@ -1,45 +1,32 @@
-// =====================================
-// CURAMATRIX USER MANAGEMENT
-// MONGODB CONNECTED
-// =====================================
-const API_URL = "https://curamatrix-backend.onrender.com/api/users";
+/* =====================================================
+   CURAMATRIX USERS
+   ===================================================== */
+
+const API_URL =
+    "https://curamatrix-backend.onrender.com/api/users";
+
+
+/* =====================================================
+   VARIABLES
+   ===================================================== */
 
 let users = [];
 
+let editingUserId = null;
 
-// =====================================
-// DOM ELEMENTS
-// =====================================
 
-const userTableBody =
-    document.getElementById("userTableBody");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const roleFilter =
-    document.getElementById("roleFilter");
-
-const totalUsers =
-    document.getElementById("totalUsers");
-
-const adminUsers =
-    document.getElementById("adminUsers");
-
-const pharmacistUsers =
-    document.getElementById("pharmacistUsers");
-
-const staffUsers =
-    document.getElementById("staffUsers");
-
-const addUserBtn =
-    document.getElementById("addUserBtn");
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
 
 const userModal =
     document.getElementById("userModal");
 
-const modalTitle =
-    document.getElementById("modalTitle");
+const userForm =
+    document.getElementById("userForm");
+
+const addUserBtn =
+    document.getElementById("addUserBtn");
 
 const closeModalBtn =
     document.getElementById("closeModalBtn");
@@ -47,108 +34,33 @@ const closeModalBtn =
 const cancelBtn =
     document.getElementById("cancelBtn");
 
-const userForm =
-    document.getElementById("userForm");
-
-const editUserId =
-    document.getElementById("editUserId");
-
-const userUsername =
-    document.getElementById("userUsername");
-
-const userName =
-    document.getElementById("userName");
-
-const userRole =
-    document.getElementById("userRole");
-
-const userStatus =
-    document.getElementById("userStatus");
+const togglePassword =
+    document.getElementById("togglePassword");
 
 const userPassword =
     document.getElementById("userPassword");
 
+const searchInput =
+    document.getElementById("searchInput");
 
-// =====================================
-// LOAD USERS
-// =====================================
+const roleFilter =
+    document.getElementById("roleFilter");
 
-async function loadUsers() {
+const userTableBody =
+    document.getElementById("userTableBody");
 
-    try {
+const modalTitle =
+    document.getElementById("modalTitle");
 
-        const response =
-            await fetch(API_URL);
-
-        const data =
-            await response.json();
-
-        console.log("Users:", data);
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Unable to load users"
-            );
-
-        }
-
-        users =
-            data.users || [];
-
-        displayUsers();
-
-        updateSummary();
-
-    } catch (error) {
-
-        console.error(
-            "Load users error:",
-            error
-        );
-
-        userTableBody.innerHTML = `
-            <tr>
-                <td colspan="7"
-                    style="
-                        text-align:center;
-                        padding:30px;
-                    ">
-                    Unable to load users.
-                </td>
-            </tr>
-        `;
-
-    }
-
-}
+const saveUserBtn =
+    document.getElementById("saveUserBtn");
 
 
-// =====================================
-// ROLE DISPLAY
-// =====================================
+/* =====================================================
+   ROLE MAPPING
+   ===================================================== */
 
-function displayRole(role) {
-
-    if (role === "admin") {
-        return "Administrator";
-    }
-
-    if (role === "pharmacist") {
-        return "Pharmacist";
-    }
-
-    return "Staff";
-
-}
-
-
-// =====================================
-// ROLE FOR BACKEND
-// =====================================
-
-function backendRole(role) {
+function roleToBackend(role) {
 
     if (role === "Administrator") {
         return "admin";
@@ -159,62 +71,140 @@ function backendRole(role) {
     }
 
     return "staff";
+}
+
+
+function roleToDisplay(role) {
+
+    if (role === "admin") {
+        return "Administrator";
+    }
+
+    if (role === "pharmacist") {
+        return "Pharmacist";
+    }
+
+    return "Staff";
+}
+
+
+/* =====================================================
+   LOAD USERS
+   ===================================================== */
+
+async function loadUsers() {
+
+    try {
+
+        userTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-row">
+                    Loading users...
+                </td>
+            </tr>
+        `;
+
+
+        const response =
+            await fetch(API_URL);
+
+
+        const data =
+            await response.json();
+
+
+        console.log("Users API:", data);
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message || "Unable to load users"
+            );
+
+        }
+
+
+        users =
+            data.users || data.data || [];
+
+
+        updateSummary();
+
+        renderUsers();
+
+
+    } catch (error) {
+
+        console.error("Users error:", error);
+
+        userTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-row">
+                    Unable to load users from database.
+                </td>
+            </tr>
+        `;
+
+    }
 
 }
 
 
-// =====================================
-// ESCAPE HTML
-// =====================================
-
-function escapeHTML(value) {
-
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-// =====================================
-// SUMMARY
-// =====================================
+/* =====================================================
+   SUMMARY
+   ===================================================== */
 
 function updateSummary() {
 
-    totalUsers.textContent =
+    const total =
         users.length;
 
-    adminUsers.textContent =
+
+    const admins =
         users.filter(
             user => user.role === "admin"
         ).length;
 
-    pharmacistUsers.textContent =
+
+    const pharmacists =
         users.filter(
             user => user.role === "pharmacist"
         ).length;
 
-    staffUsers.textContent =
+
+    const staff =
         users.filter(
             user => user.role === "staff"
         ).length;
 
+
+    document.getElementById("totalUsers").textContent =
+        total;
+
+    document.getElementById("adminUsers").textContent =
+        admins;
+
+    document.getElementById("pharmacistUsers").textContent =
+        pharmacists;
+
+    document.getElementById("staffUsers").textContent =
+        staff;
+
 }
 
-// =====================================
-// DISPLAY USERS
-// =====================================
 
-function displayUsers() {
+/* =====================================================
+   RENDER USERS
+   ===================================================== */
+
+function renderUsers() {
 
     const search =
         searchInput.value
             .trim()
             .toLowerCase();
+
 
     const selectedRole =
         roleFilter.value;
@@ -223,54 +213,44 @@ function displayUsers() {
     const filteredUsers =
         users.filter(user => {
 
-            const username =
-                (user.username || "")
-                    .toLowerCase();
-
-            const fullName =
-                (user.fullName || "")
-                    .toLowerCase();
-
-            const role =
-                displayRole(user.role)
-                    .toLowerCase();
+            const displayRole =
+                roleToDisplay(user.role);
 
 
             const matchesSearch =
-                username.includes(search) ||
-                fullName.includes(search) ||
-                role.includes(search);
+                (user.username || "")
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                (user.fullName || "")
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                displayRole
+                    .toLowerCase()
+                    .includes(search);
 
 
             const matchesRole =
-                selectedRole === "all" ||
-                displayRole(user.role) ===
-                    selectedRole;
+                selectedRole === "all"
+                ||
+                displayRole === selectedRole;
 
 
-            return (
-                matchesSearch &&
-                matchesRole
-            );
+            return matchesSearch && matchesRole;
 
         });
 
-
-    // =================================
-    // NO USERS
-    // =================================
 
     if (filteredUsers.length === 0) {
 
         userTableBody.innerHTML = `
             <tr>
-                <td
-                    colspan="6"
-                    style="
-                        text-align:center;
-                        padding:30px;
-                    "
-                >
+                <td colspan="6" class="empty-row">
                     No users found.
                 </td>
             </tr>
@@ -280,78 +260,85 @@ function displayUsers() {
     }
 
 
-    // =================================
-    // DISPLAY USERS
-    // =================================
-
     userTableBody.innerHTML =
         filteredUsers.map(
             (user, index) => {
 
-                const role =
-                    displayRole(user.role);
+                const displayRole =
+                    roleToDisplay(user.role);
+
 
                 const status =
-                    user.isActive
-                        ? "Active"
-                        : "Inactive";
+                    user.isActive === false
+                        ? "Inactive"
+                        : "Active";
+
+
+                let roleClass =
+                    "role-staff";
+
+
+                if (user.role === "admin") {
+                    roleClass = "role-admin";
+                }
+
+                if (user.role === "pharmacist") {
+                    roleClass = "role-pharmacist";
+                }
+
+
+                const statusClass =
+                    status === "Active"
+                        ? "status-active"
+                        : "status-inactive";
 
 
                 return `
                     <tr>
 
-                        <!-- # -->
                         <td>
                             ${index + 1}
                         </td>
 
-
-                        <!-- USERNAME -->
                         <td>
                             <strong>
-                                ${escapeHTML(
-                                    user.username
-                                )}
+                                ${escapeHtml(user.username || "")}
                             </strong>
                         </td>
 
-
-                        <!-- FULL NAME -->
                         <td>
-                            ${escapeHTML(
-                                user.fullName
-                            )}
+                            ${escapeHtml(user.fullName || "-")}
                         </td>
 
-
-                        <!-- ROLE -->
                         <td>
-                            ${role}
+
+                            <span class="role-badge ${roleClass}">
+                                ${displayRole}
+                            </span>
+
                         </td>
 
-
-                        <!-- STATUS -->
                         <td>
-                            ${status}
+
+                            <span class="${statusClass}">
+                                ${status}
+                            </span>
+
                         </td>
 
-
-                        <!-- ACTION -->
                         <td>
 
                             <button
                                 type="button"
                                 class="edit-btn"
-                                onclick="editUser('${user._id}')"
-                            >
+                                onclick="editUser('${user._id}')">
                                 Edit
                             </button>
 
                             <button
                                 type="button"
                                 class="delete-btn"
-                                onclick="deleteUser('${user._id}')"
-                            >
+                                onclick="deleteUser('${user._id}')">
                                 Delete
                             </button>
 
@@ -366,242 +353,256 @@ function displayUsers() {
 }
 
 
-// =====================================
-// OPEN ADD USER
-// =====================================
+/* =====================================================
+   OPEN ADD USER MODAL
+   ===================================================== */
 
-addUserBtn.addEventListener(
-    "click",
-    function () {
+function openAddUserModal() {
 
-        modalTitle.textContent =
-            "Add User";
+    editingUserId = null;
 
-        userForm.reset();
-
-        editUserId.value = "";
-
-        userUsername.disabled = false;
-
-        userPassword.required = true;
-
-        userRole.value =
-            "Staff";
-
-        userStatus.value =
-            "Active";
-
-        userModal.classList.add(
-            "show"
-        );
-
-    }
-);
-
-
-// =====================================
-// CLOSE MODAL
-// =====================================
-
-function closeModal() {
-
-    userModal.classList.remove(
-        "show"
-    );
 
     userForm.reset();
 
-    editUserId.value = "";
+
+    document.getElementById("editUserId").value =
+        "";
+
+
+    document.getElementById("userRole").value =
+        "Staff";
+
+
+    document.getElementById("userStatus").value =
+        "Active";
+
+
+    userPassword.type =
+        "password";
+
+
+    modalTitle.textContent =
+        "Add User";
+
+
+    saveUserBtn.textContent =
+        "Add User";
+
+
+    userModal.classList.add("show");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("userUsername")
+            .focus();
+
+    }, 100);
 
 }
 
 
-if (closeModalBtn) {
+/* =====================================================
+   CLOSE MODAL
+   ===================================================== */
 
-    closeModalBtn.addEventListener(
-        "click",
-        closeModal
-    );
+function closeModal() {
 
-}
+    userModal.classList.remove("show");
 
+    editingUserId = null;
 
-if (cancelBtn) {
+    userForm.reset();
 
-    cancelBtn.addEventListener(
-        "click",
-        closeModal
-    );
+    userPassword.type =
+        "password";
 
 }
 
 
-// =====================================
-// ADD / EDIT USER
-// =====================================
+/* =====================================================
+   EDIT USER
+   ===================================================== */
 
-userForm.addEventListener(
-    "submit",
-    async function (event) {
+function editUser(id) {
 
-        event.preventDefault();
-
-
-        const id =
-            editUserId.value.trim();
-
-        const username =
-            userUsername.value.trim();
-
-        const fullName =
-            userName.value.trim();
-
-        const role =
-            backendRole(
-                userRole.value
-            );
-
-        const isActive =
-            userStatus.value ===
-            "Active";
-
-        const password =
-            userPassword.value.trim();
+    const user =
+        users.find(
+            item => item._id === id
+        );
 
 
-        // =================================
-        // VALIDATION
-        // =================================
+    if (!user) {
 
-        if (!username || !fullName) {
+        alert("User not found.");
 
-            alert(
-                "Username and Full Name are required."
-            );
-
-            return;
-
-        }
+        return;
+    }
 
 
-        // =================================
-        // EDIT USER
-        // =================================
-
-        if (id) {
-
-            const body = {
-
-                fullName,
-                role,
-                isActive
-
-            };
+    editingUserId =
+        user._id;
 
 
-            if (password) {
-
-                body.password =
-                    password;
-
-            }
+    document.getElementById("editUserId").value =
+        user._id;
 
 
-            try {
-
-                const response =
-                    await fetch(
-                        `${API_URL}/${id}`,
-                        {
-                            method: "PUT",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    body
-                                )
-                        }
-                    );
+    document.getElementById("userUsername").value =
+        user.username || "";
 
 
-                const data =
-                    await response.json();
+    document.getElementById("userName").value =
+        user.fullName || "";
 
 
-                if (!data.success) {
-
-                    alert(
-                        data.message ||
-                        "Failed to update user."
-                    );
-
-                    return;
-
-                }
+    document.getElementById("userRole").value =
+        roleToDisplay(user.role);
 
 
-                alert(
-                    "User updated successfully."
+    document.getElementById("userStatus").value =
+        user.isActive === false
+            ? "Inactive"
+            : "Active";
+
+
+    document.getElementById("userPassword").value =
+        "";
+
+
+    document.getElementById("userPassword").required =
+        false;
+
+
+    modalTitle.textContent =
+        "Edit User";
+
+
+    saveUserBtn.textContent =
+        "Update User";
+
+
+    userModal.classList.add("show");
+
+}
+
+
+/* =====================================================
+   SAVE / UPDATE USER
+   ===================================================== */
+
+async function saveUser(event) {
+
+    event.preventDefault();
+
+
+    const username =
+        document
+            .getElementById("userUsername")
+            .value
+            .trim();
+
+
+    const fullName =
+        document
+            .getElementById("userName")
+            .value
+            .trim();
+
+
+    const selectedRole =
+        document
+            .getElementById("userRole")
+            .value;
+
+
+    const selectedStatus =
+        document
+            .getElementById("userStatus")
+            .value;
+
+
+    const password =
+        document
+            .getElementById("userPassword")
+            .value;
+
+
+    if (!username || !fullName) {
+
+        alert("Please enter username and full name.");
+
+        return;
+    }
+
+
+    if (!editingUserId && !password) {
+
+        alert("Please enter password.");
+
+        return;
+    }
+
+
+    const payload = {
+
+        username: username,
+
+        fullName: fullName,
+
+        role: roleToBackend(selectedRole),
+
+        isActive:
+            selectedStatus === "Active"
+
+    };
+
+
+    if (password) {
+
+        payload.password =
+            password;
+
+    }
+
+
+    try {
+
+        saveUserBtn.disabled =
+            true;
+
+
+        saveUserBtn.textContent =
+            editingUserId
+                ? "Updating..."
+                : "Adding...";
+
+
+        let response;
+
+
+        if (editingUserId) {
+
+            response =
+                await fetch(
+                    `${API_URL}/${editingUserId}`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(payload)
+                    }
                 );
 
-                closeModal();
+        } else {
 
-                loadUsers();
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Unable to connect to backend."
-                );
-
-            }
-
-            return;
-
-        }
-
-
-        // =================================
-        // ADD USER
-        // =================================
-
-        if (!password) {
-
-            alert(
-                "Password is required."
-            );
-
-            return;
-
-        }
-
-
-        const body = {
-
-            username:
-                username.toLowerCase(),
-
-            fullName,
-
-            role,
-
-            password,
-
-            isActive
-
-        };
-
-
-        try {
-
-            const response =
+            response =
                 await fetch(
                     API_URL,
                     {
@@ -613,139 +614,98 @@ userForm.addEventListener(
                         },
 
                         body:
-                            JSON.stringify(body)
+                            JSON.stringify(payload)
                     }
                 );
 
-
-            const data =
-                await response.json();
+        }
 
 
-            if (!data.success) {
-
-                alert(
-                    data.message ||
-                    "Failed to add user."
-                );
-
-                return;
-
-            }
+        const data =
+            await response.json();
 
 
-            alert(
-                "User added successfully."
-            );
-
-            closeModal();
-
-            loadUsers();
+        console.log("Save user response:", data);
 
 
-        } catch (error) {
+        if (!response.ok || !data.success) {
 
-            console.error(error);
-
-            alert(
-                "Unable to connect to backend."
+            throw new Error(
+                data.message ||
+                "Unable to save user"
             );
 
         }
 
-    }
-);
-
-
-// =====================================
-// EDIT USER
-// =====================================
-
-async function editUser(id) {
-
-    const user =
-        users.find(
-            u => u._id === id
-        );
-
-
-    if (!user) {
 
         alert(
-            "User not found."
+            editingUserId
+                ? "User updated successfully."
+                : "User added successfully."
         );
 
-        return;
+
+        closeModal();
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error("Save user error:", error);
+
+        alert(
+            error.message ||
+            "Unable to save user."
+        );
+
+
+    } finally {
+
+        saveUserBtn.disabled =
+            false;
+
+
+        saveUserBtn.textContent =
+            editingUserId
+                ? "Update User"
+                : "Add User";
 
     }
-
-
-    modalTitle.textContent =
-        "Edit User";
-
-
-    editUserId.value =
-        user._id;
-
-
-    userUsername.value =
-        user.username || "";
-
-    // Username should not be changed
-    // because it is used for login.
-    userUsername.disabled =
-        true;
-
-
-    userName.value =
-        user.fullName || "";
-
-
-    userRole.value =
-        displayRole(
-            user.role
-        );
-
-
-    userStatus.value =
-        user.isActive
-            ? "Active"
-            : "Inactive";
-
-
-    userPassword.value = "";
-
-    userPassword.required =
-        false;
-
-
-    userModal.classList.add(
-        "show"
-    );
 
 }
 
 
-// =====================================
-// DELETE USER
-// =====================================
+/* =====================================================
+   DELETE USER
+   ===================================================== */
 
 async function deleteUser(id) {
 
     const user =
         users.find(
-            u => u._id === id
+            item => item._id === id
         );
 
 
     if (!user) {
+        return;
+    }
+
+
+    if (user.username === "admin") {
+
+        alert(
+            "The main admin user cannot be deleted."
+        );
+
         return;
     }
 
 
     const confirmDelete =
         confirm(
-            `Delete user "${user.fullName}"?`
+            `Delete user "${user.username}"?`
         );
 
 
@@ -769,14 +729,12 @@ async function deleteUser(id) {
             await response.json();
 
 
-        if (!data.success) {
+        if (!response.ok || !data.success) {
 
-            alert(
+            throw new Error(
                 data.message ||
-                "Failed to delete user."
+                "Unable to delete user"
             );
-
-            return;
 
         }
 
@@ -785,15 +743,21 @@ async function deleteUser(id) {
             "User deleted successfully."
         );
 
-        loadUsers();
+
+        await loadUsers();
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Delete user error:",
+            error
+        );
+
 
         alert(
-            "Unable to connect to backend."
+            error.message ||
+            "Unable to delete user."
         );
 
     }
@@ -801,153 +765,144 @@ async function deleteUser(id) {
 }
 
 
-// =====================================
-// SEARCH
-// =====================================
+/* =====================================================
+   PASSWORD TOGGLE
+   ===================================================== */
+
+function togglePasswordVisibility() {
+
+    if (userPassword.type === "password") {
+
+        userPassword.type =
+            "text";
+
+        togglePassword.textContent =
+            "🙈";
+
+    } else {
+
+        userPassword.type =
+            "password";
+
+        togglePassword.textContent =
+            "👁️";
+
+    }
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+   ===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+
+addUserBtn.addEventListener(
+    "click",
+    openAddUserModal
+);
+
+
+closeModalBtn.addEventListener(
+    "click",
+    closeModal
+);
+
+
+cancelBtn.addEventListener(
+    "click",
+    closeModal
+);
+
+
+userForm.addEventListener(
+    "submit",
+    saveUser
+);
+
+
+togglePassword.addEventListener(
+    "click",
+    togglePasswordVisibility
+);
+
 
 searchInput.addEventListener(
     "input",
-    displayUsers
+    renderUsers
 );
 
 
 roleFilter.addEventListener(
     "change",
-    displayUsers
+    renderUsers
 );
 
 
-// =====================================
-// PASSWORD SHOW / HIDE
-// =====================================
+/* Close when clicking outside modal */
 
-const togglePassword =
-    document.getElementById(
-        "togglePassword"
-    );
+userModal.addEventListener(
+    "click",
+    function(event) {
 
+        if (event.target === userModal) {
 
-if (togglePassword) {
-
-    togglePassword.addEventListener(
-        "click",
-        function () {
-
-            if (
-                userPassword.type ===
-                "password"
-            ) {
-
-                userPassword.type =
-                    "text";
-
-                togglePassword.textContent =
-                    "🙈";
-
-            } else {
-
-                userPassword.type =
-                    "password";
-
-                togglePassword.textContent =
-                    "👁️";
-
-            }
+            closeModal();
 
         }
-    );
-
-}
-
-
-// =====================================
-// DARK MODE
-// =====================================
-
-const darkModeBtn =
-    document.getElementById(
-        "darkModeBtn"
-    );
-
-
-function applyDarkMode() {
-
-    const darkMode =
-        localStorage.getItem(
-            "curaMatrixDarkMode"
-        ) === "true";
-
-
-    if (darkMode) {
-
-        document.body.classList.add(
-            "dark"
-        );
-
-    } else {
-
-        document.body.classList.remove(
-            "dark"
-        );
 
     }
-
-}
-
-
-if (darkModeBtn) {
-
-    darkModeBtn.addEventListener(
-        "click",
-        function () {
-
-            const isDark =
-                document.body.classList.contains(
-                    "dark"
-                );
+);
 
 
-            localStorage.setItem(
-                "curaMatrixDarkMode",
-                !isDark
-            );
+/* ESC closes modal */
 
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-            applyDarkMode();
+        if (
+            event.key === "Escape" &&
+            userModal.classList.contains("show")
+        ) {
+
+            closeModal();
 
         }
-    );
 
-}
-
-
-// =====================================
-// LOGOUT
-// =====================================
-
-const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
+    }
+);
 
 
-if (logoutBtn) {
+/* =====================================================
+   LOGOUT
+   ===================================================== */
 
-    logoutBtn.addEventListener(
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
         "click",
-        function () {
-
-            localStorage.removeItem(
-                "curaMatrixLoggedIn"
-            );
-
-            localStorage.removeItem(
-                "curaMatrixToken"
-            );
-
-            localStorage.removeItem(
-                "curaMatrixUser"
-            );
+        function() {
 
             window.location.href =
                 "../../login.html";
@@ -955,13 +910,9 @@ if (logoutBtn) {
         }
     );
 
-}
 
-
-// =====================================
-// INITIALIZE
-// =====================================
-
-applyDarkMode();
+/* =====================================================
+   INITIAL LOAD
+   ===================================================== */
 
 loadUsers();
