@@ -575,13 +575,11 @@ tbody tr:hover {
     display: flex;
 }
 
-
 .modal-content {
     width: 100%;
+    max-width: 650px;
 
-    max-width: 520px;
-
-    max-height: 90vh;
+    max-height: calc(100vh - 40px);
 
     overflow-y: auto;
 
@@ -594,6 +592,68 @@ tbody tr:hover {
     box-shadow:
         0 15px 40px
         rgba(0, 0, 0, 0.2);
+}
+
+
+/* Keep modal buttons visible */
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e2e8f0;
+
+    position: sticky;
+
+    bottom: 0;
+
+    background: white;
+
+    z-index: 5;
+}
+
+
+.cancel-btn,
+.save-btn {
+    min-width: 100px;
+
+    border: none;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.cancel-btn {
+    background: #e2e8f0;
+
+    color: #334155;
+}
+
+
+.save-btn {
+    background: #0891b2;
+
+    color: white;
+}
+
+
+.save-btn:hover {
+    background: #0e7490;
 }
 
 
