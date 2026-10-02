@@ -897,15 +897,22 @@ document.addEventListener(
 /* =====================================================
    LOGOUT
    ===================================================== */
-
 document
     .getElementById("logoutBtn")
     .addEventListener(
         "click",
         function() {
 
-            window.location.href =
-                "../../login.html";
+            const confirmLogout = confirm(
+                "Are you sure you want to logout?"
+            );
+
+            if (confirmLogout) {
+
+                window.location.href =
+                    "../../login.html";
+
+            }
 
         }
     );
