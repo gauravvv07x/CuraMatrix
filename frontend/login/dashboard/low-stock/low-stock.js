@@ -1,10 +1,10 @@
 // ==========================================
 // CURAMATRIX - LOW STOCK MODULE
-// MongoDB Connected
+// MongoDB Connected - Render Backend
 // ==========================================
 
 const MEDICINE_API =
-    "http://localhost:5000/api/medicines";
+    "https://curamatrix-backend.onrender.com/api/medicines";
 
 let medicines = [];
 
@@ -20,9 +20,7 @@ const searchInput =
     document.getElementById("searchInput");
 
 const lowStockTableBody =
-    document.getElementById(
-        "lowStockTableBody"
-    );
+    document.getElementById("lowStockTableBody");
 
 const logoutBtn =
     document.getElementById("logoutBtn");
@@ -36,12 +34,24 @@ async function loadMedicines() {
 
     try {
 
+        console.log(
+            "Loading medicines from:",
+            MEDICINE_API
+        );
+
+
         const response =
             await fetch(MEDICINE_API);
 
 
         const data =
             await response.json();
+
+
+        console.log(
+            "Medicine API response:",
+            data
+        );
 
 
         if (!response.ok || !data.success) {
@@ -54,8 +64,23 @@ async function loadMedicines() {
         }
 
 
-        medicines =
-            data.medicines || [];
+        // Support backend response
+        // { medicines: [...] }
+        // or { data: [...] }
+
+        if (Array.isArray(data.medicines)) {
+
+            medicines = data.medicines;
+
+        } else if (Array.isArray(data.data)) {
+
+            medicines = data.data;
+
+        } else {
+
+            medicines = [];
+
+        }
 
 
         renderLowStock();
@@ -69,29 +94,41 @@ async function loadMedicines() {
         );
 
 
-        lowStockCount.textContent = "0";
+        if (lowStockCount) {
+
+            lowStockCount.textContent =
+                "0";
+
+        }
 
 
-        lowStockTableBody.innerHTML = `
+        if (lowStockTableBody) {
 
-            <tr>
+            lowStockTableBody.innerHTML = `
 
-                <td
-                    colspan="8"
-                    class="empty-message"
-                >
+                <tr>
 
-                    Unable to load medicines from MongoDB.
+                    <td
+                        colspan="8"
+                        class="empty-message"
+                    >
 
-                    <br>
+                        Unable to load medicines from MongoDB.
 
-                    Make sure backend server is running.
+                        <br>
 
-                </td>
+                        ${escapeHTML(
+                            error.message ||
+                            "Unknown error"
+                        )}
 
-            </tr>
+                    </td>
 
-        `;
+                </tr>
+
+            `;
+
+        }
 
     }
 
@@ -104,18 +141,31 @@ async function loadMedicines() {
 
 function renderLowStock() {
 
+    if (!lowStockTableBody) {
+        return;
+    }
+
+
     const searchText =
-        searchInput.value
-            .toLowerCase()
-            .trim();
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
 
 
-    // Find low-stock medicines
+    // ======================================
+    // FIND LOW STOCK MEDICINES
+    // ======================================
+
     const lowStockMedicines =
         medicines.filter(medicine => {
 
             const stock =
-                Number(medicine.stock || 0);
+                Number(
+                    medicine.stock || 0
+                );
+
 
             const minimumStock =
                 Number(
@@ -128,12 +178,22 @@ function renderLowStock() {
         });
 
 
-    // Update total low stock count
-    lowStockCount.textContent =
-        lowStockMedicines.length;
+    // ======================================
+    // UPDATE COUNT
+    // ======================================
+
+    if (lowStockCount) {
+
+        lowStockCount.textContent =
+            lowStockMedicines.length;
+
+    }
 
 
-    // Apply search filter
+    // ======================================
+    // APPLY SEARCH
+    // ======================================
+
     const filteredMedicines =
         lowStockMedicines.filter(
             medicine => {
@@ -150,12 +210,22 @@ function renderLowStock() {
                     ).toLowerCase();
 
 
+                const batchNumber =
+                    String(
+                        medicine.batchNumber || ""
+                    ).toLowerCase();
+
+
                 return (
                     medicineName.includes(
                         searchText
                     ) ||
 
                     category.includes(
+                        searchText
+                    ) ||
+
+                    batchNumber.includes(
                         searchText
                     )
                 );
@@ -164,11 +234,17 @@ function renderLowStock() {
         );
 
 
-    // Clear table
+    // ======================================
+    // CLEAR TABLE
+    // ======================================
+
     lowStockTableBody.innerHTML = "";
 
 
-    // No medicines
+    // ======================================
+    // NO MEDICINES
+    // ======================================
+
     if (filteredMedicines.length === 0) {
 
         lowStockTableBody.innerHTML = `
@@ -197,7 +273,10 @@ function renderLowStock() {
     }
 
 
-    // Create table rows
+    // ======================================
+    // CREATE TABLE ROWS
+    // ======================================
+
     filteredMedicines.forEach(
         (medicine, index) => {
 
@@ -239,29 +318,25 @@ function renderLowStock() {
                     ${index + 1}
                 </td>
 
-
                 <td>
                     <strong>
                         ${escapeHTML(
-                            medicine.medicineName
+                            medicine.medicineName || "-"
                         )}
                     </strong>
                 </td>
 
-
                 <td>
                     ${escapeHTML(
-                        medicine.category
+                        medicine.category || "-"
                     )}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
-                        medicine.batchNumber
+                        medicine.batchNumber || "-"
                     )}
                 </td>
-
 
                 <td>
                     <strong>
@@ -269,25 +344,20 @@ function renderLowStock() {
                     </strong>
                 </td>
 
-
                 <td>
                     ${minimumStock}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
-                        medicine.unit
+                        medicine.unit || "-"
                     )}
                 </td>
 
-
                 <td>
-
                     <span class="stock-status">
                         ${statusText}
                     </span>
-
                 </td>
 
             `;
@@ -342,11 +412,9 @@ if (logoutBtn) {
                 "curaMatrixLoggedIn"
             );
 
-
             localStorage.removeItem(
                 "curaMatrixToken"
             );
-
 
             localStorage.removeItem(
                 "curaMatrixUser"
