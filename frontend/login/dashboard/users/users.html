@@ -16,418 +16,470 @@
 
 <body>
 
-<!-- =====================================================
-     COMMON SIDEBAR
-     ===================================================== -->
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
-<aside class="sidebar">
+    <aside class="sidebar">
 
-    <div class="brand">
+        <div class="brand">
 
-        <div class="brand-icon">
-            ✚
-        </div>
-
-        <div class="brand-text">
-            <h2>CuraMatrix</h2>
-            <span>Medical Store</span>
-        </div>
-
-    </div>
-
-
-    <nav class="navigation">
-
-        <a href="../dashboard.html" class="nav-link">
-            <span class="nav-icon">▣</span>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="../add-medicine/add-medicine.html" class="nav-link">
-            <span class="nav-icon">＋</span>
-            <span>Add Medicine</span>
-        </a>
-
-        <a href="../medicines/medicines.html" class="nav-link">
-            <span class="nav-icon">💊</span>
-            <span>Medicines</span>
-        </a>
-
-        <a href="../billing/billing.html" class="nav-link">
-            <span class="nav-icon">🧾</span>
-            <span>Billing</span>
-        </a>
-
-        <a href="../sales/sales.html" class="nav-link">
-            <span class="nav-icon">▤</span>
-            <span>Sales</span>
-        </a>
-
-        <a href="../low-stock/low-stock.html" class="nav-link">
-            <span class="nav-icon">⚠</span>
-            <span>Low Stock</span>
-        </a>
-
-        <a href="../expiry-alert/expiry-alert.html" class="nav-link">
-            <span class="nav-icon">⏰</span>
-            <span>Expiry Alert</span>
-        </a>
-
-        <a href="../reports/reports.html" class="nav-link">
-            <span class="nav-icon">📊</span>
-            <span>Reports</span>
-        </a>
-
-        <a href="../shop-settings/shop-settings.html" class="nav-link">
-            <span class="nav-icon">⚙</span>
-            <span>Shop Settings</span>
-        </a>
-
-        <a href="users.html" class="nav-link active">
-            <span class="nav-icon">👤</span>
-            <span>Users</span>
-        </a>
-
-    </nav>
-
-
-    <div class="sidebar-footer">
-
-        <button
-            type="button"
-            id="logoutBtn"
-            class="logout-btn">
-            ⇥ Logout
-        </button>
-
-    </div>
-
-</aside>
-
-
-<!-- =====================================================
-     MAIN CONTENT
-     ===================================================== -->
-
-<main class="main-content">
-
-    <!-- HEADER -->
-
-    <header class="top-header">
-
-        <div>
-            <h1>User Management</h1>
-            <p>Manage medical store users and their roles</p>
-        </div>
-
-       
-
-    </header>
-
-
-    <!-- =================================================
-         SUMMARY
-         ================================================= -->
-
-    <section class="summary-grid">
-
-        <div class="summary-card">
-
-            <div class="summary-icon">
-                👥
+            <div class="brand-icon">
+                ✚
             </div>
 
-            <div>
-                <p>Total Users</p>
-                <h2 id="totalUsers">0</h2>
+            <div class="brand-text">
+                <h2>CuraMatrix</h2>
+                <span>Medical Store</span>
             </div>
 
         </div>
 
+        <nav class="navigation">
 
-        <div class="summary-card">
+            <a href="../dashboard.html" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
 
-            <div class="summary-icon admin">
-                🛡
-            </div>
+            <a href="../add-medicine/add-medicine.html" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Add Medicine</span>
+            </a>
 
-            <div>
-                <p>Administrators</p>
-                <h2 id="adminUsers">0</h2>
-            </div>
+            <a href="../medicines/medicines.html" class="nav-link">
+                <span class="nav-icon">💊</span>
+                <span>Medicines</span>
+            </a>
 
-        </div>
+            <a href="../billing/billing.html" class="nav-link">
+                <span class="nav-icon">🧾</span>
+                <span>Billing</span>
+            </a>
 
+            <a href="../sales/sales.html" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Sales</span>
+            </a>
 
-        <div class="summary-card">
+            <a href="../low-stock/low-stock.html" class="nav-link">
+                <span class="nav-icon">⚠</span>
+                <span>Low Stock</span>
+            </a>
 
-            <div class="summary-icon pharmacist">
-                💊
-            </div>
+            <a href="../expiry-alert/expiry-alert.html" class="nav-link">
+                <span class="nav-icon">⏰</span>
+                <span>Expiry Alert</span>
+            </a>
 
-            <div>
-                <p>Pharmacists</p>
-                <h2 id="pharmacistUsers">0</h2>
-            </div>
+            <a href="../reports/reports.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </a>
 
-        </div>
+            <a href="../shop-settings/shop-settings.html" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Shop Settings</span>
+            </a>
 
+            <a href="users.html" class="nav-link active">
+                <span class="nav-icon">👤</span>
+                <span>Users</span>
+            </a>
 
-        <div class="summary-card">
+        </nav>
 
-            <div class="summary-icon staff">
-                👤
-            </div>
-
-            <div>
-                <p>Staff</p>
-                <h2 id="staffUsers">0</h2>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         USER MANAGEMENT
-         ================================================= -->
-
-    <section class="user-section">
-
-        <div class="section-header">
-
-            <div>
-                <h2>Users</h2>
-                <p>Add and manage system users</p>
-            </div>
+        <div class="sidebar-footer">
 
             <button
                 type="button"
-                id="addUserBtn"
-                class="add-btn">
-                + Add User
+                id="logoutBtn"
+                class="logout-btn">
+                ⇥ Logout
             </button>
 
         </div>
 
-
-        <!-- SEARCH -->
-
-        <div class="toolbar">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search by name, email or role..."
-            >
-
-            <select id="roleFilter">
-
-                <option value="all">
-                    All Roles
-                </option>
-
-                <option value="Administrator">
-                    Administrator
-                </option>
-
-                <option value="Pharmacist">
-                    Pharmacist
-                </option>
-
-                <option value="Staff">
-                    Staff
-                </option>
-
-            </select>
-
-        </div>
+    </aside>
 
 
-        <!-- TABLE -->
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
 
-        <div class="table-container">
+    <main class="main-content">
 
-            <table>
-
-                <thead>
-    <tr>
-        <th>#</th>
-        <th>Username</th>
-        <th>Full Name</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-</thead>
-
-                <tbody id="userTableBody"></tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- =====================================================
-     USER MODAL
-     ===================================================== -->
-
-<div id="userModal" class="modal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
+        <header class="top-header">
 
             <div>
+                <h1>User Management</h1>
+                <p>Manage medical store users and their roles</p>
+            </div>
 
-                <h2 id="modalTitle">
-                    Add User
-                </h2>
+        </header>
 
-                <p>
-                    Enter user information
-                </p>
+
+        <!-- =================================================
+             SUMMARY CARDS
+             ================================================= -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    👥
+                </div>
+
+                <div>
+                    <p>Total Users</p>
+                    <h2 id="totalUsers">0</h2>
+                </div>
 
             </div>
 
 
-            <button
-                type="button"
-                id="closeModalBtn"
-                class="close-btn">
-                ×
-            </button>
+            <div class="summary-card">
+
+                <div class="summary-icon admin">
+                    🛡
+                </div>
+
+                <div>
+                    <p>Administrators</p>
+                    <h2 id="adminUsers">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon pharmacist">
+                    💊
+                </div>
+
+                <div>
+                    <p>Pharmacists</p>
+                    <h2 id="pharmacistUsers">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon staff">
+                    👤
+                </div>
+
+                <div>
+                    <p>Staff</p>
+                    <h2 id="staffUsers">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             USER MANAGEMENT
+             ================================================= -->
+
+        <section class="user-section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Users</h2>
+                    <p>Add and manage system users</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="addUserBtn"
+                    class="add-btn">
+                    + Add User
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH / FILTER -->
+
+            <div class="toolbar">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by name, email or role..."
+                    autocomplete="off"
+                >
+
+                <select id="roleFilter">
+
+                    <option value="all">
+                        All Roles
+                    </option>
+
+                    <option value="Administrator">
+                        Administrator
+                    </option>
+
+                    <option value="Pharmacist">
+                        Pharmacist
+                    </option>
+
+                    <option value="Staff">
+                        Staff
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- USER TABLE -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="userTableBody">
+
+                        <!-- Users will be loaded by JavaScript -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         ADD / EDIT USER MODAL
+         ===================================================== -->
+
+    <div id="userModal" class="modal">
+
+        <div class="modal-content">
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Add User
+                    </h2>
+
+                    <p>
+                        Enter user information
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="closeModalBtn"
+                    class="close-btn"
+                    aria-label="Close">
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- USER FORM -->
+
+            <form id="userForm">
+
+                <!-- Hidden ID for Edit -->
+                <input
+                    type="hidden"
+                    id="editUserId"
+                >
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="userUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="userUsername"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="userName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="userName"
+                        placeholder="Enter full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Role -->
+
+                <div class="form-group">
+
+                    <label for="userRole">
+                        Role
+                    </label>
+
+                    <select
+                        id="userRole"
+                        required
+                    >
+
+                        <option value="Administrator">
+                            Administrator
+                        </option>
+
+                        <option value="Pharmacist">
+                            Pharmacist
+                        </option>
+
+                        <option value="Staff">
+                            Staff
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label for="userStatus">
+                        Status
+                    </label>
+
+                    <select
+                        id="userStatus"
+                        required
+                    >
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="userPassword">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="userPassword"
+                            placeholder="Enter password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password">
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MODAL ACTIONS
+                     ================================================= -->
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        id="cancelBtn"
+                        class="cancel-btn">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="saveUserBtn"
+                        class="save-btn">
+                        Add User
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 
-
-        <form id="userForm">
-
-            <input
-                type="hidden"
-                id="editUserId"
-            >
-
-<!-- Username -->
-<div class="form-group">
-    <label for="userUsername">
-        Username
-    </label>
-
-    <input
-        type="text"
-        id="userUsername"
-        placeholder="Enter username"
-        required
-    >
-</div>
-
-
-<!-- Full Name -->
-<div class="form-group">
-    <label for="userName">
-        Full Name
-    </label>
-
-    <input
-        type="text"
-        id="userName"
-        placeholder="Enter full name"
-        required
-    >
-</div>
-
-
-<!-- Role -->
-<div class="form-group">
-    <label for="userRole">
-        Role
-    </label>
-
-    <select id="userRole" required>
-
-        <option value="Administrator">
-            Administrator
-        </option>
-
-        <option value="Pharmacist">
-            Pharmacist
-        </option>
-
-        <option value="Staff">
-            Staff
-        </option>
-
-    </select>
-</div>
-
-
-<!-- Status -->
-<div class="form-group">
-    <label for="userStatus">
-        Status
-    </label>
-
-    <select id="userStatus" required>
-
-        <option value="Active">
-            Active
-        </option>
-
-        <option value="Inactive">
-            Inactive
-        </option>
-
-    </select>
-</div>
-
-
-<!-- Password -->
-<div class="form-group">
-
-    <label for="userPassword">
-        Password
-    </label>
-
-    <div style="position: relative; width: 100%;">
-
-        <input
-            type="password"
-            id="userPassword"
-            placeholder="Enter password"
-            required
-            style="
-                width: 100%;
-                padding-right: 50px;
-            "
-        >
-
-        <button
-            type="button"
-            id="togglePassword"
-            style="
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                border: none;
-                background: transparent;
-                cursor: pointer;
-                font-size: 20px;
-            "
-        >👁️</button>
-
     </div>
 
-</div>
 
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
 
-<script src="users.js"></script>
+    <script src="users.js"></script>
 
 </body>
+
 </html>
