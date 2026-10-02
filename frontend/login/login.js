@@ -257,10 +257,11 @@ if (loginForm) {
 
                 setTimeout(function () {
 
-                    window.location.href =
-                        "dashboard/dashboard.html";
+    window.location.replace(
+        "dashboard/dashboard.html"
+    );
 
-                }, 500);
+}, 500);
 
             }
 
