@@ -31,32 +31,31 @@
                 <!-- BRAND -->
                 <div class="brand-section">
 
-    <img
-        src="assets/logo3.png"
-        alt="CuraMatrix Logo"
-        class="brand-logo"
-    >
+                    <img
+                        src="assets/logo3.png"
+                        alt="CuraMatrix Logo"
+                        class="brand-logo"
+                    >
 
-    <div class="brand-name">
+                    <div class="brand-name">
 
-        <h1>
-            Cura<span>Matrix</span>
-        </h1>
+                        <h1>
+                            Cura<span>Matrix</span>
+                        </h1>
 
-        <p>
-            Smart Medicine Inventory &amp;<br>
-            Record Management System
-        </p>
+                        <p>
+                            Smart Medicine Inventory &amp;<br>
+                            Record Management System
+                        </p>
 
-    </div>
+                    </div>
 
-</div>
+                </div>
 
 
                 <!-- FEATURES -->
                 <div class="features">
 
-                    <!-- FEATURE 1 -->
                     <div class="feature">
 
                         <div class="feature-icon blue">
@@ -71,7 +70,6 @@
                     </div>
 
 
-                    <!-- FEATURE 2 -->
                     <div class="feature">
 
                         <div class="feature-icon green">
@@ -86,7 +84,6 @@
                     </div>
 
 
-                    <!-- FEATURE 3 -->
                     <div class="feature">
 
                         <div class="feature-icon pink">
@@ -101,7 +98,6 @@
                     </div>
 
 
-                    <!-- FEATURE 4 -->
                     <div class="feature">
 
                         <div class="feature-icon purple">
@@ -134,6 +130,7 @@
         </section>
 
 
+
         <!-- =================================================
              RIGHT SIDE
         ================================================== -->
@@ -160,8 +157,27 @@
                 <!-- LOGIN FORM -->
 
                 <form id="loginForm">
+                    <!-- ROLE -->
 
-                    <!-- EMAIL -->
+<div class="input-group">
+
+    <div class="input-icon">
+        👤
+    </div>
+
+    <select
+        id="loginRole"
+        name="role"
+        required
+    >
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="pharmacist">Pharmacist</option>
+        <option value="staff">Staff</option>
+    </select>
+
+</div>
+                    <!-- USERNAME -->
 
                     <div class="input-group">
 
@@ -170,12 +186,12 @@
                         </div>
 
                         <input
-                         type="text"
-                         id="username"
-                         name="username"
-                         placeholder="Username"
-                         autocomplete="username"
-                          >
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Username"
+                            autocomplete="username"
+                        >
 
                     </div>
 
@@ -203,7 +219,7 @@
                             class="password-toggle"
                             aria-label="Show password"
                         >
-                            ◉
+                             🫣
                         </button>
 
                     </div>
@@ -215,15 +231,17 @@
 
                         <label class="remember-me">
 
-    <input
-        type="checkbox"
-        id="rememberMe"
-        name="rememberMe"
-    >
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                name="rememberMe"
+                            >
 
-    <span>Remember me</span>
+                            <span>
+                                Remember me
+                            </span>
 
-</label>
+                        </label>
 
 
                         <a
@@ -255,7 +273,7 @@
                     </button>
 
 
-                    <!-- ERROR MESSAGE -->
+                    <!-- LOGIN MESSAGE -->
 
                     <div
                         id="loginMessage"
@@ -265,41 +283,7 @@
                 </form>
 
 
-                <!-- OR DIVIDER -->
-
-                <div class="divider">
-
-                    <span></span>
-
-                    <p>OR</p>
-
-                    <span></span>
-
-                </div>
-
-
-                <!-- AUTHORIZED PERSONNEL -->
-
-                <div class="authorized-box">
-
-                    <div class="authorized-icon">
-                        ♢
-                    </div>
-
-                    <div class="authorized-content">
-
-                        <h3>
-                            Authorized Personnel Only
-                        </h3>
-
-                        <p>
-                            Access is restricted to admin and staff members.
-                        </p>
-
-                    </div>
-
-                </div>
-
+                
 
                 <!-- FOOTER -->
 
@@ -314,6 +298,289 @@
         </section>
 
     </div>
+
+
+
+    <!-- =====================================================
+         FORGOT PASSWORD MODAL
+    ====================================================== -->
+
+    <div
+        id="forgotPasswordModal"
+        class="forgot-modal"
+    >
+
+        <div class="forgot-modal-content">
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="forgot-modal-header">
+
+                <button
+                    type="button"
+                    id="closeForgotPassword"
+                    class="forgot-close-btn"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="forgot-icon">
+                    🔐
+                </div>
+
+
+                <h2>
+                    Forgot Password?
+                </h2>
+
+
+                <p id="forgotStepText">
+                    Enter your username and registered email.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STEP 1 - USERNAME + EMAIL
+            ================================================== -->
+
+            <div
+                id="forgotStep1"
+                class="forgot-step active"
+            >
+
+                <div class="forgot-form-group">
+
+                    <label for="forgotUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="forgotUsername"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <div class="forgot-form-group">
+
+                    <label for="forgotEmail">
+                        Registered Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="forgotEmail"
+                        placeholder="Enter your registered email"
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <div
+                    id="forgotMessage"
+                    class="forgot-message"
+                ></div>
+
+
+                <button
+                    type="button"
+                    id="sendOtpBtn"
+                    class="forgot-primary-btn"
+                >
+                    Send OTP
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STEP 2 - OTP
+            ================================================== -->
+
+            <div
+                id="forgotStep2"
+                class="forgot-step"
+            >
+
+                <div class="forgot-form-group">
+
+                    <label for="resetOtp">
+                        Enter OTP
+                    </label>
+
+                    <input
+                        type="text"
+                        id="resetOtp"
+                        placeholder="Enter 6-digit OTP"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                    >
+
+                </div>
+
+
+                <div
+                    id="otpMessage"
+                    class="forgot-message"
+                ></div>
+
+
+                <button
+                    type="button"
+                    id="verifyOtpBtn"
+                    class="forgot-primary-btn"
+                >
+                    Verify OTP
+                </button>
+
+
+                <button
+                    type="button"
+                    id="resendOtpBtn"
+                    class="forgot-secondary-btn"
+                >
+                    Resend OTP
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STEP 3 - NEW PASSWORD
+            ================================================== -->
+
+            <div
+                id="forgotStep3"
+                class="forgot-step"
+            >
+
+                <div class="forgot-form-group">
+
+                    <label for="newPassword">
+                        New Password
+                    </label>
+
+                    <div class="forgot-password-wrapper">
+
+                        <input
+                            type="password"
+                            id="newPassword"
+                            placeholder="Enter new password"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            id="toggleNewPassword"
+                            class="forgot-password-toggle"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="forgot-form-group">
+
+                    <label for="confirmNewPassword">
+                        Confirm New Password
+                    </label>
+
+                    <div class="forgot-password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirmNewPassword"
+                            placeholder="Confirm new password"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            id="toggleConfirmPassword"
+                            class="forgot-password-toggle"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="newPasswordMessage"
+                    class="forgot-message"
+                ></div>
+
+
+                <button
+                    type="button"
+                    id="resetPasswordBtn"
+                    class="forgot-primary-btn"
+                >
+                    Reset Password
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUCCESS
+            ================================================== -->
+
+            <div
+                id="forgotStepSuccess"
+                class="forgot-step forgot-success"
+            >
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+
+                <h3>
+                    Password Reset Successfully
+                </h3>
+
+
+                <p>
+                    Your password has been changed.
+                    You can now login with your new password.
+                </p>
+
+
+                <button
+                    type="button"
+                    id="backToLoginBtn"
+                    class="forgot-primary-btn"
+                >
+                    Back to Login
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
 
     <!-- =====================================================

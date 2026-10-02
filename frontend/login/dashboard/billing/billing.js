@@ -2,7 +2,7 @@
 // CURAMATRIX - BILLING JAVASCRIPT
 // SAVE BILL + SEPARATE PRINT BILL
 // ==========================================
-const API_URL = "https://curamatrix-backend.onrender.com/api/medicines";
+
 const MEDICINE_API = "https://curamatrix-backend.onrender.com/api/medicines";
 const BILL_API = "https://curamatrix-backend.onrender.com/api/bills";
 
@@ -116,33 +116,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ======================================
-    // LOGOUT
-    // ======================================
+// LOGOUT
+// ======================================
 
-    if (logoutBtn) {
+if (logoutBtn) {
 
-        logoutBtn.addEventListener(
-            "click",
-            () => {
+    logoutBtn.addEventListener(
+        "click",
+        () => {
 
-                localStorage.removeItem(
-                    "curaMatrixLoggedIn"
+            const confirmLogout =
+                confirm(
+                    "Are you sure you want to logout?"
                 );
 
-                localStorage.removeItem(
-                    "curaMatrixToken"
-                );
-
-                localStorage.removeItem(
-                    "curaMatrixUser"
-                );
-
-                window.location.href =
-                    "../../login.html";
+            // If user presses Cancel
+            // stay on Billing page
+            if (!confirmLogout) {
+                return;
             }
-        );
-    }
 
+            // If user presses OK
+            // clear login session
+
+            localStorage.removeItem(
+                "curaMatrixLoggedIn"
+            );
+
+            localStorage.removeItem(
+                "curaMatrixToken"
+            );
+
+            localStorage.removeItem(
+                "curaMatrixUser"
+            );
+
+            window.location.href =
+                "../../login.html";
+        }
+    );
+}
 
     // ======================================
     // DARK MODE

@@ -1,44 +1,20 @@
-/* =====================================================
-   CURAMATRIX USERS
-   ===================================================== */
+// =====================================
+// CURAMATRIX USER MANAGEMENT
+// MONGODB CONNECTED
+// =====================================
 
 const API_URL =
     "https://curamatrix-backend.onrender.com/api/users";
 
-
-/* =====================================================
-   VARIABLES
-   ===================================================== */
-
 let users = [];
 
-let editingUserId = null;
 
+// =====================================
+// DOM ELEMENTS
+// =====================================
 
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const userModal =
-    document.getElementById("userModal");
-
-const userForm =
-    document.getElementById("userForm");
-
-const addUserBtn =
-    document.getElementById("addUserBtn");
-
-const closeModalBtn =
-    document.getElementById("closeModalBtn");
-
-const cancelBtn =
-    document.getElementById("cancelBtn");
-
-const togglePassword =
-    document.getElementById("togglePassword");
-
-const userPassword =
-    document.getElementById("userPassword");
+const userTableBody =
+    document.getElementById("userTableBody");
 
 const searchInput =
     document.getElementById("searchInput");
@@ -46,102 +22,113 @@ const searchInput =
 const roleFilter =
     document.getElementById("roleFilter");
 
-const userTableBody =
-    document.getElementById("userTableBody");
+const totalUsers =
+    document.getElementById("totalUsers");
+
+const adminUsers =
+    document.getElementById("adminUsers");
+
+const pharmacistUsers =
+    document.getElementById("pharmacistUsers");
+
+const staffUsers =
+    document.getElementById("staffUsers");
+
+const addUserBtn =
+    document.getElementById("addUserBtn");
+
+const userModal =
+    document.getElementById("userModal");
 
 const modalTitle =
     document.getElementById("modalTitle");
 
-const saveUserBtn =
-    document.getElementById("saveUserBtn");
+const closeModalBtn =
+    document.getElementById("closeModalBtn");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+const userForm =
+    document.getElementById("userForm");
+
+const editUserId =
+    document.getElementById("editUserId");
+
+const userUsername =
+    document.getElementById("userUsername");
+
+const userName =
+    document.getElementById("userName");
+
+const userEmail =
+    document.getElementById("userEmail");
+
+const userRole =
+    document.getElementById("userRole");
+
+const userStatus =
+    document.getElementById("userStatus");
+
+const userPassword =
+    document.getElementById("userPassword");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
 
 
-/* =====================================================
-   ROLE MAPPING
-   ===================================================== */
-
-function roleToBackend(role) {
-
-    if (role === "Administrator") {
-        return "admin";
-    }
-
-    if (role === "Pharmacist") {
-        return "pharmacist";
-    }
-
-    return "staff";
-}
-
-
-function roleToDisplay(role) {
-
-    if (role === "admin") {
-        return "Administrator";
-    }
-
-    if (role === "pharmacist") {
-        return "Pharmacist";
-    }
-
-    return "Staff";
-}
-
-
-/* =====================================================
-   LOAD USERS
-   ===================================================== */
+// =====================================
+// LOAD USERS
+// =====================================
 
 async function loadUsers() {
 
     try {
 
-        userTableBody.innerHTML = `
-            <tr>
-                <td colspan="6" class="empty-row">
-                    Loading users...
-                </td>
-            </tr>
-        `;
-
-
         const response =
             await fetch(API_URL);
-
 
         const data =
             await response.json();
 
+        console.log("Users:", data);
 
-        console.log("Users API:", data);
-
-
-        if (!response.ok || !data.success) {
+        if (!data.success) {
 
             throw new Error(
-                data.message || "Unable to load users"
+                data.message ||
+                "Unable to load users."
             );
 
         }
 
-
         users =
-            data.users || data.data || [];
+            data.users || [];
 
+        displayUsers();
 
         updateSummary();
 
-        renderUsers();
-
-
     } catch (error) {
 
-        console.error("Users error:", error);
+        console.error(
+            "Load users error:",
+            error
+        );
 
         userTableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty-row">
-                    Unable to load users from database.
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    "
+                >
+                    Unable to load users.
                 </td>
             </tr>
         `;
@@ -151,60 +138,105 @@ async function loadUsers() {
 }
 
 
-/* =====================================================
-   SUMMARY
-   ===================================================== */
+// =====================================
+// ROLE DISPLAY
+// =====================================
 
-function updateSummary() {
+function displayRole(role) {
 
-    const total =
-        users.length;
+    if (role === "admin") {
 
+        return "Administrator";
 
-    const admins =
-        users.filter(
-            user => user.role === "admin"
-        ).length;
+    }
 
+    if (role === "pharmacist") {
 
-    const pharmacists =
-        users.filter(
-            user => user.role === "pharmacist"
-        ).length;
+        return "Pharmacist";
 
+    }
 
-    const staff =
-        users.filter(
-            user => user.role === "staff"
-        ).length;
-
-
-    document.getElementById("totalUsers").textContent =
-        total;
-
-    document.getElementById("adminUsers").textContent =
-        admins;
-
-    document.getElementById("pharmacistUsers").textContent =
-        pharmacists;
-
-    document.getElementById("staffUsers").textContent =
-        staff;
+    return "Staff";
 
 }
 
 
-/* =====================================================
-   RENDER USERS
-   ===================================================== */
+// =====================================
+// ROLE FOR BACKEND
+// =====================================
 
-function renderUsers() {
+function backendRole(role) {
+
+    if (role === "Administrator") {
+
+        return "admin";
+
+    }
+
+    if (role === "Pharmacist") {
+
+        return "pharmacist";
+
+    }
+
+    return "staff";
+
+}
+
+
+// =====================================
+// ESCAPE HTML
+// =====================================
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// =====================================
+// UPDATE SUMMARY
+// =====================================
+
+function updateSummary() {
+
+    totalUsers.textContent =
+        users.length;
+
+    adminUsers.textContent =
+        users.filter(
+            user => user.role === "admin"
+        ).length;
+
+    pharmacistUsers.textContent =
+        users.filter(
+            user => user.role === "pharmacist"
+        ).length;
+
+    staffUsers.textContent =
+        users.filter(
+            user => user.role === "staff"
+        ).length;
+
+}
+
+
+// =====================================
+// DISPLAY USERS
+// =====================================
+
+function displayUsers() {
 
     const search =
         searchInput.value
             .trim()
             .toLowerCase();
-
 
     const selectedRole =
         roleFilter.value;
@@ -213,44 +245,59 @@ function renderUsers() {
     const filteredUsers =
         users.filter(user => {
 
-            const displayRole =
-                roleToDisplay(user.role);
+            const username =
+                (user.username || "")
+                    .toLowerCase();
+
+            const fullName =
+                (user.fullName || "")
+                    .toLowerCase();
+
+            const email =
+                (user.email || "")
+                    .toLowerCase();
+
+            const role =
+                displayRole(user.role)
+                    .toLowerCase();
 
 
             const matchesSearch =
-                (user.username || "")
-                    .toLowerCase()
-                    .includes(search)
-
-                ||
-
-                (user.fullName || "")
-                    .toLowerCase()
-                    .includes(search)
-
-                ||
-
-                displayRole
-                    .toLowerCase()
-                    .includes(search);
+                username.includes(search) ||
+                fullName.includes(search) ||
+                email.includes(search) ||
+                role.includes(search);
 
 
             const matchesRole =
-                selectedRole === "all"
-                ||
-                displayRole === selectedRole;
+                selectedRole === "all" ||
+                displayRole(user.role) ===
+                selectedRole;
 
 
-            return matchesSearch && matchesRole;
+            return (
+                matchesSearch &&
+                matchesRole
+            );
 
         });
 
+
+    // =================================
+    // NO USERS
+    // =================================
 
     if (filteredUsers.length === 0) {
 
         userTableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="empty-row">
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    "
+                >
                     No users found.
                 </td>
             </tr>
@@ -260,85 +307,80 @@ function renderUsers() {
     }
 
 
+    // =================================
+    // DISPLAY USERS
+    // =================================
+
     userTableBody.innerHTML =
         filteredUsers.map(
             (user, index) => {
 
-                const displayRole =
-                    roleToDisplay(user.role);
-
+                const role =
+                    displayRole(
+                        user.role
+                    );
 
                 const status =
-                    user.isActive === false
-                        ? "Inactive"
-                        : "Active";
-
-
-                let roleClass =
-                    "role-staff";
-
-
-                if (user.role === "admin") {
-                    roleClass = "role-admin";
-                }
-
-                if (user.role === "pharmacist") {
-                    roleClass = "role-pharmacist";
-                }
-
-
-                const statusClass =
-                    status === "Active"
-                        ? "status-active"
-                        : "status-inactive";
+                    user.isActive
+                        ? "Active"
+                        : "Inactive";
 
 
                 return `
                     <tr>
 
+                        <!-- NUMBER -->
                         <td>
                             ${index + 1}
                         </td>
 
+
+                        <!-- USERNAME -->
                         <td>
                             <strong>
-                                ${escapeHtml(user.username || "")}
+                                ${escapeHTML(
+                                    user.username
+                                )}
                             </strong>
                         </td>
 
+
+                        <!-- FULL NAME -->
                         <td>
-                            ${escapeHtml(user.fullName || "-")}
+                            ${escapeHTML(
+                                user.fullName
+                            )}
                         </td>
 
+
+                        <!-- ROLE -->
                         <td>
-
-                            <span class="role-badge ${roleClass}">
-                                ${displayRole}
-                            </span>
-
+                            ${role}
                         </td>
 
+
+                        <!-- STATUS -->
                         <td>
-
-                            <span class="${statusClass}">
-                                ${status}
-                            </span>
-
+                            ${status}
                         </td>
 
+
+                        <!-- ACTION -->
                         <td>
 
                             <button
                                 type="button"
                                 class="edit-btn"
-                                onclick="editUser('${user._id}')">
+                                onclick="editUser('${user._id}')"
+                            >
                                 Edit
                             </button>
 
                             <button
                                 type="button"
                                 class="delete-btn"
-                                onclick="deleteUser('${user._id}')">
+                                onclick="deleteUser('${user._id}')"
+                            >
                                 Delete
                             </button>
 
@@ -353,364 +395,539 @@ function renderUsers() {
 }
 
 
-/* =====================================================
-   OPEN ADD USER MODAL
-   ===================================================== */
+// =====================================
+// OPEN ADD USER MODAL
+// =====================================
 
-function openAddUserModal() {
+if (addUserBtn) {
 
-    editingUserId = null;
+    addUserBtn.addEventListener(
+        "click",
+        function () {
 
+            modalTitle.textContent =
+                "Add User";
 
-    userForm.reset();
+            userForm.reset();
 
+            editUserId.value =
+                "";
 
-    document.getElementById("editUserId").value =
-        "";
+            userUsername.disabled =
+                false;
 
+            userPassword.required =
+                true;
 
-    document.getElementById("userRole").value =
-        "Staff";
+            userRole.value =
+                "Staff";
 
+            userStatus.value =
+                "Active";
 
-    document.getElementById("userStatus").value =
-        "Active";
+            if (togglePassword) {
 
+                userPassword.type =
+                    "password";
 
-    userPassword.type =
-        "password";
+                togglePassword.textContent =
+                    "👁️";
 
+            }
 
-    modalTitle.textContent =
-        "Add User";
+            userModal.classList.add(
+                "show"
+            );
 
-
-    saveUserBtn.textContent =
-        "Add User";
-
-
-    userModal.classList.add("show");
-
-
-    setTimeout(() => {
-
-        document
-            .getElementById("userUsername")
-            .focus();
-
-    }, 100);
+        }
+    );
 
 }
 
 
-/* =====================================================
-   CLOSE MODAL
-   ===================================================== */
+// =====================================
+// CLOSE MODAL
+// =====================================
 
 function closeModal() {
 
-    userModal.classList.remove("show");
-
-    editingUserId = null;
+    userModal.classList.remove(
+        "show"
+    );
 
     userForm.reset();
 
-    userPassword.type =
-        "password";
+    editUserId.value =
+        "";
+
+    userUsername.disabled =
+        false;
+
+    userPassword.required =
+        true;
+
+    if (togglePassword) {
+
+        userPassword.type =
+            "password";
+
+        togglePassword.textContent =
+            "👁️";
+
+    }
 
 }
 
 
-/* =====================================================
-   EDIT USER
-   ===================================================== */
+if (closeModalBtn) {
 
-function editUser(id) {
+    closeModalBtn.addEventListener(
+        "click",
+        closeModal
+    );
+
+}
+
+
+if (cancelBtn) {
+
+    cancelBtn.addEventListener(
+        "click",
+        closeModal
+    );
+
+}
+
+
+// =====================================
+// CLICK OUTSIDE MODAL
+// =====================================
+
+if (userModal) {
+
+    userModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                userModal
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================
+// ADD / EDIT USER
+// =====================================
+
+if (userForm) {
+
+    userForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const id =
+                editUserId.value.trim();
+
+            const username =
+                userUsername.value.trim();
+
+            const fullName =
+                userName.value.trim();
+
+            const email =
+                userEmail.value.trim()
+                    .toLowerCase();
+
+            const role =
+                backendRole(
+                    userRole.value
+                );
+
+            const isActive =
+                userStatus.value ===
+                "Active";
+
+            const password =
+                userPassword.value.trim();
+
+
+            // =================================
+            // VALIDATION
+            // =================================
+
+            if (
+                !username ||
+                !fullName
+            ) {
+
+                alert(
+                    "Username and Full Name are required."
+                );
+
+                return;
+
+            }
+
+
+            // Email validation
+            // Only required when user
+            // wants password recovery.
+
+            if (
+                email &&
+                !isValidEmail(email)
+            ) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                userEmail.focus();
+
+                return;
+
+            }
+
+
+            // =================================
+            // EDIT USER
+            // =================================
+
+            if (id) {
+
+                const body = {
+
+                    fullName:
+                        fullName,
+
+                    email:
+                        email,
+
+                    role:
+                        role,
+
+                    isActive:
+                        isActive
+
+                };
+
+
+                // Only update password
+                // if a new password was entered.
+
+                if (password) {
+
+                    body.password =
+                        password;
+
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/${id}`,
+                            {
+                                method: "PUT",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        body
+                                    )
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (
+                        !response.ok ||
+                        !data.success
+                    ) {
+
+                        alert(
+                            data.message ||
+                            "Failed to update user."
+                        );
+
+                        return;
+
+                    }
+
+
+                    alert(
+                        "User updated successfully."
+                    );
+
+                    closeModal();
+
+                    loadUsers();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Update user error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to connect to backend."
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            // =================================
+            // ADD USER
+            // =================================
+
+            if (!password) {
+
+                alert(
+                    "Password is required."
+                );
+
+                return;
+
+            }
+
+
+            const body = {
+
+                username:
+                    username.toLowerCase(),
+
+                fullName:
+                    fullName,
+
+                email:
+                    email,
+
+                role:
+                    role,
+
+                password:
+                    password,
+
+                isActive:
+                    isActive
+
+            };
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    body
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    alert(
+                        data.message ||
+                        "Failed to add user."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    "User added successfully."
+                );
+
+                closeModal();
+
+                loadUsers();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Add user error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================
+// EDIT USER
+// =====================================
+
+async function editUser(id) {
 
     const user =
         users.find(
-            item => item._id === id
+            u => u._id === id
         );
 
 
     if (!user) {
 
-        alert("User not found.");
+        alert(
+            "User not found."
+        );
 
         return;
+
     }
-
-
-    editingUserId =
-        user._id;
-
-
-    document.getElementById("editUserId").value =
-        user._id;
-
-
-    document.getElementById("userUsername").value =
-        user.username || "";
-
-
-    document.getElementById("userName").value =
-        user.fullName || "";
-
-
-    document.getElementById("userRole").value =
-        roleToDisplay(user.role);
-
-
-    document.getElementById("userStatus").value =
-        user.isActive === false
-            ? "Inactive"
-            : "Active";
-
-
-    document.getElementById("userPassword").value =
-        "";
-
-
-    document.getElementById("userPassword").required =
-        false;
 
 
     modalTitle.textContent =
         "Edit User";
 
 
-    saveUserBtn.textContent =
-        "Update User";
+    editUserId.value =
+        user._id;
 
 
-    userModal.classList.add("show");
+    // Username
+    userUsername.value =
+        user.username || "";
+
+    // Username cannot be changed
+    // because it is used for login.
+    userUsername.disabled =
+        true;
+
+
+    // Full Name
+    userName.value =
+        user.fullName || "";
+
+
+    // Registered Email
+    userEmail.value =
+        user.email || "";
+
+
+    // Role
+    userRole.value =
+        displayRole(
+            user.role
+        );
+
+
+    // Status
+    userStatus.value =
+        user.isActive
+            ? "Active"
+            : "Inactive";
+
+
+    // Password is optional while editing.
+    userPassword.value =
+        "";
+
+    userPassword.required =
+        false;
+
+
+    if (togglePassword) {
+
+        userPassword.type =
+            "password";
+
+        togglePassword.textContent =
+            "👁️";
+
+    }
+
+
+    userModal.classList.add(
+        "show"
+    );
 
 }
 
 
-/* =====================================================
-   SAVE / UPDATE USER
-   ===================================================== */
-
-async function saveUser(event) {
-
-    event.preventDefault();
-
-
-    const username =
-        document
-            .getElementById("userUsername")
-            .value
-            .trim();
-
-
-    const fullName =
-        document
-            .getElementById("userName")
-            .value
-            .trim();
-
-
-    const selectedRole =
-        document
-            .getElementById("userRole")
-            .value;
-
-
-    const selectedStatus =
-        document
-            .getElementById("userStatus")
-            .value;
-
-
-    const password =
-        document
-            .getElementById("userPassword")
-            .value;
-
-
-    if (!username || !fullName) {
-
-        alert("Please enter username and full name.");
-
-        return;
-    }
-
-
-    if (!editingUserId && !password) {
-
-        alert("Please enter password.");
-
-        return;
-    }
-
-
-    const payload = {
-
-        username: username,
-
-        fullName: fullName,
-
-        role: roleToBackend(selectedRole),
-
-        isActive:
-            selectedStatus === "Active"
-
-    };
-
-
-    if (password) {
-
-        payload.password =
-            password;
-
-    }
-
-
-    try {
-
-        saveUserBtn.disabled =
-            true;
-
-
-        saveUserBtn.textContent =
-            editingUserId
-                ? "Updating..."
-                : "Adding...";
-
-
-        let response;
-
-
-        if (editingUserId) {
-
-            response =
-                await fetch(
-                    `${API_URL}/${editingUserId}`,
-                    {
-                        method: "PUT",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(payload)
-                    }
-                );
-
-        } else {
-
-            response =
-                await fetch(
-                    API_URL,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(payload)
-                    }
-                );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log("Save user response:", data);
-
-
-        if (!response.ok || !data.success) {
-
-            throw new Error(
-                data.message ||
-                "Unable to save user"
-            );
-
-        }
-
-
-        alert(
-            editingUserId
-                ? "User updated successfully."
-                : "User added successfully."
-        );
-
-
-        closeModal();
-
-        await loadUsers();
-
-
-    } catch (error) {
-
-        console.error("Save user error:", error);
-
-        alert(
-            error.message ||
-            "Unable to save user."
-        );
-
-
-    } finally {
-
-        saveUserBtn.disabled =
-            false;
-
-
-        saveUserBtn.textContent =
-            editingUserId
-                ? "Update User"
-                : "Add User";
-
-    }
-
-}
-
-
-/* =====================================================
-   DELETE USER
-   ===================================================== */
+// =====================================
+// DELETE USER
+// =====================================
 
 async function deleteUser(id) {
 
     const user =
         users.find(
-            item => item._id === id
+            u => u._id === id
         );
 
 
     if (!user) {
-        return;
-    }
-
-
-    if (user.username === "admin") {
-
-        alert(
-            "The main admin user cannot be deleted."
-        );
 
         return;
+
     }
 
 
     const confirmDelete =
         confirm(
-            `Delete user "${user.username}"?`
+            `Delete user "${user.fullName || user.username}"?`
         );
 
 
     if (!confirmDelete) {
+
         return;
+
     }
 
 
@@ -729,12 +946,17 @@ async function deleteUser(id) {
             await response.json();
 
 
-        if (!response.ok || !data.success) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-            throw new Error(
+            alert(
                 data.message ||
-                "Unable to delete user"
+                "Failed to delete user."
             );
+
+            return;
 
         }
 
@@ -743,8 +965,7 @@ async function deleteUser(id) {
             "User deleted successfully."
         );
 
-
-        await loadUsers();
+        loadUsers();
 
 
     } catch (error) {
@@ -754,10 +975,8 @@ async function deleteUser(id) {
             error
         );
 
-
         alert(
-            error.message ||
-            "Unable to delete user."
+            "Unable to connect to backend."
         );
 
     }
@@ -765,161 +984,132 @@ async function deleteUser(id) {
 }
 
 
-/* =====================================================
-   PASSWORD TOGGLE
-   ===================================================== */
+// =====================================
+// SEARCH
+// =====================================
 
-function togglePasswordVisibility() {
+if (searchInput) {
 
-    if (userPassword.type === "password") {
-
-        userPassword.type =
-            "text";
-
-        togglePassword.textContent =
-            "🙈";
-
-    } else {
-
-        userPassword.type =
-            "password";
-
-        togglePassword.textContent =
-            "👁️";
-
-    }
+    searchInput.addEventListener(
+        "input",
+        displayUsers
+    );
 
 }
 
 
-/* =====================================================
-   HTML ESCAPE
-   ===================================================== */
+// =====================================
+// ROLE FILTER
+// =====================================
 
-function escapeHtml(value) {
+if (roleFilter) {
 
-    return String(value)
-
-        .replace(/&/g, "&amp;")
-
-        .replace(/</g, "&lt;")
-
-        .replace(/>/g, "&gt;")
-
-        .replace(/"/g, "&quot;")
-
-        .replace(/'/g, "&#039;");
+    roleFilter.addEventListener(
+        "change",
+        displayUsers
+    );
 
 }
 
 
-/* =====================================================
-   EVENTS
-   ===================================================== */
+// =====================================
+// PASSWORD SHOW / HIDE
+// =====================================
 
-addUserBtn.addEventListener(
-    "click",
-    openAddUserModal
-);
+if (
+    togglePassword &&
+    userPassword
+) {
 
-
-closeModalBtn.addEventListener(
-    "click",
-    closeModal
-);
-
-
-cancelBtn.addEventListener(
-    "click",
-    closeModal
-);
-
-
-userForm.addEventListener(
-    "submit",
-    saveUser
-);
-
-
-togglePassword.addEventListener(
-    "click",
-    togglePasswordVisibility
-);
-
-
-searchInput.addEventListener(
-    "input",
-    renderUsers
-);
-
-
-roleFilter.addEventListener(
-    "change",
-    renderUsers
-);
-
-
-/* Close when clicking outside modal */
-
-userModal.addEventListener(
-    "click",
-    function(event) {
-
-        if (event.target === userModal) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* ESC closes modal */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape" &&
-            userModal.classList.contains("show")
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
-document
-    .getElementById("logoutBtn")
-    .addEventListener(
+    togglePassword.addEventListener(
         "click",
-        function() {
+        function (event) {
 
-            const confirmLogout = confirm(
-                "Are you sure you want to logout?"
-            );
+            event.preventDefault();
 
-            if (confirmLogout) {
 
-                window.location.href =
-                    "../../login.html";
+            if (
+                userPassword.type ===
+                "password"
+            ) {
+
+                userPassword.type =
+                    "text";
+
+                togglePassword.textContent =
+                    "🙈";
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                userPassword.type =
+                    "password";
+
+                togglePassword.textContent =
+                    "👁️";
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
 
             }
 
         }
     );
 
+}
 
-/* =====================================================
-   INITIAL LOAD
-   ===================================================== */
+
+// =====================================
+// EMAIL VALIDATION
+// =====================================
+
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+// =====================================
+// LOGOUT
+// =====================================
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem(
+                "curaMatrixLoggedIn"
+            );
+
+            localStorage.removeItem(
+                "curaMatrixToken"
+            );
+
+            localStorage.removeItem(
+                "curaMatrixUser"
+            );
+
+            window.location.href =
+                "../../login.html";
+
+        }
+    );
+
+}
+
+
+// =====================================
+// INITIALIZE
+// =====================================
 
 loadUsers();

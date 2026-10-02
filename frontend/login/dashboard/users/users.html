@@ -35,6 +35,7 @@
 
         </div>
 
+
         <nav class="navigation">
 
             <a href="../dashboard.html" class="nav-link">
@@ -88,6 +89,7 @@
             </a>
 
         </nav>
+
 
         <div class="sidebar-footer">
 
@@ -314,13 +316,16 @@
             <form id="userForm">
 
                 <!-- Hidden ID for Edit -->
+
                 <input
                     type="hidden"
                     id="editUserId"
                 >
 
 
-                <!-- Username -->
+                <!-- =================================================
+                     USERNAME
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -339,7 +344,9 @@
                 </div>
 
 
-                <!-- Full Name -->
+                <!-- =================================================
+                     FULL NAME
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -358,7 +365,29 @@
                 </div>
 
 
-                <!-- Role -->
+                <!-- =================================================
+                     EMAIL
+                     ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="userEmail">
+                        Registered Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="userEmail"
+                        placeholder="Enter registered email"
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <!-- =================================================
+                     ROLE
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -388,7 +417,9 @@
                 </div>
 
 
-                <!-- Status -->
+                <!-- =================================================
+                     STATUS
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -414,7 +445,9 @@
                 </div>
 
 
-                <!-- Password -->
+                <!-- =================================================
+                     PASSWORD
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -477,7 +510,7 @@
     <!-- =====================================================
          JAVASCRIPT
          ===================================================== -->
-
+    <script src="../role-access.js"></script>
     <script src="users.js"></script>
 
 </body>

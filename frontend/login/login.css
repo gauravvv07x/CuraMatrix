@@ -1,6 +1,6 @@
 /* =========================================================
    CURAMATRIX LOGIN PAGE
-   REFERENCE-MATCHED VERSION
+   REFERENCE-MATCHED VERSION + FORGOT PASSWORD MODAL
    ========================================================= */
 
 * {
@@ -107,13 +107,16 @@ body {
     gap: 12px;
 }
 
+
 /* LOGO */
 
 .brand-logo {
-     margin-top: 30px;
+    margin-top: 30px;
     margin-left: -80px;
+
     width: 190px;
-    height:190px;
+    height: 190px;
+
     border-radius: 40px;
 
     object-fit: contain;
@@ -122,9 +125,9 @@ body {
 }
 
 
-
-
-/* BRAND NAME */
+/* =========================================================
+   BRAND NAME
+   ========================================================= */
 
 .brand-name h1 {
     margin-top: 10px;
@@ -168,7 +171,7 @@ body {
     max-width: 100%;
 
     margin-top: 45px;
-     margin-left: -45px;
+    margin-left: -45px;
 
     display: grid;
 
@@ -244,6 +247,7 @@ body {
     font-weight: 500;
 }
 
+
 /* =========================================================
    TAGLINE
    ========================================================= */
@@ -259,9 +263,6 @@ body {
     align-items: center;
 }
 
-
-
-
 .tagline-line {
     width: 90%;
 
@@ -271,7 +272,6 @@ body {
 
     background: #17aabc;
 }
-
 
 .tagline p {
     color: #000000;
@@ -316,7 +316,7 @@ body {
     position: relative;
 
     width: 570px;
-    height: 730px;
+    height: 650px;
 
     padding: 52px 47px 30px;
 
@@ -338,11 +338,11 @@ body {
 /* =========================================================
    LOGIN HEADER
    ========================================================= */
+
 .login-header {
     text-align: center;
     margin-bottom: 35px;
 }
-
 
 .login-header h2 {
     color: #092554;
@@ -351,12 +351,12 @@ body {
     font-weight: 700;
 }
 
-
 .login-header p {
     margin-top: 8px;
     color: #6a788a;
     font-size: 16px;
 }
+
 
 /* =========================================================
    INPUT GROUP
@@ -370,7 +370,6 @@ body {
 
     margin-bottom: 18px;
 }
-
 
 .input-group input {
     width: 100%;
@@ -393,11 +392,9 @@ body {
     font-size: 16px;
 }
 
-
 .input-group input::placeholder {
     color: #788697;
 }
-
 
 .input-group input:focus {
     border-color: #2186d5;
@@ -500,6 +497,8 @@ body {
 
     margin: 0;
 
+    padding: 0;
+
     cursor: pointer;
 
     accent-color: #176fc6;
@@ -516,6 +515,8 @@ body {
     font-weight: 500;
 
     text-decoration: none;
+
+    cursor: pointer;
 }
 
 .forgot-password:hover {
@@ -569,11 +570,9 @@ body {
         0 10px 25px rgba(25, 103, 193, 0.28);
 }
 
-
 .login-button:active {
     transform: translateY(0);
 }
-
 
 .login-button-icon {
     font-size: 27px;
@@ -617,7 +616,6 @@ body {
     gap: 17px;
 }
 
-
 .divider span {
     flex: 1;
 
@@ -625,7 +623,6 @@ body {
 
     background: #d6dde6;
 }
-
 
 .divider p {
     color: #6c7785;
@@ -672,7 +669,6 @@ body {
     font-size: 31px;
 }
 
-
 .authorized-content h3 {
     margin-bottom: 4px;
 
@@ -691,6 +687,7 @@ body {
     line-height: 1.35;
 }
 
+
 /* =========================================================
    FOOTER
    ========================================================= */
@@ -707,7 +704,540 @@ body {
 
 
 /* =========================================================
-   RESPONSIVE
+   FORGOT PASSWORD MODAL
+   ========================================================= */
+
+.forgot-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(5, 25, 55, 0.55);
+
+    backdrop-filter: blur(5px);
+}
+
+.forgot-modal.active {
+    display: flex;
+}
+
+
+/* =========================================================
+   FORGOT MODAL CARD
+   ========================================================= */
+
+.forgot-modal-content {
+    position: relative;
+
+    width: 500px;
+    max-width: 100%;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 38px 40px 35px;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 55px rgba(7, 31, 77, 0.25);
+
+    animation: forgotModalIn 0.22s ease;
+}
+
+@keyframes forgotModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.close-forgot-password {
+    position: absolute;
+
+    top: 16px;
+    right: 18px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f0f4f8;
+
+    color: #56677b;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.close-forgot-password:hover {
+    background: #e3e9ef;
+
+    color: #092554;
+}
+
+
+/* =========================================================
+   FORGOT MODAL HEADER
+   ========================================================= */
+
+.forgot-header {
+    text-align: center;
+
+    margin-bottom: 27px;
+}
+
+.forgot-header-icon {
+    width: 62px;
+    height: 62px;
+
+    margin: 0 auto 14px;
+
+    border-radius: 16px;
+
+    background: #e4f5fb;
+
+    color: #159bb5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.forgot-header h2 {
+    color: #092554;
+
+    font-size: 27px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+}
+
+.forgot-header p {
+    margin-top: 7px;
+
+    color: #6a788a;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORGOT STEPS
+   ========================================================= */
+
+.forgot-step {
+    display: none;
+}
+
+.forgot-step.active {
+    display: block;
+}
+
+
+/* =========================================================
+   FORGOT FORM GROUP
+   ========================================================= */
+
+.forgot-form-group {
+    margin-bottom: 17px;
+}
+
+.forgot-form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #1d3049;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.forgot-input {
+    width: 100%;
+
+    height: 53px;
+
+    padding: 0 16px;
+
+    border: 1.5px solid #d5dde6;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #fcfdff;
+
+    color: #18263a;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.forgot-input:focus {
+    border-color: #2186d5;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(33, 134, 213, 0.08);
+}
+
+.forgot-input::placeholder {
+    color: #8996a5;
+}
+
+
+/* =========================================================
+   OTP INPUT
+   ========================================================= */
+
+#resetOtp {
+    text-align: center;
+
+    letter-spacing: 8px;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PASSWORD WRAPPER
+   ========================================================= */
+
+.forgot-password-wrapper {
+    position: relative;
+}
+
+.forgot-password-wrapper .forgot-input {
+    padding-right: 70px;
+}
+
+
+/* =========================================================
+   NEW PASSWORD TOGGLE
+   ========================================================= */
+
+.forgot-toggle-password {
+    position: absolute;
+
+    top: 50%;
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    min-width: 48px;
+
+    height: 32px;
+
+    padding: 0 8px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #145db7;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.forgot-toggle-password:hover {
+    background: #edf5fc;
+}
+
+
+/* =========================================================
+   FORGOT MESSAGE
+   ========================================================= */
+
+.forgot-message {
+    min-height: 20px;
+
+    margin: 7px 0 13px;
+
+    padding: 0 2px;
+
+    color: #d62828;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+.forgot-message.success {
+    color: #14805e;
+}
+
+.forgot-message.error {
+    color: #d62828;
+}
+
+
+/* =========================================================
+   FORGOT PRIMARY BUTTON
+   ========================================================= */
+
+.forgot-primary-btn {
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1daed4,
+            #1654c7
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 17px rgba(25, 103, 193, 0.18);
+
+    transition: 0.2s ease;
+}
+
+.forgot-primary-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 9px 21px rgba(25, 103, 193, 0.25);
+}
+
+.forgot-primary-btn:active {
+    transform: translateY(0);
+}
+
+.forgot-primary-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   SECONDARY / RESEND BUTTON
+   ========================================================= */
+
+.forgot-secondary-btn {
+    width: 100%;
+
+    height: 48px;
+
+    margin-top: 10px;
+
+    border: 1px solid #d5dde6;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #145db7;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.forgot-secondary-btn:hover {
+    background: #f3f7fb;
+
+    border-color: #b9c8d8;
+}
+
+.forgot-secondary-btn:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   BACK / CANCEL BUTTON
+   ========================================================= */
+
+.forgot-back-btn {
+    width: 100%;
+
+    margin-top: 14px;
+
+    padding: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #63768b;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.forgot-back-btn:hover {
+    color: #145db7;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   OTP INFORMATION BOX
+   ========================================================= */
+
+.otp-info-box {
+    margin-bottom: 18px;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+
+    background: #f0f7fb;
+
+    color: #496277;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   SUCCESS STEP
+   ========================================================= */
+
+.forgot-success {
+    text-align: center;
+
+    padding: 10px 0 3px;
+}
+
+.forgot-success-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: #dff6ed;
+
+    color: #15966f;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 37px;
+
+    font-weight: 700;
+}
+
+.forgot-success h2 {
+    color: #092554;
+
+    font-size: 26px;
+
+    font-weight: 700;
+}
+
+.forgot-success p {
+    margin-top: 9px;
+
+    color: #68778a;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE - MAIN LOGIN PAGE
    ========================================================= */
 
 @media (max-width: 1400px) {
@@ -883,6 +1413,59 @@ body {
         font-size: 15px;
     }
 
+
+    /* FORGOT MODAL MOBILE */
+
+    .forgot-modal {
+        padding: 15px;
+    }
+
+    .forgot-modal-content {
+        padding:
+            32px 22px
+            25px;
+
+        border-radius: 18px;
+
+        max-height: 92vh;
+    }
+
+    .forgot-header {
+        margin-bottom: 22px;
+    }
+
+    .forgot-header-icon {
+        width: 56px;
+        height: 56px;
+
+        font-size: 27px;
+    }
+
+    .forgot-header h2 {
+        font-size: 24px;
+    }
+
+    .forgot-header p {
+        font-size: 13px;
+    }
+
+    .close-forgot-password {
+        top: 11px;
+        right: 12px;
+
+        width: 32px;
+        height: 32px;
+
+        font-size: 22px;
+    }
+
+    .forgot-input {
+        height: 51px;
+    }
+
+    #resetOtp {
+        letter-spacing: 6px;
+    }
 }
 
 
@@ -904,4 +1487,325 @@ body {
         gap: 14px;
     }
 
+    .forgot-modal {
+        padding: 10px;
+    }
+
+    .forgot-modal-content {
+        padding:
+            30px 17px
+            22px;
+    }
+
+    .forgot-header h2 {
+        font-size: 22px;
+    }
+
+    #resetOtp {
+        letter-spacing: 4px;
+
+        font-size: 20px;
+    }
+}
+
+/* =========================================================
+   CURAMATRIX FORGOT PASSWORD - FINAL FIX
+   ========================================================= */
+
+.forgot-modal-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.forgot-modal-header h2 {
+    margin: 8px 0;
+    color: #092554;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.forgot-modal-header p {
+    margin: 5px 0 0;
+    color: #6a788a;
+    font-size: 14px;
+}
+
+.forgot-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f0f4f8;
+    color: #56677b;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-close-btn:hover {
+    background: #e3e9ef;
+    color: #092554;
+}
+
+.forgot-icon {
+    width: 62px;
+    height: 62px;
+
+    margin: 0 auto 12px;
+
+    border-radius: 16px;
+
+    background: #e4f5fb;
+    color: #159bb5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.forgot-form-group input {
+    width: 100%;
+    height: 53px;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+
+    border: 1.5px solid #d5dde6;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #fcfdff;
+    color: #18263a;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.forgot-form-group input:focus {
+    border-color: #2186d5;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(33, 134, 213, 0.08);
+}
+
+.forgot-form-group input::placeholder {
+    color: #8996a5;
+}
+
+.forgot-password-wrapper {
+    position: relative;
+}
+
+.forgot-password-wrapper input {
+    padding-right: 70px;
+}
+
+.forgot-password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    color: #145db7;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.forgot-primary-btn {
+    width: 100%;
+
+    min-height: 50px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #18abc6,
+        #1859c8
+    );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.forgot-primary-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.95;
+}
+
+.forgot-primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.forgot-secondary-btn {
+    width: 100%;
+
+    min-height: 46px;
+
+    margin-top: 10px;
+
+    border: 1px solid #d5dde6;
+    border-radius: 10px;
+
+    background: #f7f9fc;
+    color: #145db7;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.forgot-message {
+    min-height: 20px;
+
+    margin: 8px 0;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.forgot-message.error {
+    color: #e53935;
+}
+
+.forgot-message.success {
+    color: #159447;
+}
+
+.forgot-success {
+    text-align: center;
+}
+
+.success-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 10px auto 15px;
+
+    border-radius: 50%;
+
+    background: #e7f8ef;
+    color: #159447;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.forgot-success h3 {
+    color: #092554;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.forgot-success p {
+    color: #6a788a;
+    font-size: 14px;
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+
+/* OTP */
+#resetOtp {
+    text-align: center;
+    letter-spacing: 8px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   ROLE SELECT - LOGIN
+   ========================================================= */
+
+.input-group select {
+    width: 100%;
+    height: 100%;
+
+    padding: 0 52px 0 65px;
+
+    border: 1.5px solid #d5dde6;
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #fcfdff;
+
+    color: #18263a;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+/* Placeholder - Select Role */
+.input-group select:invalid {
+    color: #788697;
+}
+
+/* Selected role */
+.input-group select:valid {
+    color: #18263a;
+}
+
+/* Focus effect */
+.input-group select:focus {
+    border-color: #2186d5;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(33, 134, 213, 0.08);
+}
+
+/* Dropdown options */
+.input-group select option {
+    color: #18263a;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 16px;
 }
