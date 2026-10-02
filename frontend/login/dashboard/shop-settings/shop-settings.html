@@ -27,7 +27,6 @@
         </div>
     </div>
 
-
     <nav class="navigation">
 
         <a href="../dashboard.html" class="nav-link">
@@ -82,7 +81,6 @@
 
     </nav>
 
-
     <div class="sidebar-footer">
         <button type="button" id="logoutBtn" class="logout-btn">
             ⇥ Logout
@@ -125,7 +123,6 @@
             <h2>Shop Information</h2>
             <p>Enter your medical store details</p>
         </div>
-
 
         <form id="shopSettingsForm">
 
@@ -331,6 +328,142 @@
         </button>
 
     </section>
+
+
+    <!-- ================= DANGER ZONE ================= -->
+    <section class="settings-card danger-zone">
+
+        <div class="section-title">
+
+            <h2>Danger Zone</h2>
+
+            <p>
+                Permanently remove application data from the database
+            </p>
+
+        </div>
+
+
+        <div class="danger-content">
+
+            <div class="danger-info">
+
+                <h3>Reset Database</h3>
+
+                <p>
+                    This will permanently delete all medicines,
+                    bills, and non-admin users from CuraMatrix.
+                </p>
+
+                <span>
+                    Your admin account will be kept.
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="resetDatabaseBtn"
+                class="danger-btn"
+            >
+                Reset Database
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADMIN PASSWORD MODAL ================= -->
+    <div
+        id="resetDatabaseModal"
+        class="reset-modal"
+    >
+
+        <div class="reset-modal-content">
+
+            <div class="reset-modal-header">
+
+                <div class="reset-warning-icon">
+                    ⚠
+                </div>
+
+                <div>
+                    <h2>Reset Database</h2>
+
+                    <p>
+                        Admin authorization required
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="reset-warning-box">
+
+                <strong>
+                    Warning
+                </strong>
+
+                <p>
+                    This action will permanently delete all
+                    medicines, bills, and non-admin users.
+                    This action cannot be undone.
+                </p>
+
+            </div>
+
+            
+<div class="password-wrapper">
+
+    <input
+        type="password"
+        id="adminResetPassword"
+        placeholder="Enter admin password"
+        autocomplete="current-password"
+    >
+
+    <button
+        type="button"
+        id="toggleResetPassword"
+        class="toggle-password-btn"
+    >
+        Show
+    </button>
+
+</div>
+
+
+            <div
+                id="resetDatabaseMessage"
+                class="reset-message"
+            ></div>
+
+
+            <div class="reset-modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelResetDatabaseBtn"
+                    class="cancel-reset-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    id="confirmResetDatabaseBtn"
+                    class="confirm-reset-btn"
+                >
+                    Reset Database
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <!-- ================= SUCCESS MESSAGE ================= -->

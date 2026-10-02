@@ -6,112 +6,83 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
     background: #f4f7fb;
-
     color: #1e293b;
 }
 
 
-/* SIDEBAR */
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
 .sidebar {
     position: fixed;
-
     left: 0;
     top: 0;
-
     width: 265px;
     height: 100vh;
-
     background: linear-gradient(
         180deg,
         #082f49,
         #075985
     );
-
     color: white;
-
     padding: 22px 15px;
-
     display: flex;
     flex-direction: column;
-
     z-index: 100;
 }
 
-
 .brand {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     padding: 5px 10px 25px;
 }
-
 
 .brand-icon {
     width: 45px;
     height: 45px;
-
     border-radius: 12px;
-
     background: #06b6d4;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-size: 25px;
     font-weight: bold;
 }
-
 
 .brand h2 {
     font-size: 20px;
 }
 
-
 .brand span {
     font-size: 12px;
-
     opacity: 0.75;
 }
 
 
-/* NAVIGATION */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 nav {
     display: flex;
-
     flex-direction: column;
-
     gap: 6px;
 }
 
-
 nav a {
     text-decoration: none;
-
     color: #dbeafe;
-
     padding: 12px 14px;
-
     border-radius: 9px;
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     font-size: 14px;
-
     transition: 0.2s;
 }
-
 
 nav a:hover {
     background: rgba(
@@ -120,208 +91,161 @@ nav a:hover {
         255,
         0.1
     );
-
     color: white;
 }
-
 
 nav a.active {
     background: #0891b2;
-
     color: white;
 }
 
-
 nav a span {
     width: 22px;
-
     text-align: center;
 }
 
 
-/* SIDEBAR BOTTOM */
+/* =====================================================
+   SIDEBAR BOTTOM
+===================================================== */
 
 .sidebar-bottom {
     margin-top: auto;
-
     text-align: center;
-
     font-size: 11px;
-
     opacity: 0.6;
 }
 
 
-/* MAIN */
+/* =====================================================
+   MAIN
+===================================================== */
 
 .main-content {
     margin-left: 265px;
-
     padding: 30px;
-
     max-width: 1250px;
 }
 
 
-/* HEADER */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .top-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 30px;
 }
 
-
 .top-header h1 {
     font-size: 28px;
-
     margin-bottom: 5px;
 }
 
-
 .top-header p {
     color: #64748b;
-
     font-size: 14px;
 }
 
-
 .header-actions {
     display: flex;
-
     gap: 10px;
 }
-
 
 .icon-btn,
 .logout-btn {
     border: none;
-
     cursor: pointer;
-
     padding: 10px 15px;
-
     border-radius: 8px;
-
     font-size: 14px;
 }
-
 
 .icon-btn {
     background: #e2e8f0;
 }
 
-
 .logout-btn {
     background: #dc2626;
-
     color: white;
 }
-
 
 .logout-btn:hover {
     background: #b91c1c;
 }
 
 
-/* SETTINGS CARD */
+/* =====================================================
+   SETTINGS CARD
+===================================================== */
 
 .settings-card {
     background: white;
-
     border-radius: 12px;
-
     padding: 25px;
-
     margin-bottom: 25px;
-
     box-shadow:
         0 2px 10px
         rgba(0, 0, 0, 0.05);
 }
 
-
 .section-title {
     margin-bottom: 25px;
-
     border-bottom: 1px solid #e2e8f0;
-
     padding-bottom: 15px;
 }
 
-
 .section-title h2 {
     font-size: 19px;
-
     margin-bottom: 5px;
 }
 
-
 .section-title p {
     color: #64748b;
-
     font-size: 13px;
 }
 
 
-/* FORM */
+/* =====================================================
+   FORM
+===================================================== */
 
 .form-grid {
     display: grid;
-
     grid-template-columns:
         repeat(2, 1fr);
-
     gap: 20px;
 }
 
-
 .form-group {
     display: flex;
-
     flex-direction: column;
-
     gap: 8px;
 }
-
 
 .full-width {
     grid-column: 1 / -1;
 }
 
-
 .form-group label {
     font-size: 13px;
-
     font-weight: 600;
-
     color: #334155;
 }
-
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-
     padding: 12px 13px;
-
     border: 1px solid #cbd5e1;
-
     border-radius: 8px;
-
     outline: none;
-
     font-size: 14px;
-
     font-family: inherit;
-
     background: white;
 }
-
 
 .form-group input:focus,
 .form-group textarea:focus {
@@ -332,31 +256,376 @@ nav a span {
         rgba(8, 145, 178, 0.1);
 }
 
-
 .form-group textarea {
     resize: vertical;
 }
 
 
-/* FORM BUTTONS */
+/* =====================================================
+   FORM BUTTONS
+===================================================== */
 
 .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.reset-btn,
+.save-btn {
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reset-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.save-btn {
+    background: #0891b2;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #0e7490;
+}
+
+
+/* =====================================================
+   INVOICE OPTIONS
+===================================================== */
+
+.invoice-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 20px;
+}
+
+.option-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.option-row strong {
+    font-size: 14px;
+}
+
+.option-row p {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+.switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+    background: #0891b2;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.invoice-save {
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   DANGER ZONE
+===================================================== */
+
+.danger-zone {
+    border: 1px solid #fecaca;
+    background: #fffafa;
+}
+
+.danger-zone .section-title {
+    border-bottom-color: #fee2e2;
+}
+
+.danger-zone .section-title h2 {
+    color: #b91c1c;
+}
+
+.danger-zone .section-title p {
+    color: #7f1d1d;
+}
+
+.danger-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.danger-info {
+    flex: 1;
+}
+
+.danger-info h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
+    color: #991b1b;
+}
+
+.danger-info p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.danger-info span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #b91c1c;
+}
+
+.danger-btn {
+    border: none;
+    background: #dc2626;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.danger-btn:hover {
+    background: #b91c1c;
+}
+
+.danger-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* =====================================================
+   RESET DATABASE MODAL
+===================================================== */
+
+.reset-modal {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(
+        15,
+        23,
+        42,
+        0.65
+    );
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    overflow-y: auto;
+}
+
+.reset-modal.show {
+    display: flex;
+}
+
+.reset-modal-content {
+    width: 100%;
+    max-width: 520px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.25);
+
+    animation:
+        modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* MODAL HEADER */
+
+.reset-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+.reset-modal-header h2 {
+    font-size: 20px;
+    color: #991b1b;
+
+    margin-bottom: 4px;
+}
+
+.reset-modal-header p {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.reset-warning-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+    font-weight: bold;
+}
+
+
+/* WARNING BOX */
+
+.reset-warning-box {
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 8px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 22px;
+}
+
+.reset-warning-box strong {
+    display: block;
+
+    color: #c2410c;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.reset-warning-box p {
+    color: #7c2d12;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* RESET PASSWORD */
+
+#adminResetPassword {
+    background: white;
+}
+
+
+/* RESET MESSAGE */
+
+.reset-message {
+    min-height: 20px;
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    color: #dc2626;
+}
+
+
+/* MODAL BUTTONS */
+
+.reset-modal-actions {
     display: flex;
 
     justify-content: flex-end;
 
     gap: 10px;
 
-    margin-top: 25px;
-
-    padding-top: 20px;
-
-    border-top: 1px solid #e2e8f0;
+    margin-top: 20px;
 }
 
-
-.reset-btn,
-.save-btn {
+.cancel-reset-btn,
+.confirm-reset-btn {
     border: none;
 
     padding: 11px 20px;
@@ -370,141 +639,41 @@ nav a span {
     font-weight: 600;
 }
 
-
-.reset-btn {
+.cancel-reset-btn {
     background: #e2e8f0;
 
     color: #334155;
 }
 
+.cancel-reset-btn:hover {
+    background: #cbd5e1;
+}
 
-.save-btn {
-    background: #0891b2;
+.confirm-reset-btn {
+    background: #dc2626;
 
     color: white;
 }
 
+.confirm-reset-btn:hover {
+    background: #b91c1c;
+}
 
-.save-btn:hover {
-    background: #0e7490;
+.confirm-reset-btn:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
 }
 
 
-/* INVOICE OPTIONS */
-
-.invoice-options {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 0;
-
-    margin-bottom: 20px;
-}
-
-
-.option-row {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 18px 0;
-
-    border-bottom: 1px solid #e2e8f0;
-}
-
-
-.option-row strong {
-    font-size: 14px;
-}
-
-
-.option-row p {
-    margin-top: 5px;
-
-    font-size: 12px;
-
-    color: #64748b;
-}
-
-
-/* TOGGLE */
-
-.switch {
-    position: relative;
-
-    width: 48px;
-
-    height: 26px;
-}
-
-
-.switch input {
-    opacity: 0;
-
-    width: 0;
-    height: 0;
-}
-
-
-.slider {
-    position: absolute;
-
-    cursor: pointer;
-
-    inset: 0;
-
-    background: #cbd5e1;
-
-    border-radius: 20px;
-
-    transition: 0.3s;
-}
-
-
-.slider:before {
-    content: "";
-
-    position: absolute;
-
-    width: 20px;
-    height: 20px;
-
-    left: 3px;
-    top: 3px;
-
-    background: white;
-
-    border-radius: 50%;
-
-    transition: 0.3s;
-}
-
-
-.switch input:checked + .slider {
-    background: #0891b2;
-}
-
-
-.switch input:checked + .slider:before {
-    transform: translateX(22px);
-}
-
-
-.invoice-save {
-    margin-top: 5px;
-}
-
-
-/* SUCCESS */
+/* =====================================================
+   SUCCESS
+===================================================== */
 
 .success-message {
     position: fixed;
 
     right: 30px;
-
     bottom: 30px;
 
     background: #16a34a;
@@ -522,8 +691,9 @@ nav a span {
     display: none;
 
     font-size: 14px;
-}
 
+    z-index: 10000;
+}
 
 .success-message.show {
     display: block;
@@ -531,7 +701,6 @@ nav a span {
     animation:
         fadeIn 0.3s ease;
 }
-
 
 @keyframes fadeIn {
 
@@ -548,7 +717,9 @@ nav a span {
 }
 
 
-/* DARK MODE */
+/* =====================================================
+   DARK MODE
+===================================================== */
 
 body.dark {
     background: #0f172a;
@@ -556,31 +727,25 @@ body.dark {
     color: #e2e8f0;
 }
 
-
 body.dark .top-header p {
     color: #94a3b8;
 }
-
 
 body.dark .settings-card {
     background: #1e293b;
 }
 
-
 body.dark .section-title {
     border-color: #334155;
 }
-
 
 body.dark .section-title p {
     color: #94a3b8;
 }
 
-
 body.dark .form-group label {
     color: #cbd5e1;
 }
-
 
 body.dark .form-group input,
 body.dark .form-group textarea {
@@ -591,11 +756,9 @@ body.dark .form-group textarea {
     border-color: #475569;
 }
 
-
 body.dark .form-actions {
     border-color: #334155;
 }
-
 
 body.dark .reset-btn,
 body.dark .icon-btn {
@@ -604,18 +767,96 @@ body.dark .icon-btn {
     color: #e2e8f0;
 }
 
-
 body.dark .option-row {
     border-color: #334155;
 }
-
 
 body.dark .option-row p {
     color: #94a3b8;
 }
 
 
-/* RESPONSIVE */
+/* DANGER ZONE DARK MODE */
+
+body.dark .danger-zone {
+    background: #1e293b;
+
+    border-color: #7f1d1d;
+}
+
+body.dark .danger-zone .section-title {
+    border-color: #334155;
+}
+
+body.dark .danger-zone .section-title h2 {
+    color: #f87171;
+}
+
+body.dark .danger-zone .section-title p {
+    color: #fca5a5;
+}
+
+body.dark .danger-info h3 {
+    color: #f87171;
+}
+
+body.dark .danger-info p {
+    color: #94a3b8;
+}
+
+body.dark .danger-info span {
+    color: #fca5a5;
+}
+
+
+/* MODAL DARK MODE */
+
+body.dark .reset-modal-content {
+    background: #1e293b;
+
+    color: #e2e8f0;
+}
+
+body.dark .reset-modal-header h2 {
+    color: #f87171;
+}
+
+body.dark .reset-modal-header p {
+    color: #94a3b8;
+}
+
+body.dark .reset-warning-box {
+    background: #2a1a12;
+
+    border-color: #7c2d12;
+}
+
+body.dark .reset-warning-box strong {
+    color: #fb923c;
+}
+
+body.dark .reset-warning-box p {
+    color: #fdba74;
+}
+
+body.dark #adminResetPassword {
+    background: #0f172a;
+
+    color: #e2e8f0;
+
+    border-color: #475569;
+}
+
+body.dark .cancel-reset-btn {
+    background: #334155;
+
+    color: #e2e8f0;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media (max-width: 900px) {
 
@@ -633,6 +874,15 @@ body.dark .option-row p {
 
     .full-width {
         grid-column: auto;
+    }
+
+    .danger-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .danger-btn {
+        width: 100%;
     }
 
 }
@@ -666,4 +916,118 @@ body.dark .option-row p {
         padding: 18px;
     }
 
+    .reset-modal-content {
+        padding: 20px;
+    }
+
+    .reset-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-reset-btn,
+    .confirm-reset-btn {
+        width: 100%;
+    }
+
 }
+
+
+/* ==========================================
+   RESET DATABASE PASSWORD FIELD
+========================================== */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+}
+
+.password-wrapper input#adminResetPassword {
+    display: block;
+    width: 100%;
+    height: 48px;
+
+    box-sizing: border-box;
+
+    padding: 12px 75px 12px 13px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #ffffff;
+    color: #1e293b;
+
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.password-wrapper input#adminResetPassword:focus {
+    border-color: #0891b2;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(8, 145, 178, 0.1);
+}
+
+.password-wrapper input#adminResetPassword::placeholder {
+    color: #94a3b8;
+}
+
+.toggle-password-btn {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+    padding: 3px 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #0891b2;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.toggle-password-btn:hover {
+    color: #0e7490;
+}
+
+.toggle-password-btn:focus {
+    outline: none;
+}
+
+body.dark .password-wrapper input#adminResetPassword {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #475569;
+}
+
+body.dark .password-wrapper input#adminResetPassword::placeholder {
+    color: #64748b;
+}
+
+body.dark .toggle-password-btn {
+    color: #22d3ee;
+}
+
+body.dark .toggle-password-btn:hover {
+    color: #67e8f9;
+}
+

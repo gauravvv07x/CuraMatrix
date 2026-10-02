@@ -1,7 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-
+const Medicine = require("../models/Medicine");
+const Bill = require("../models/Bill");
 const router = express.Router();
 
 
@@ -300,6 +301,88 @@ router.delete("/:id", async (req, res) => {
 
         });
 
+    }
+});
+
+
+// RESET DATABASE
+// Deletes all medicines, bills, and non-admin users.
+// Admin account(s) are kept.
+// Admin password must be verified first.
+
+router.post("/reset-database", async (req, res) => {
+    try {
+
+        const { adminPassword } = req.body;
+
+        if (!adminPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "Admin password is required."
+            });
+        }
+
+        // Find an Administrator account
+        const adminUser = await User.findOne({
+            role: "admin",
+            isActive: true
+        });
+
+        if (!adminUser) {
+            return res.status(404).json({
+                success: false,
+                message: "Active Administrator account not found."
+            });
+        }
+
+        // Verify admin password
+        const passwordMatch = await bcrypt.compare(
+            adminPassword,
+            adminUser.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid Administrator password."
+            });
+        }
+
+        // Delete all medicines
+        const medicineResult =
+            await Medicine.deleteMany({});
+
+        // Delete all bills
+        const billResult =
+            await Bill.deleteMany({});
+
+        // Delete all non-admin users
+        const userResult =
+            await User.deleteMany({
+                role: { $ne: "admin" }
+            });
+
+        res.json({
+            success: true,
+            message: "Database reset successfully.",
+            deleted: {
+                medicines: medicineResult.deletedCount,
+                bills: billResult.deletedCount,
+                users: userResult.deletedCount
+            }
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Reset database error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Server error while resetting database."
+        });
     }
 });
 
