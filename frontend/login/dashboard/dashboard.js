@@ -1,49 +1,148 @@
 /* =========================================================
    CURAMATRIX
    DASHBOARD JAVASCRIPT
+   MongoDB / Render Connected Version
    ========================================================= */
-const MEDICINE_API = "https://curamatrix-backend.onrender.com/api/medicines";
-const BILL_API = "https://curamatrix-backend.onrender.com/api/bills";
+
+const MEDICINE_API =
+    "https://curamatrix-backend.onrender.com/api/medicines";
+
+const BILL_API =
+    "https://curamatrix-backend.onrender.com/api/bills";
+
 
 /* =========================================================
-   GET DATA FROM LOCAL STORAGE
+   DATA
    ========================================================= */
+
 let medicinesData = [];
 let billsData = [];
 
+
+/* =========================================================
+   LOAD DASHBOARD DATA FROM BACKEND
+   ========================================================= */
+
 async function loadDashboardData() {
+
     try {
-        const medicineResponse = await fetch(MEDICINE_API);
-        const medicineResult = await medicineResponse.json();
+
+        /* ================= MEDICINES ================= */
+
+        const medicineResponse =
+            await fetch(MEDICINE_API);
+
+        if (!medicineResponse.ok) {
+            throw new Error(
+                "Medicines API returned HTTP " +
+                medicineResponse.status
+            );
+        }
+
+        const medicineResult =
+            await medicineResponse.json();
+
+        console.log(
+            "Medicines API response:",
+            medicineResult
+        );
 
         if (medicineResult.success) {
-            medicinesData = medicineResult.medicines || medicineResult.data || [];
+
+            medicinesData =
+                medicineResult.medicines ||
+                medicineResult.data ||
+                [];
+
         } else {
-            medicinesData = [];
+
+            throw new Error(
+                medicineResult.message ||
+                "Unable to load medicines."
+            );
         }
 
-        const billResponse = await fetch(BILL_API);
-        const billResult = await billResponse.json();
+
+        /* ================= BILLS ================= */
+
+        const billResponse =
+            await fetch(BILL_API);
+
+        if (!billResponse.ok) {
+            throw new Error(
+                "Bills API returned HTTP " +
+                billResponse.status
+            );
+        }
+
+        const billResult =
+            await billResponse.json();
+
+        console.log(
+            "Bills API response:",
+            billResult
+        );
 
         if (billResult.success) {
-            billsData = billResult.bills || billResult.data || [];
+
+            billsData =
+                billResult.bills ||
+                billResult.data ||
+                [];
+
         } else {
-            billsData = [];
+
+            throw new Error(
+                billResult.message ||
+                "Unable to load bills."
+            );
         }
 
-        initializeDashboard();
+
+        /* ================= UPDATE DASHBOARD ================= */
+
+        updateSummary();
+
+        updateLowStockList();
+
+        updateExpiryList();
+
+        updateRecentSales();
+
 
     } catch (error) {
-        console.error("Dashboard data loading error:", error);
-        alert("Unable to load dashboard data from database.");
+
+        console.error(
+            "Dashboard data loading error:",
+            error
+        );
+
+        alert(
+            "Unable to load dashboard data from database.\n\n" +
+            error.message
+        );
     }
 }
 
+
+/* =========================================================
+   GET DATA
+   ========================================================= */
+
+function getMedicines() {
+
+    return medicinesData;
+}
+
+
 function getSales() {
+
     return billsData;
 }
 
+
 function getBills() {
+
     return billsData;
 }
 
@@ -73,7 +172,8 @@ function isExpired(dateString) {
         return false;
     }
 
-    const expiry = new Date(dateString);
+    const expiry =
+        new Date(dateString);
 
     expiry.setHours(
         0,
@@ -92,16 +192,17 @@ function isExpired(dateString) {
 
 function updateSummary() {
 
-    const medicines = function getMedicines() {
-    return medicinesData;
-}
+    const medicines =
+        getMedicines();
 
-    const sales = getSales();
+    const sales =
+        getSales();
 
-    const bills = getBills();
+    const bills =
+        getBills();
 
 
-    /* TOTAL MEDICINES */
+    /* ================= TOTAL MEDICINES ================= */
 
     const totalMedicines =
         document.getElementById(
@@ -115,7 +216,7 @@ function updateSummary() {
     }
 
 
-    /* TOTAL STOCK */
+    /* ================= TOTAL STOCK ================= */
 
     const totalStock =
         medicines.reduce(
@@ -143,7 +244,7 @@ function updateSummary() {
     }
 
 
-    /* TOTAL SALES */
+    /* ================= TOTAL SALES ================= */
 
     const totalSales =
         sales.reduce(
@@ -170,11 +271,12 @@ function updateSummary() {
     if (totalSalesElement) {
 
         totalSalesElement.textContent =
-            "₹" + totalSales.toFixed(2);
+            "₹" +
+            totalSales.toFixed(2);
     }
 
 
-    /* TOTAL BILLS */
+    /* ================= TOTAL BILLS ================= */
 
     const totalBillsElement =
         document.getElementById(
@@ -188,7 +290,7 @@ function updateSummary() {
     }
 
 
-    /* LOW STOCK */
+    /* ================= LOW STOCK ================= */
 
     const lowStockCount =
         medicines.filter(
@@ -216,7 +318,7 @@ function updateSummary() {
     }
 
 
-    /* EXPIRED MEDICINES */
+    /* ================= EXPIRED ================= */
 
     const expiredCount =
         medicines.filter(
@@ -232,9 +334,22 @@ function updateSummary() {
             "expiredMedicines"
         );
 
+
+    /* Support alternative HTML id */
+    const expiredElementAlternative =
+        document.getElementById(
+            "expired"
+        );
+
+
     if (expiredElement) {
 
         expiredElement.textContent =
+            expiredCount;
+
+    } else if (expiredElementAlternative) {
+
+        expiredElementAlternative.textContent =
             expiredCount;
     }
 }
@@ -258,9 +373,8 @@ function updateLowStockList() {
 
 
     const medicines =
-function getMedicines() {
-    return medicinesData;
-}
+        getMedicines();
+
 
     const lowStockMedicines =
         medicines.filter(
@@ -281,9 +395,11 @@ function getMedicines() {
     ) {
 
         list.innerHTML =
-            `<div class="empty-message">
+            `
+            <div class="empty-message">
                 No low stock medicines.
-            </div>`;
+            </div>
+            `;
 
         return;
     }
@@ -318,13 +434,16 @@ function getMedicines() {
                             </div>
 
                             <span class="stock-status">
+
                                 ${Number(
                                     medicine.stock || 0
                                 )}
+
                                 ${escapeHTML(
                                     medicine.unit ||
                                     "units"
                                 )}
+
                             </span>
 
                         </div>
@@ -353,9 +472,7 @@ function updateExpiryList() {
 
 
     const medicines =
-       function getMedicines() {
-    return medicinesData;
-}
+        getMedicines();
 
 
     const today =
@@ -421,9 +538,11 @@ function updateExpiryList() {
     ) {
 
         list.innerHTML =
-            `<div class="empty-message">
+            `
+            <div class="empty-message">
                 No medicines expiring soon.
-            </div>`;
+            </div>
+            `;
 
         return;
     }
@@ -459,21 +578,21 @@ function updateExpiryList() {
                     let statusText;
 
 
-                    if (daysLeft < 0) {
+                    if (
+                        daysLeft < 0
+                    ) {
 
                         statusText =
                             "Expired";
 
-                    }
-                    else if (
+                    } else if (
                         daysLeft === 0
                     ) {
 
                         statusText =
                             "Expires today";
 
-                    }
-                    else {
+                    } else {
 
                         statusText =
                             daysLeft +
@@ -535,18 +654,20 @@ function updateRecentSales() {
         getSales();
 
 
-    if (sales.length === 0) {
+    if (
+        sales.length === 0
+    ) {
 
         tableBody.innerHTML =
             `
-                <tr>
-                    <td
-                        colspan="4"
-                        class="empty-message"
-                    >
-                        No sales recorded yet.
-                    </td>
-                </tr>
+            <tr>
+                <td
+                    colspan="4"
+                    class="empty-message"
+                >
+                    No sales recorded yet.
+                </td>
+            </tr>
             `;
 
         return;
@@ -617,13 +738,17 @@ function updateRecentSales() {
 
                             <td class="bill-id">
                                 ${escapeHTML(
-                                    String(billId)
+                                    String(
+                                        billId
+                                    )
                                 )}
                             </td>
 
                             <td>
                                 ${escapeHTML(
-                                    String(customer)
+                                    String(
+                                        customer
+                                    )
                                 )}
                             </td>
 
@@ -700,6 +825,7 @@ function formatDate(dateString) {
             date.getTime()
         )
     ) {
+
         return "-";
     }
 
@@ -731,6 +857,7 @@ function formatDateTime(dateString) {
             date.getTime()
         )
     ) {
+
         return "-";
     }
 
@@ -856,6 +983,14 @@ function setupLogout() {
                 "curaMatrixLoggedIn"
             );
 
+            localStorage.removeItem(
+                "curaMatrixToken"
+            );
+
+            localStorage.removeItem(
+                "curaMatrixUser"
+            );
+
 
             window.location.href =
                 "../login.html";
@@ -865,65 +1000,89 @@ function setupLogout() {
 
 
 /* =========================================================
-   INITIALIZE DASHBOARD
+   PAGE INITIALIZATION
    ========================================================= */
-function initializeDashboard() {
-    updateSummary();
-    updateLowStockList();
-    updateExpiryList();
-    updateRecentSales();
-    setupDarkMode();
-    setupLogout();
-}
 
 document.addEventListener(
     "DOMContentLoaded",
-    loadDashboardData
+    async function () {
+
+        setupDarkMode();
+
+        setupLogout();
+
+        await loadDashboardData();
+
+    }
 );
 
 
 /* =========================================================
-   PAGE LOAD
+   REAL-TIME DATE & TIME
    ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    initializeDashboard
-);
-
-
-// ================= REAL-TIME DATE & TIME =================
 
 function updateDateTime() {
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     const timeElement =
-        document.getElementById("currentTime");
+        document.getElementById(
+            "currentTime"
+        );
+
 
     const dateElement =
-        document.getElementById("currentDate");
+        document.getElementById(
+            "currentDate"
+        );
 
-    if (!timeElement || !dateElement) return;
 
-    const time = now.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-    });
+    if (
+        !timeElement ||
+        !dateElement
+    ) {
+        return;
+    }
 
-    const date = now.toLocaleDateString("en-IN", {
-        weekday: "long",
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    });
 
-    timeElement.textContent = time;
-    dateElement.textContent = date;
+    const time =
+        now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            }
+        );
+
+
+    const date =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    timeElement.textContent =
+        time;
+
+    dateElement.textContent =
+        date;
 }
+
 
 updateDateTime();
 
-setInterval(updateDateTime, 1000);
+
+setInterval(
+    updateDateTime,
+    1000
+);

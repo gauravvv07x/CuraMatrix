@@ -1,8 +1,10 @@
 // ==========================================
 // CURAMATRIX - SALES MODULE
-// MongoDB Connected
+// MongoDB Connected - Render Backend
 // ==========================================
-const API_URL = "https://curamatrix-backend.onrender.com/api/bills";
+
+const API_URL =
+    "https://curamatrix-backend.onrender.com/api/bills";
 
 let bills = [];
 
@@ -68,12 +70,15 @@ async function loadSales() {
 
     try {
 
-        const response =
-            await fetch(BILL_API);
+        console.log("Loading sales from:", API_URL);
 
+        const response =
+            await fetch(API_URL);
 
         const data =
             await response.json();
+
+        console.log("Sales API response:", data);
 
 
         if (!response.ok || !data.success) {
@@ -86,12 +91,19 @@ async function loadSales() {
         }
 
 
-        bills = data.bills || [];
+        bills =
+            Array.isArray(data.bills)
+                ? data.bills
+                : [];
 
 
         // Update total bills
-        totalBills.textContent =
-            bills.length;
+        if (totalBills) {
+
+            totalBills.textContent =
+                bills.length;
+
+        }
 
 
         // Display sales
@@ -106,29 +118,41 @@ async function loadSales() {
         );
 
 
-        totalBills.textContent = "0";
+        if (totalBills) {
+
+            totalBills.textContent =
+                "0";
+
+        }
 
 
-        salesTableBody.innerHTML = `
+        if (salesTableBody) {
 
-            <tr>
+            salesTableBody.innerHTML = `
 
-                <td
-                    colspan="5"
-                    class="empty-message"
-                >
+                <tr>
 
-                    Unable to load sales from MongoDB.
+                    <td
+                        colspan="5"
+                        class="empty-message"
+                    >
 
-                    <br>
+                        Unable to load sales from MongoDB.
 
-                    Make sure backend server is running.
+                        <br>
 
-                </td>
+                        ${escapeHTML(
+                            error.message ||
+                            "Unknown error"
+                        )}
 
-            </tr>
+                    </td>
 
-        `;
+                </tr>
+
+            `;
+
+        }
 
     }
 
@@ -141,13 +165,23 @@ async function loadSales() {
 
 function renderSales() {
 
+    if (!salesTableBody) {
+        return;
+    }
+
+
     const searchText =
-        salesSearch.value
-            .toLowerCase()
-            .trim();
+        salesSearch
+            ? salesSearch.value
+                .toLowerCase()
+                .trim()
+            : "";
 
 
-    // Filter bills
+    // ======================================
+    // FILTER BILLS
+    // ======================================
+
     const filteredBills =
         bills.filter(bill => {
 
@@ -171,11 +205,17 @@ function renderSales() {
         });
 
 
-    // Clear table
+    // ======================================
+    // CLEAR TABLE
+    // ======================================
+
     salesTableBody.innerHTML = "";
 
 
-    // No sales found
+    // ======================================
+    // NO SALES FOUND
+    // ======================================
+
     if (filteredBills.length === 0) {
 
         salesTableBody.innerHTML = `
@@ -196,10 +236,14 @@ function renderSales() {
         `;
 
         return;
+
     }
 
 
-    // Add sales rows
+    // ======================================
+    // ADD SALES ROWS
+    // ======================================
+
     filteredBills.forEach(
         (bill, index) => {
 
@@ -213,7 +257,6 @@ function renderSales() {
                     ${index + 1}
                 </td>
 
-
                 <td>
                     <strong>
                         ${escapeHTML(
@@ -222,20 +265,17 @@ function renderSales() {
                     </strong>
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         bill.customerName || "-"
                     )}
                 </td>
 
-
                 <td>
                     ${formatDate(
                         bill.createdAt
                     )}
                 </td>
-
 
                 <td>
                     <strong>
@@ -295,11 +335,9 @@ if (logoutBtn) {
                 "curaMatrixLoggedIn"
             );
 
-
             localStorage.removeItem(
                 "curaMatrixToken"
             );
-
 
             localStorage.removeItem(
                 "curaMatrixUser"
